@@ -1,0 +1,17 @@
+# Gitignore for litium Accelerator
+
+*.user
+*.suo
+litium*.log
+License*.config
+
+bin/
+obj/
+packages/
+node_modules/
+
+src/Files/
+src/Web/App_Data/
+src/Litium.Accelerator.Mvc/App_Data/
+.vs/
+src/Litium.Accelerator.FieldTypes/npm-debug.log
