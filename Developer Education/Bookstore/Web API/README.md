@@ -4,7 +4,7 @@ Our client has resellers that need to access information about books for specifi
 
 See Litium docs for a [API controller sample](https://docs.litium.com/documentation/architecture/web-api) which is similar to the controller we are creating here.
 
-1. Create the class `Litium.Accelerator.Mvc.Controllers.Api.AuthorController`
+1. Create the class `Litium.Accelerator.Mvc.Controllers.Api.AuthorApiController`
     1. Decorate it with `[RoutePrefix("api/authors")]`
 1. Add the method `GetBooksByAuthor(Guid authorPageId)`
     1. Decorate it with `[Route("getBooksByAuthor")]`

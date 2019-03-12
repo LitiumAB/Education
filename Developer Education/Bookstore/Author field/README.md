@@ -4,7 +4,7 @@ Our client has to be able to connect books to authors so we need a field to defi
 
 To create and connect this field to templates we will use the UI in Litium but it could also be done in code in `Litium.Accelerator.Definitions.Products.ProductsFieldDefinitionSetup`.
 
-1. Open the Control panel in Litium backoffice and select _Fields_ in left menu
+1. Open the Control panel in Litium backoffice and select _Products > Fields_ in left menu
 1. Click _New_, set **Type**=_Pointer_ and **Id**=_Author_, the field should not have language support
 1. Edit the field and set **entity**=_Pages_, optionally also set name for all languages
 1. Select _Products > Field templates_ in left menu
