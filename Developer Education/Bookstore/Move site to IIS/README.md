@@ -29,7 +29,7 @@
         * Is the user specified not owner of the Litium database?
         * Is credential correct? Copy values from web.config and update the login in SQL Server
         
-Optional extra tasks
+## Optional extra tasks
 
 1. Add a self signed certificate so that the site can be accessed using https
 1. Add an additional domain and create a separate channel using that domain

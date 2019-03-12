@@ -18,7 +18,7 @@ Documentation for the steps below can be found on [docs](https://docs.litium.com
 
 1. Browse products on your public site, all of them should now cost 100 
 
-### Optional additional task
+## Optional extra task
 
 Only the logged in B2B-customers should get their prices from ERP, add a check so Litiums pricelogic is still used for all anonymous users.
 

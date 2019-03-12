@@ -14,6 +14,6 @@ To make business logic for Authors reusable we will place it in a service that w
 1. Build your solution and verify that your block is listing books from `AuthorService`
 1. If you get stuck a finished example of `AuthorBlockViewModelBuilder` can be found in the _Resources_-folder
 
-> ### Optional extra task
-> 
-> Inject your new service in `AuthorViewModelBuilder` and use it to present the list of books also on the author page.
+## Optional extra task
+ 
+Inject your new service in `AuthorViewModelBuilder` and use it to present the list of books also on the author page.
