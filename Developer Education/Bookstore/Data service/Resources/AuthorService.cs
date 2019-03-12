@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Litium.Data;
 using Litium.Data.Queryable;
 using Litium.Products;
@@ -18,7 +19,7 @@ namespace Litium.Accelerator.Services
 			_dataService = dataService;
 		}
 
-		public List<BaseProduct> GetBooksByAuthor(Guid authorPageId)
+		public List<string> GetBooksByAuthor(Guid authorPageId)
 		{
 			var authorPage = _pageService.Get(authorPageId);
 			if (authorPage == null)
@@ -31,7 +32,9 @@ namespace Litium.Accelerator.Services
 						.Must(boolFilterMust => boolFilterMust
 							.Field("Author", "eq", authorPage.SystemId))));
 
-				return bookQuery.ToList();
+				var books = bookQuery.ToList();
+				var bookTitles = books.Select(book => book.Localizations.CurrentCulture.Name).ToList();
+				return bookTitles;
 			}
 		}
 	}

@@ -33,3 +33,4 @@ Optional extra tasks
 
 1. Add a self signed certificate so that the site can be accessed using https
 1. Add an additional domain and create a separate channel using that domain
+    1. Remember to connect it to your website and publish at least the startpage of the website to that channel.
