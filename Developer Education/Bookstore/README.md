@@ -18,7 +18,14 @@ Some tasks assume that a previous task has been completed, the recommended order
 1. [Author field](./Author%20field)
 1. [Validation](./Validation)
 1. [Data service](./Data%20service)
-1. React (Coming soon)
 1. [Web API](./Web%20API)
 1. [Search](./Search)
 1. [Test project](./Test%20project)
+
+## Additional tasks
+
+The tasks below are not part of the education but can be completed to get a deeper knowledge of Litium.
+
+1. React (coming soon)
+1. Book publishers (coming soon)
+1. Litium integration kit (coming soon)

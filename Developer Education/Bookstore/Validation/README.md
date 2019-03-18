@@ -24,7 +24,7 @@ on the returned ValidationResult, set **Key**=_Author_ and any errormessage
 The customers current distribution is rather expensive so we need to set a lower limit for all orders placed so that no order below 300 is allowed.
 
 1. Create the class  `Litium.Accelerator.ValidationRules.OrderGrandTotalOverLimitValidator` and make it implement `Litium.Foundation.Modules.ECommerce.Plugins.Orders.IPreOrderValidationRule`
-1. Assert that no order placed has a grand total below 1000 kr, if not a `PreOrderValidationException` should be thrown (see the other validation classes in the same namespace for examples)
+1. Assert that no order placed has a grand total below 300, if not a `PreOrderValidationException` should be thrown (see the other validation classes in the same namespace for examples)
 1. Optionally make the error message language dependent:
     1. Add a website text for the error message in _Litium backoffice > Control panel > Websites_, edit the websites and add a new translation on the _Texts_-tab.
     1. Get the translation with the extension method for string found in `Litium.Studio.Extenssions`, example: `"error".AsWebSiteString()`

@@ -17,7 +17,7 @@
     1. Wait for nuget installation to complete
     1. Right-click _Litium.Accelerator.Mvc_-project and select _Set as StartUp Project_
     1. Launch the site with `Ctrl+F5`, this will start the site and automatically direct you to the backoffice login at _http://[your domain]**/Litium**_
-    1. Login to Litium Backoffice using your local windows account (example: \my.name@litium.com)
+    1. Login to Litium Backoffice using your local windows account (example: \my.name@litium.com - _note that the backslash before loginname is required even if not connected to a domain, if you are on a domain it should be DOMAIN\my.name@litium.com_)
     1. Open _Control panel (cogwheel in top right corner) > Deployment > Accelerator_
         1. Set a site name, for example _Education_
         1. Set url, for example _education.localtest.me_ (by setting localtest.me as domain [it is not required to setup the domain in host-file](http://readme.localtest.me/))

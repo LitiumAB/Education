@@ -17,8 +17,8 @@ To simplify we will copy and modify files for the _Products and banner_ block.
 1. Copy `\Src\Litium.Accelerator\Builders\Block\ProductsAndBannerBlockViewModelBuilder.cs` to `AuthorBlockViewModelBuilder.cs` in the same folder
     1. Replace all occurances of _ProductsAndBanner_ in the file with _author_
     1. Get the value from the author field: `
-    var authorPagePointer = blockModel.Block.Fields.GetValue<PointerPageItem>("LinkToPage");
-    `
+    var authorPagePointer = blockModel.Block.Fields.GetValue<PointerPageItem>(BlockFieldNameConstants.LinkToPage);
+    ` (we will add this property in a later step in `AuthorBlockTemplateSetup`)
     1. Map the field value to the `AuthorViewModel` by first mapping it to `PageModel` : `var authorPageViewModel = authorPagePointer.EntitySystemId.MapTo<PageModel>()?.MapTo<AuthorViewModel>();`
     1. Map values of the authorpage to the the `AuthorBlockViewModel`
     1. Set `Books` to a new List with a few hard-coded book titles for now
@@ -41,7 +41,7 @@ To simplify we will copy and modify files for the _Products and banner_ block.
     1. Replace all occurances of _ProductsAndBanner_ in the file with _author_
     1. Remove the _Banner_ FieldTemplateFieldGroup (we will instead get info from the author page)
     1. Remove the method `GetProductBlock()` (we will instead get products connected to the author)
-    1. Add `BlockFieldNameConstants.LinkToPage` to the `General` FieldTemplateFieldGroup
+    1. Add `BlockFieldNameConstants.LinkToPage` to the `Fields`-property of the `General`-FieldTemplateFieldGroup
     1. A finished example is avaliable in the _Resources_-folder
 1. Add translations for the block in `Src\Litium.Accelerator.Mvc\Site\Resources\Administration\Administration.resx`:
     1. **key=**`fieldtemplate.blockarea.author.name` **value=**`Author block`
@@ -51,6 +51,7 @@ To simplify we will copy and modify files for the _Products and banner_ block.
 
 1. Build your solution and open Litium backoffice
 1. Select _Websites_ in top menu, select _Home page_ in left menu and select _Blocks_ from the "..."-menu in the top right corner
+1. Click **Add blocks**
 1. Drag an instance of your Author-block out to the block area
 1. In the "Link to page"-property select your previously created Author-page
 1. Quick publish the page from the "..."-menu in the top right corner
