@@ -1,51 +1,30 @@
 # Create Author Block
 
-Our client needs a block to present an author with some books in a block on the startpage.
+Our client needs a block to present an authors as blocks on the startpage.
 
-Creating a block is very similar to the previous task of creating the Author page
+Creating a block is very similar to creating a page
 
 It is recommended that all steps are completed before the solution is built and run to prevent that the template gets generated incomplete. If this happens you will find steps to re-generate the template at the bottom.
 
-To simplify we will copy and modify files for the _Products and banner_ block.
+### Create definitions that will generate the template on startup
 
-### Create block
+1. Create the file  `\Src\Litium.Accelerator\Definitions\Blocks\AuthorBlockTemplateSetup.cs`, copy content for the file from the _Resources_-folder
+    1. The block only has a Name property and a LinkToPage property, the LinkToPage will be used to select an author page that the block will display content from.
+1. Add translations for the block in `Src\Litium.Accelerator.Mvc\Site\Resources\Administration\Administration.resx`:
+    1. **key=**`fieldtemplate.blockarea.author.name` **value=**`Author block`
+    1. **key=**`fieldtemplate.blockarea.author.fieldgroup.general.name` **value=**`General author block settings`
 
-1. Copy `\Src\Litium.Accelerator\ViewModels\Block\ProductsAndBannerBlockViewModel.cs` to `AuthorBlockViewModel.cs` in the same folder
-    1. Replace all occurances of _ProductsAndBanner_ in the file with _author_
-    1. `AuthorBlockViewModel` should have the properties: `Author` (`string`), `Description` (`string`), `Image` (`ImageModel`), `Books` (`List<string>`)
-    1. A finished example is avaliable in the _Resources_-folder
-1. Copy `\Src\Litium.Accelerator\Builders\Block\ProductsAndBannerBlockViewModelBuilder.cs` to `AuthorBlockViewModelBuilder.cs` in the same folder
-    1. Replace all occurances of _ProductsAndBanner_ in the file with _author_
-    1. Get the value from the author field: `
-    var authorPagePointer = blockModel.Block.Fields.GetValue<PointerPageItem>(BlockFieldNameConstants.LinkToPage);
-    ` (we will add this property in a later step in `AuthorBlockTemplateSetup`)
-    1. Map the field value to the `AuthorViewModel` by first mapping it to `PageModel` : `var authorPageViewModel = authorPagePointer.EntitySystemId.MapTo<PageModel>()?.MapTo<AuthorViewModel>();`
-    1. Map values of the authorpage to the the `AuthorBlockViewModel`
-    1. Set `Books` to a new List with a few hard-coded book titles for now
-    1. A finished example is avaliable in the _Resources_-folder
-1. Copy `\Src\Litium.Accelerator.Mvc\Controllers\Blocks\ProductsAndBannerBlockController.cs` to `AuthorBlockController.cs` in the same folder
-    1. Replace all occurances of _ProductsAndBanner_ in the file with _author_
-1. Copy `\Src\Litium.Accelerator.Mvc\Views\Block\ProductsAndBanner.cshtml` to `Author.cshtml` in the same folder
-    1. Replace all occurances of _ProductsAndBanner_ in the file with _author_
-    1. Modify the template so that it shows the fields _Author_, _Image_, _Description_ and a listing of the _Books_-field
-    1. A finished example is avaliable in the _Resources_-folder
+### Create the ViewModel and View that will render the block
+
+1. Create the file  `\Src\Litium.Accelerator\Builders\Block\AuthorBlockViewModelBuilder.cs`, copy content for the file from the _Resources_-folder
+    1. The Author block will contain the same information as the Author page created earlier so we can re-use the AuthorViewModel instead of creating a new one
+1. Create the file `\Src\Litium.Accelerator.Mvc\Controllers\Blocks\AuthorBlockController.cs`, copy content for the file from the _Resources_-folder
+1. Create the file `\Src\Litium.Accelerator.Mvc\Views\Block\Author.cshtml`, copy content for the file from the _Resources_-folder
 
 ### Register the controller
 
 1. Add _Author_ to `Litium.Accelerator.Constants.BlockTemplateNameConstants`
 1. Add _Author_ to the `_controllerMapping`-list in `Litium.Accelerator.Mvc.Definitions.FieldTemplateSetupDecorator`, set type to `Blocks.BlockArea` and reference your previously created `AuthorBlockController` 
-
-### Create definitions that will generate the template on startup
-
-1. Copy `\Src\Litium.Accelerator\Definitions\Blocks\ProductsAndBannerBlockTemplateSetup.cs` to `AuthorBlockTemplateSetup.cs` in the same folder
-    1. Replace all occurances of _ProductsAndBanner_ in the file with _author_
-    1. Remove the _Banner_ FieldTemplateFieldGroup (we will instead get info from the author page)
-    1. Remove the method `GetProductBlock()` (we will instead get products connected to the author)
-    1. Add `BlockFieldNameConstants.LinkToPage` to the `Fields`-property of the `General`-FieldTemplateFieldGroup
-    1. A finished example is avaliable in the _Resources_-folder
-1. Add translations for the block in `Src\Litium.Accelerator.Mvc\Site\Resources\Administration\Administration.resx`:
-    1. **key=**`fieldtemplate.blockarea.author.name` **value=**`Author block`
-    1. **key=**`fieldtemplate.blockarea.author.fieldgroup.general.name` **value=**`General author block settings`
 
 ### Try it out
 

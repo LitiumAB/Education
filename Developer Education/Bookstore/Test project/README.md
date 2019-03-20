@@ -1,5 +1,7 @@
 # Test project
 
+> To do this task you first need to complete task [Move site to IIS](../Move%20site%20to%20IIS)
+
 ## Setup
 
 1. Follow the [instructions on how to set up a test project on Litium docs](https://docs.litium.com/documentation/get-started/setting_up_a_test_project)

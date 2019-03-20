@@ -9,7 +9,6 @@ If you came here to learn Litium by self study just go through the tasks and if 
 Some tasks assume that a previous task has been completed, the recommended order to do them are:
 
 1. [Installation](./Installation)
-1. [Move site to IIS](./Move%20site%20to%20IIS)
 1. [Author page](./Author%20page)
 1. [Author block](./Author%20block)
 1. [Author service](./Author%20service)
@@ -20,12 +19,13 @@ Some tasks assume that a previous task has been completed, the recommended order
 1. [Data service](./Data%20service)
 1. [Web API](./Web%20API)
 1. [Search](./Search)
-1. [Test project](./Test%20project)
 
 ## Additional tasks
 
-The tasks below are not part of the education but can be completed to get a deeper knowledge of Litium.
+The tasks below are optional and will be completed during education if there is time.
 
+1. [Move site to IIS](./Move%20site%20to%20IIS)
+1. [Test project](./Test%20project)
 1. React (coming soon)
 1. Book publishers (coming soon)
 1. Litium integration kit (coming soon)

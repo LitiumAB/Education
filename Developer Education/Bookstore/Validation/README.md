@@ -1,5 +1,7 @@
 # Validation
 
+> To do this task you first need to complete the task [Author field](../Author%20field)
+
 During testing of the [Author field](../Author%20field) it became obvious that not only pages of type _Author_ could be set as author for a book. 
 
 We need to add a validation to prevent that a non author page can be set.

@@ -1,23 +1,11 @@
-﻿@model Litium.Accelerator.ViewModels.Block.AuthorBlockViewModel
-
-<div class="row">
-    <h2 class="columns small-12 product-list__header text--center">Featured author: @Model.Author</h2>
-</div>
+﻿@model Litium.Accelerator.ViewModels.Author.AuthorViewModel
 
 <div class="row">
     <div class="columns small-12 medium-4">
         @Html.ImageFor(x => x.Image, new Size(400, -1))
     </div>
-    <div class="columns small-12 medium-3">
-        <p>@Model.Description</p>
-    </div>
-    <div class="columns small-12 medium-4">
-        <h3>Popular books by @Model.Author</h3>
-        <ul>
-            @foreach (var book in Model.Books)
-            {
-                <li>@book</li>
-            }
-        </ul>
+    <div class="columns small-12 medium-8">
+        <h2>Featured author: @Model.Title</h2>
+        <p>@Model.Introduction</p>
     </div>
 </div>

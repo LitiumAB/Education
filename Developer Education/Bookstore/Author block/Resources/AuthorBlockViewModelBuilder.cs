@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Litium.Accelerator.Builders.Author;
 using Litium.Accelerator.Constants;
 using Litium.Accelerator.ViewModels.Author;
-using Litium.Accelerator.ViewModels.Block;
 using Litium.FieldFramework.FieldTypes;
 using Litium.Runtime.AutoMapper;
 using Litium.Web.Models.Blocks;
@@ -9,39 +8,28 @@ using Litium.Web.Models.Websites;
 
 namespace Litium.Accelerator.Builders.Block
 {
-	public class AuthorBlockViewModelBuilder : IViewModelBuilder<AuthorBlockViewModel>
+	public class AuthorBlockViewModelBuilder : IViewModelBuilder<AuthorViewModel>
 	{
-		public virtual AuthorBlockViewModel Build(BlockModel blockModel)
+		private readonly AuthorViewModelBuilder _authorViewModelBuilder;
+
+		public AuthorBlockViewModelBuilder(AuthorViewModelBuilder authorViewModelBuilder)
 		{
-			// Get the page-link of the block to retrieve the author PAGE 
+			_authorViewModelBuilder = authorViewModelBuilder;
+		}
+
+		public virtual AuthorViewModel Build(BlockModel blockModel)
+		{
+			// Get the link on the block to retrieve the author page id 
 			var authorPagePointer = blockModel.Block.Fields
 				.GetValue<PointerPageItem>(BlockFieldNameConstants.LinkToPage);
 			if (authorPagePointer == null)
-				return new AuthorBlockViewModel();
+				return new AuthorViewModel();
 
-			// Map the retrieved pageid from the link to the viewmodel of the page
-			var authorPageViewModel = authorPagePointer.EntitySystemId
-				.MapTo<PageModel>()?
-				.MapTo<AuthorViewModel>();
+			// Use the author page id to get the model for the author page
+			var pageModel = authorPagePointer.EntitySystemId.MapTo<PageModel>();
 
-			if (authorPageViewModel == null)
-				return new AuthorBlockViewModel();
-
-			// Get the properties of the author PAGE and put these in the
-			// viewmodel for the block, in this way we can show author info
-			// by just pointing our block to the page we want to get
-			// author information from.
-			return new AuthorBlockViewModel
-			{
-				Author = authorPageViewModel.Title,
-				Description = authorPageViewModel.Introduction,
-				Image = authorPageViewModel.Image,
-				Books = new List<string>
-				{
-					"Ready player one",
-					"Armada"
-				}
-			};
+			// Use the viewmodelbuilder to build and return the author 
+			return _authorViewModelBuilder.Build(pageModel);
 		}
 	}
 }
