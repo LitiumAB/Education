@@ -2,7 +2,7 @@ public List<Tuple<string, Guid>> GetAuthors()
 {
     var authorPageTemplate = _fieldTemplateService.Get<FieldTemplate>(typeof(WebsiteArea), "Author");
 
-    var request = new QueryRequest(CultureInfo.CurrentCulture, CmsSearchDomains.Pages);
+    var request = new QueryRequest(_solution.Languages.DefaultLanguageID, CmsSearchDomains.Pages, _solution.SystemToken);
     request.FilterTags.Add(new Tag(TagNames.TemplateId, authorPageTemplate.Id));
     var searchResult = _solution.SearchService.Search(request);
 
