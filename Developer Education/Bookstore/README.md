@@ -26,6 +26,6 @@ The tasks below are optional and will be completed during education if there is 
 
 1. [Move site to IIS](./Move%20site%20to%20IIS)
 1. [Test project](./Test%20project)
-1. React (coming soon)
+1. [React](./React)
 1. Book publishers (coming soon)
 1. Litium integration kit (coming soon)

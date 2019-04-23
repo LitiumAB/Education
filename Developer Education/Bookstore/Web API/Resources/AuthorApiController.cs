@@ -16,10 +16,14 @@ namespace Litium.Accelerator.Mvc.Controllers.Api
 			_authorService = authorService;
 		}
 
-		[Route("getBooksByAuthor")]
-		public IHttpActionResult GetBooksByAuthor(Guid authorPageId)
+		[HttpGet]
+		[Route("author")]
+		public IHttpActionResult GetAuthor(Guid authorPageId)
 		{
-			return Ok(_authorService.GetBooksByAuthor(authorPageId));
+			return Ok(new AuthorApiViewModel
+			{
+				Books = _authorService.GetBooksByAuthor(id)
+			});
 		}
 	}
 }
