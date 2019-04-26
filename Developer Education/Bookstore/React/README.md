@@ -16,7 +16,7 @@ Litium Accelerator is already set up to pass current page and channel in every r
 To read the data from the `litium-request-context`-header in our Web API on the server we only need to inject `RequestModelAccessor` in the controller.
 
 1. Inject `RequestModelAccessor` in the constructor of `AuthorApiController`
-1. Create an overload to method `GetBooksByAuthor()` without the id-parameter and call the overloaded method using page-id from `RequestModel` : 
+1. Create an overload to method `GetAuthor()` without the id-parameter and call the overloaded method using page-id from `RequestModel` : 
     ```C#
     [HttpGet]
     [Route("author")]

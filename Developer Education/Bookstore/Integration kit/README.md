@@ -30,13 +30,13 @@ In this example we will just setup a price import but all imports work the same 
     ```
 1. Build and run the solution
     1. If you get build errors here it is likely that Integration kit and Litium installation reference different nuget package versions (for example `Could not load file or assembly 'Litium.Abstractions, Version=7.0.0.0` when version 7.1 is installed). To resolve this open nuget package manager for the solution and search for _litium_ on the _Consolidate_-tab. Resolve all version differences by installing the correct version in the integration projects.
-1. If we look at the constructor of `Litium.Integration.Implementation.Imports.PriceListImport` we can see that it passes a foldername to its base-class and in `DefaultFileImportBase` that folder is created as a subfolder of the `IntegrationDirectory` defined earlier. So if everything is done right you should get the folder `\Src\Files\IntegrationKitImports\PriceList` generated automatically.
+1. If we look at the constructor of `Litium.Integration.Implementation.Imports.PriceListImport` we can see that it passes a foldername to its base-class constructor and in `DefaultFileImportBase` that folder is created as a subfolder of the `IntegrationDirectory` defined earlier. So if everything is done right you should get the folder `\Src\Files\IntegrationKitImports\PriceList` generated automatically within a minute when the job runs.
 
 ## Import a pricelist
 
 1. Looking at `PrepareProcess` of `PriceListImport` we can see that the import expects a filename that match the id of a pricelist in Litium. You can see the Id of your pricelist by editing it in PIM in Litium backoffice.
 1. Make a copy of the file `\Src\Litium.Integration.Implementation\Samples\PriceList\iSEK.txt` and rename the copy to _[your pricelists id].txt_
-1. Open your new file and note that it is tab-separated with articlenumber, price and id
+1. Open your new file and note that it is tab-separated with articlenumber, price and quantity (quantity is optional but is used when working with  with [tier pricing](https://docs.litium.com/documentation/litium-documentation/products/price-lists-and-calculations))
 1. View any product in PIM and select the price-tab
 1. Modify your new textfile and set articlenumbers from the price-tab with new prices
 1. Copy the file to `\Src\Files\IntegrationKitImports\PriceList` and wait for 1 minute

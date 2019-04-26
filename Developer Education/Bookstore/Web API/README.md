@@ -28,7 +28,7 @@ See Litium docs for a [API controller sample](https://docs.litium.com/documentat
 ### Try it out
 
 1. Get the systemid for your author page (the easiest way is to open the page in Litium backoffice, then the id is showing in the url-field)
-1. You should be able to reach your API at _[your site domain]/api/authors/getBooksByAuthor?authorPageId=[Your author page id]_
+1. You should be able to reach your API at _[your site domain]/api/authors/author?authorPageId=[Your author page id]_
 
 ## Optional extra task
 
