@@ -4,7 +4,7 @@
 
 For the API to be useful for the resellers they have to be able to get a list of all authors avaliable to request books for.
 
-We need to extend `ISearchService` with a method to get authors and make this mehod avaliable through the API.
+We need to extend `IAuthorService` with a method to get all authors and make this mehod avaliable through the API.
 
 To do this we will be using the [Lucene search engine in Litium](https://docs.litium.com/documentation/architecture/search).
 
@@ -12,7 +12,7 @@ To do this we will be using the [Lucene search engine in Litium](https://docs.li
 1. Inject `Litium.Foundation.Solution` and `Litium.FieldFramework.FieldTemplateService` in `AuthorService`
 1. Get the author template using `FieldTemplateService`: `var authorPageTemplate = _fieldTemplateService.Get<FieldTemplate>(typeof(WebsiteArea), "Author");`
 1. Look at docs site on [how to build a search query and execute a search](https://docs.litium.com/documentation/architecture/search/building-a-search-query)
-    1. Create the request: `var request = new QueryRequest(CultureInfo.CurrentCulture, CmsSearchDomains.Pages)`
+    1. Create the request: `var request = new QueryRequest(CultureInfo.CurrentCulture, CmsSearchDomains.Pages);`
     1. Add a tag to find pages using the Author-template: `request.FilterTags.Add(new Tag(TagNames.TemplateId, authorPageTemplate.Id));`
     1. Use `PageService` to get a page for each search hit and add the name and id of the page to the returned result
     1. A finished example is avaliable in the _Resources_-folder

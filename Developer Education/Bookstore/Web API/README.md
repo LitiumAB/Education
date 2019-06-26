@@ -18,7 +18,7 @@ See Litium docs for a [API controller sample](https://docs.litium.com/documentat
         }
     }
     ```
-1. Create the class `Litium.Accelerator.Mvc.Controllers.Api.AuthorApiController`
+1. Create the class `Litium.Accelerator.Mvc.Controllers.Api.AuthorApiController` that inherit from `Litium.Accelerator.Mvc.Controllers.Api.ApiControllerBase`
     1. Decorate it with `[RoutePrefix("api/authors")]`
 1. Add the method `GetAuthor(Guid authorPageId)`
     1. Decorate it with `[Route("author")]`
