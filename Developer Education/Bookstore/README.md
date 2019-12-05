@@ -24,7 +24,9 @@ Some tasks assume that a previous task has been completed, the recommended order
 
 The tasks below are optional and will be completed during education if there is time.
 
-1. [Move site to IIS](./Move%20site%20to%20IIS)
-1. [Test project](./Test%20project)
-1. [React](./React)
 1. [Integration kit](./Integration%20kit)
+1. [Move site to IIS](./Move%20site%20to%20IIS)
+1. [React](./React)
+1. [Redis](./Redis)
+1. [Test project](./Test%20project)
+ 
