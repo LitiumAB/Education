@@ -1,6 +1,6 @@
 # Test project
 
-> To do this task you first need to complete task [Move site to IIS](../Move%20site%20to%20IIS)
+> To do this task you first need to complete the task [Move database to SQL Server](../Move%20database%20to%20SQL%20Server)
 
 ## Setup
 
