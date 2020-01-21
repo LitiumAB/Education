@@ -22,12 +22,13 @@ Some tasks assume that a previous task has been completed, the recommended order
 
 ## Additional tasks
 
-The tasks below are optional and will be completed during education if there is time.
+The tasks below are optional and will be completed during education if there is time, if you do this as self study the recommended order to do them is listed below but any order works since possible dependencies on previous tasks is listed in the task README.
 
-1. [Integration kit](./Integration%20kit)
 1. [Move database to SQL Server](./Move%20database%20to%20SQL%20Server)
 1. [Move site to IIS](./Move%20site%20to%20IIS)
-1. [React](./React)
-1. [Redis](./Redis)
+1. [Docker](./Docker)
+1. [Integration kit](./Integration%20kit)
 1. [Test project](./Test%20project)
+1. [Redis](./Redis)
+1. [React](./React)
  

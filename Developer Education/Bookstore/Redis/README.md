@@ -1,29 +1,8 @@
 # Redis
 
-> To do this task you first need to complete the task [Installation](../Installation)
+> To do this task you first need to complete the task [Docker](../Docker) 
 
 Redis is only avaliable in Litium version 7.3 and later.
-
-### Setup Redis
-
-1. Install [Docker Desktop](https://docs.docker.com/docker-for-windows/install/) and make sure it is running as we will be using it to run Redis
-2. Open a command or terminal window and launch a redis container with the command
-   ```console
-   docker run -p 6379:6379 --name litium-redis-demo redis
-   ```
-   This will start a new Redis container on port 6379 ([click here](https://blogs.msdn.microsoft.com/uk_faculty_connection/2017/02/21/containers-redis-running-redis-on-windows-with-docker/) for more information and options on how to start Redis). To see running containers use the command:
-   ```console
-   docker ps
-   ```
-
-> If you have created the container earlier and just want to start it, use the following command to list all containers (not only started):
-> ```console
-> docker ps -a
-> ```
-> Then use the following command to start the container by its name:
-> ```console
-> docker start litium-redis-demo
-> ```
 
 ### Connect Litium to Redis
 
@@ -37,7 +16,7 @@ Redis is only avaliable in Litium version 7.3 and later.
    <add name="RedisServiceBusConnectionString" connectionString="Replace with Redis Connection string" />
    <add name="RedisDistributedLockConnectionString" connectionString="Replace with Redis Connection string" />
    ```
-   Set your redis connectionstring as the three connectionstrings, your connectionstring is localhost with the port-number selected when the container was added earlier:
+   Set your redis connectionstring as the three connectionstrings, your connectionstring is localhost with the port-number defined when the container was added in the [Docker task](../Docker):
    ```XML
    <add name="RedisCacheConnectionString" connectionString="127.0.0.1:6379" />
    <add name="RedisServiceBusConnectionString" connectionString="127.0.0.1:6379" />
