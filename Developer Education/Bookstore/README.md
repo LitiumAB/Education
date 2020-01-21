@@ -27,6 +27,7 @@ The tasks below are optional and will be completed during education if there is 
 1. [Move database to SQL Server](./Move%20database%20to%20SQL%20Server)
 1. [Move site to IIS](./Move%20site%20to%20IIS)
 1. [Docker](./Docker)
+1. [Elastic search](./Elastic%20search)
 1. [Integration kit](./Integration%20kit)
 1. [Test project](./Test%20project)
 1. [Redis](./Redis)
