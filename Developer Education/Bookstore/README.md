@@ -10,7 +10,6 @@ Some tasks assume that a previous task has been completed, the recommended order
 
 1. [Installation](./Installation)
 1. [Author page](./Author%20page)
-1. [Author block](./Author%20block)
 1. [Author service](./Author%20service)
 1. [Author service decorator](./Author%20service%20decorator)
 1. [Pricing rules](./Pricing%20rules)
@@ -32,5 +31,6 @@ The tasks below are optional and will be completed during education if there is 
 1. [Integration kit](./Integration%20kit)
 1. [Test project](./Test%20project)
 1. [Redis](./Redis)
+1. [Author block](./Author%20block)
 1. [React](./React)
  
