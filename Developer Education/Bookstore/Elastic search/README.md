@@ -52,6 +52,6 @@ There are in general three places to look for any issue that you experience duri
 1. Litium elastic log - found as the file _elastic.log_ in solution folder
 1. Elastic log in docker - run the following command to get logs from the last minute:
     ```console
-    docker logs --since 1m litium-elastic-demo
+    docker logs --since 1m elasticsearch
     ```
     Additional documentation on options for `docker logs` can be found at https://docs.docker.com/engine/reference/commandline/logs/

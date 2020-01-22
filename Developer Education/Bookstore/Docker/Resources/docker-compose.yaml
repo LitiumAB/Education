@@ -4,28 +4,30 @@ version: '3'
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    container_name: elasticsearch
     ports:
     - "9200:9200"
     environment:
     - discovery.type=single-node
     # Allocate 2GB RAM instead of the default 512MB, comment out the line below for less memory allocation
-    - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
+    # - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     volumes:
     - elastic_data:/usr/share/elasticsearch/data
     entrypoint: 
     - /bin/sh
     - -c
-    # The accelerator implementation of Elastic search require the analysis-dynamic-synonym plugin that refreshes 
-    # the list of synonyms used by Elastic every minute to allow new synonyms being modified without downtime.
+    # # The accelerator implementation of Elastic search require the analysis-dynamic-synonym plugin that refreshes 
+    # # the list of synonyms used by Elastic every minute to allow new synonyms being modified without downtime.
     - "./bin/elasticsearch-plugin list | grep -q analysis-dynamic-synonym || ./bin/elasticsearch-plugin install -b https://github.com/Tasteful/elasticsearch-analysis-dynamic-synonym/releases/download/v7.5.1/elasticsearch-analysis-dynamic-synonym.zip; /usr/local/bin/docker-entrypoint.sh"
   kibana:
+    # The Kibana image tries, by default, to connect to a host/container called elasticsearch.
     image: docker.elastic.co/kibana/kibana:7.5.1
+    container_name: kibana
     ports:
     - "5601:5601"
-    depends_on:
-      - elasticsearch
   redis:
     image: redis:5.0.5-alpine
+    container_name: redis
     ports:
     - "6379:6379"
 volumes:
