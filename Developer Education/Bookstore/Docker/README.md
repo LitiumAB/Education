@@ -3,7 +3,7 @@
 > To do this task you first need to complete the task [Installation](../Installation) 
 
 * Redis is only avaliable in Litium version 7.3 and later
-* Elastic search is only avaliable in Litium version 7.4 and later
+* Elasticsearch is only avaliable in Litium version 7.4 and later
 
 ## Setup
 
@@ -17,7 +17,7 @@
 ## Usage
 
 * **Redis** is made avaliable at **http://localhost:6379**, see the [Redis task](../Redis) for more information
-* **Elastic search** is made avaliable at **http://localhost:9200**, see the [Elastic search task](../Elastic%20search) for more information
+* **Elasticsearch** is made avaliable at **http://localhost:9200**, see the [Elasticsearch task](../Elasticsearch) for more information
 * **Kibana** is made avaliable at **http://localhost:5601**, see the [Kibana task](../Redis) for more information
 
 ## Stop/Remove
@@ -34,8 +34,8 @@ docker-compose down
 
 ## Read more
 
-* [Litium documentation on Elastic search](https://docs.litium.com/documentation/architecture/search/elasticsearch/setup-and-configure-elasticsearch)
-* [Elastic in docker](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)
+* [Litium documentation on Elasticsearch](https://docs.litium.com/documentation/architecture/search/elasticsearch/setup-and-configure-elasticsearch)
+* [Elasticsearch in docker](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)
 * [Kibana in docker](https://www.elastic.co/guide/en/kibana/current/docker.html)
 * [Redis in docker](https://docs.microsoft.com/en-us/archive/blogs/uk_faculty_connection/containers-redis-running-redis-on-windows-with-docker)
 
@@ -44,8 +44,8 @@ docker-compose down
 If you run in to There are in general three places to look for any issue that you experience during setup:
 
 1. Litium event log - found as the file _litium.log_ in solution folder
-1. Litium elastic log - found as the file _elastic.log_ in solution folder
-1. Elastic log in docker - Run the following command to get logs from the last minute (replace litium-elastic-demo with other container names if needed):
+1. Litium Elasticsearch log - found as the file _elastic.log_ in solution folder
+1. Elasticsearch log in docker - Run the following command to get logs from the last minute (replace litium-elastic-demo with other container names if needed):
     ```console
     docker logs --since 1m litium-elastic-demo
     ```
