@@ -41,3 +41,7 @@ It is recommended that all steps are completed before the solution is built and 
 ## If your template is incorrect and needs to be re-generated
 
 Se the [_Author page_ task](../Author%20page) for instructions on how to re-generate your template.
+
+## Optional extra task - Validate page template
+
+To prevent other pages than those using the Author-template to be selected you can implement validation as described in the **[Validation task](../Validation)**

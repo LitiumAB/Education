@@ -8,9 +8,13 @@ Additional documentation is avaliable on [docs](https://docs.litium.com/document
 
 1. Create the class `ValidateBookAuthor` in namespace `Litium.Accelerator.ValidationRules` that inherit from
 `Litium.Validations.ValidationRuleBase<BaseProduct>` and implement the `Validate`-method that the interitance requires and make it return a new `ValidationResult`
-1. Inject `Litium.Websites.PageService` and `Litium.FieldFramework.FieldTemplateService` and use these to validate that if a page is selected it has to be a page using the _Author_-template
-1. If it is using the wrong template then call AddError()
-on the returned ValidationResult, set **Key**=_Author_ and any errormessage
+1. Get the selected page-id value of the BaseProduct-entity:
+    ```C#
+    var authorPageId = entity.Fields.GetValue<Guid?>("Author");
+    ```
+1. Inject `Litium.Websites.PageService` and use it to get the author page instance
+1. Inject `Litium.FieldFramework.FieldTemplateService` and use it to get the page template
+1. Validate that the template id is **"Author"**, if it is using the wrong template then call `AddError()` of the `ValidationResult` returned from the method (set _Key=Author_ and any errormessage)
 1. A finished example is avaliable in the _Resources_-folder
 
 ### Try it out
@@ -19,11 +23,11 @@ on the returned ValidationResult, set **Key**=_Author_ and any errormessage
 1. You should get a validation error preventing you to save
 1. Your errormessage should be visible in Litium Event Log
 
-## Optional extra task
+## Optional extra task Pre-order validation
 
 The customers current distribution is rather expensive so we need to set a lower limit for all orders placed so that no order below 300 is allowed.
 
-1. Create the class  `Litium.Accelerator.ValidationRules.OrderGrandTotalOverLimitValidator` and make it implement `Litium.Foundation.Modules.ECommerce.Plugins.Orders.IPreOrderValidationRule`
+1. Create the class `Litium.Accelerator.ValidationRules.OrderGrandTotalOverLimitValidator` and make it implement `Litium.Foundation.Modules.ECommerce.Plugins.Orders.IPreOrderValidationRule`
 1. Assert that no order placed has a grand total below 300, if not a `PreOrderValidationException` should be thrown (see the other validation classes in the same namespace for examples)
 1. Optionally make the error message language dependent:
     1. Add a website text for the error message in _Litium backoffice > Control panel > Websites_, edit the websites and add a new translation on the _Texts_-tab.
