@@ -30,6 +30,8 @@ See Litium docs for a [API controller sample](https://docs.litium.com/documentat
 1. Get the systemid for your author page (the easiest way is to open the page in Litium backoffice, then the id is showing in the url-field)
 1. You should be able to reach your API at _[your site domain]/api/authors/author?authorPageId=[Your author page id]_
 
+A common problem is that test string and not a valid `Guid` is used when testing which gives a 404 when you try to call the API.
+
 ## Optional extra task
 
 We need to protect access to our API, for information read sections on _Security_ and _Authorization_ on the Docs-link above

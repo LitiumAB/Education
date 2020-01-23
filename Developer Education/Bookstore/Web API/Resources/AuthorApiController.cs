@@ -22,7 +22,7 @@ namespace Litium.Accelerator.Mvc.Controllers.Api
 		{
 			return Ok(new AuthorApiViewModel
 			{
-				Books = _authorService.GetBooksByAuthor(id)
+				Books = _authorService.GetBooksByAuthor(authorPageId)
 			});
 		}
 	}
