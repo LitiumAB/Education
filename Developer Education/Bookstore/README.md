@@ -6,7 +6,9 @@ Before you start make sure that you have gone through [Litium system requirement
 
 If you came here to learn Litium by self study just go through the tasks and if you have questions please ask them in [Litium forum](https://forum.litium.com/). 
 
-Some tasks assume that a previous task has been completed, the recommended order to do them are:
+## Tasks
+
+Some tasks assume that a previous task has been completed (task dependencies are presented in each tasks README-file), the recommended order to do them are:
 
 1. [Installation](./Installation)
 1. [Author page](./Author%20page)
@@ -17,11 +19,10 @@ Some tasks assume that a previous task has been completed, the recommended order
 1. [Validation](./Validation)
 1. [Data service](./Data%20service)
 1. [Web API](./Web%20API)
-1. [Search](./Search)
 
-## Additional tasks
+### Optional tasks
 
-The tasks below are optional and will be completed during education if there is time, if you do this as self study the recommended order to do them is listed below but any order works since possible dependencies on previous tasks is listed in the task README.
+Below tasks might not be covered during classroom education due to time limitations but it is recommended that these are done by participants as self study work.
 
 1. [Move database to SQL Server](./Move%20database%20to%20SQL%20Server)
 1. [Move site to IIS](./Move%20site%20to%20IIS)
@@ -33,4 +34,9 @@ The tasks below are optional and will be completed during education if there is 
 1. [Redis](./Redis)
 1. [Author block](./Author%20block)
 1. [React](./React)
- 
+
+## Task archive
+
+The tasks below cover functionality which is no longer avaliable in Litium
+
+1. [Lucene search (removed in Litium 7.4)](./Lucene%20search)

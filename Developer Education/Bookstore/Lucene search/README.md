@@ -1,4 +1,6 @@
-# Search
+# Lucene search
+
+> Lucene is replaced by Elastic search in the Accelerator from Litium 7.4. Lucene is still part of the platform and is used to search for data in the E-Commerce module.
 
 > To do this task you first need to complete the task [Web API](../Web%20API)
 
@@ -20,8 +22,8 @@ To do this we will be using the [Lucene search engine in Litium](https://docs.li
 
 ### Try it out
 
-1. Call your new API-method and verify that it returns a list of all authors
+Call your new API-method and verify that it returns a list of all authors
 
 ## Optional extra task
 
-1. Modify `AuthorServiceRatingsDecorator` so that the authors average rating for all books is added to the authors name, example: _Ernest Cline (avg. rating 7/10)_
+Create a `AuthorServiceRatingsDecorator` that adds authors average rating for all books to the name, example: _Ernest Cline (avg. rating 7/10)_
