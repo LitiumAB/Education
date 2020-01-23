@@ -9,7 +9,8 @@ services:
     - "9200:9200"
     environment:
     - discovery.type=single-node
-    # Allocate 2GB RAM instead of the default 512MB, comment out the line below for less memory allocation
+    # Allocate 2GB RAM instead of the default 512MB
+    # comment out the line below for additional memory allocation
     # - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     volumes:
     - elastic_data:/usr/share/elasticsearch/data
