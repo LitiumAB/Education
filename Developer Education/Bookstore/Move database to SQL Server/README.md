@@ -9,6 +9,8 @@
 1. Run SQL Server Management Studio as administrator and connect to your local instance
     * Either right click databases in left tree and select _Attach_, select and attach your selected db
     * ...or if you prefer to [attach using SQL](https://docs.litium.com/more/best-practices/tips-tricks/restore-db-from)
-1. Adjust connectionstring
-    1. Modify `FoundationConnectionString` in `Web.config` into something similar to match what you configured in SQL Server, example: `<add name="FoundationConnectionString" connectionString="Data Source=(local)\SQL2017; Integrated Security=True; Initial Catalog=LitiumEducationDB;" providerName="System.Data.SqlClient" />`
+1. Modify `FoundationConnectionString` in `Web.config`, the connectionstring below can be used as template but replace values with what you configured in SQL Server, example: 
+    ```XML
+    <add name="FoundationConnectionString" connectionString="Data Source=(local)\SQL2017; Initial Catalog=LitiumEducationDB; Integrated Security=True; MultipleActiveResultSets=True;" providerName="System.Data.SqlClient" />
+    ```
 1. Start your site to verify that it runs as before with your new database
