@@ -10,25 +10,25 @@
 1. Install [Docker Desktop](https://docs.docker.com/docker-for-windows/install/) and make sure it is running
 1. Download a copy of _docker-compose.yaml_ from the _Resources_-folder to your solution directory
 1. Open a terminal or command window in your solution directory where you placed the _docker-compose.yaml_-file and run the command below to start three containers for Elastic, Kibana and Redis
-    ```
+    ```console
     docker-compose up
     ```
 
 ## Usage
 
-* **Redis** is made avaliable at **http://localhost:6379**, see the [Redis task](../Redis) for more information
-* **Elasticsearch** is made avaliable at **http://localhost:9200**, see the [Enable Elasticsearch task](../Enable%20Elasticsearch) for more information
-* **Kibana** is made avaliable at **http://localhost:5601**, see the [Kibana task](../Redis) for more information
+* **Redis** is made avaliable at http://localhost:6379, see the [Redis task](../Redis) for more information
+* **Elasticsearch** is made avaliable at http://localhost:9200, see the [Enable Elasticsearch task](../Enable%20Elasticsearch) for more information
+* **Kibana** is made avaliable at http://localhost:5601, see the [Kibana task](../Redis) for more information
 
 ## Stop/Remove
 
 Press `CTRL+C` to stop the containers and restart again with 
-```
+```console
 docker-compose up
 ```
 
 Or use the command below to stop and remove all containers in the compose-file:
-```
+```console
 docker-compose down
 ```
 
