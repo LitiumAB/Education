@@ -1,4 +1,4 @@
-# Elasticsearch
+# Enable Elasticsearch
 
 **Elasticsearch is only avaliable in Litium version 7.4 and later**
 

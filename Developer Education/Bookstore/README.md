@@ -27,7 +27,7 @@ Below tasks might not be covered during classroom education due to time limitati
 1. [Move database to SQL Server](./Move%20database%20to%20SQL%20Server)
 1. [Move site to IIS](./Move%20site%20to%20IIS)
 1. [Docker](./Docker)
-1. [Elasticsearch](./Elasticsearch)
+1. [Enable Elasticsearch](./Enable%20Elasticsearch)
 1. [Kibana](./Kibana)
 1. [Integration kit](./Integration%20kit)
 1. [Test project](./Test%20project)

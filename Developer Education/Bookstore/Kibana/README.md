@@ -1,12 +1,12 @@
 # Kibana
 
-> To do this task you first need to complete the task **[Elasticsearch](../Elasticsearch)**
+> To do this task you first need to complete the task **[Enable Elasticsearch](../Enable%20Elasticsearch)**
 
 We can use [Kibana](https://www.elastic.co/products/kibana) to visualize data stored in Elasticsearch
 
 ## Setup Kibana
 
-Kibana should already be setup in the **[Docker task](../Docker)** done before the **[Elasticsearch task](../Elasticsearch)**. Kibana is a web tool so all we need is a browser to open the tool.
+Kibana should already be setup in the **[Docker task](../Docker)** done before the **[Enable Elasticsearch task](../Enable%20Elasticsearch)**. Kibana is a web tool so all we need is a browser to open the tool.
 
 1. First check status by opening http://localhost:5601/status in a browser, it should say _Kibana status is 
 Green_
