@@ -17,26 +17,26 @@ Some tasks assume that a previous task has been completed (task dependencies are
 1. [Pricing rules](./Pricing%20rules)
 1. [Author field](./Author%20field)
 1. [Validation](./Validation)
-1. [Data service](./Data%20service)
 1. [Web API](./Web%20API)
+1. [Data service](./Data%20service)
 
 ### Optional tasks
 
-Below tasks might not be covered during classroom education due to time limitations but it is recommended that these are done by participants as self study work.
+Below tasks might not be covered during classroom education but it is recommended that these are done by participants as self study work to get a deeper knowledge of litium development.
 
 1. [Move database to SQL Server](./Move%20database%20to%20SQL%20Server)
 1. [Move site to IIS](./Move%20site%20to%20IIS)
 1. [Docker](./Docker)
+1. [Redis](./Redis)
 1. [Enable Elasticsearch](./Enable%20Elasticsearch)
 1. [Kibana](./Kibana)
 1. [Integration kit](./Integration%20kit)
 1. [Test project](./Test%20project)
-1. [Redis](./Redis)
 1. [Author block](./Author%20block)
 1. [React](./React)
 
 ## Task archive
 
-The tasks below cover functionality which is no longer avaliable in Litium
+The tasks below cover functionality which is no longer relevant for the developer education.
 
 1. [Lucene search (removed in Litium 7.4)](./Lucene%20search)
