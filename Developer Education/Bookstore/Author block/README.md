@@ -8,16 +8,18 @@ It is recommended that all steps are completed before the solution is built and 
 
 ### Create definitions that will generate the template on startup
 
-1. Create the file  `\Src\Litium.Accelerator\Definitions\Blocks\AuthorBlockTemplateSetup.cs`, copy content for the file from the _Resources_-folder
-    1. The block only has a Name property and a LinkToPage property, the LinkToPage will be used to select an author page that the block will display content from.
+1. Create the file  `\Src\Litium.Accelerator\Definitions\Blocks\AuthorBlockTemplateSetup.cs`, copy content for the file from the _Resources_-folder. 
+   > The block only has a Name property and a LinkToPage property, the LinkToPage will be used to select an author page that the block will display content from.
 1. Add translations for the block in `Src\Litium.Accelerator.Mvc\Site\Resources\Administration\Administration.resx`:
-    1. **key=**`fieldtemplate.blockarea.author.name` **value=**`Author block`
-    1. **key=**`fieldtemplate.blockarea.author.fieldgroup.general.name` **value=**`General author block settings`
+    |Key|Value|
+    |--|--|
+    |`fieldtemplate.blockarea.author.name`|Author block|
+    |`fieldtemplate.blockarea.author.fieldgroup.general.name`|General author block settings|
 
 ### Create the ViewModel and View that will render the block
 
 1. Create the file  `\Src\Litium.Accelerator\Builders\Block\AuthorBlockViewModelBuilder.cs`, copy content for the file from the _Resources_-folder
-    1. The Author block will contain the same information as the Author page created earlier so we can re-use the AuthorViewModel instead of creating a new one
+    > The Author block will contain the same information as the Author page created earlier so we can re-use the AuthorViewModel instead of creating a new one
 1. Create the file `\Src\Litium.Accelerator.Mvc\Controllers\Blocks\AuthorBlockController.cs`, copy content for the file from the _Resources_-folder
 1. Create the file `\Src\Litium.Accelerator.Mvc\Views\Block\Author.cshtml`, copy content for the file from the _Resources_-folder
 
