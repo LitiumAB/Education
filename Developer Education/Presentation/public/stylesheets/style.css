@@ -28,6 +28,10 @@ table {
   height: 100%;
   padding-top: 25%;
 }
+.full-col {
+  width: 100%;
+  float: left;
+}
 .left-col {
   width: 50%;
   float: left;

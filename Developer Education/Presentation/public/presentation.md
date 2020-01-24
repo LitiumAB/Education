@@ -362,3 +362,338 @@ To keep an eye on the log
 ## [PaperCut](https://github.com/ChangemakerStudios/Papercut)
 For local email testing
 
+---
+
+template: section
+
+# Demo: Litium Accelerator Frontend
+
+???
+
+Go through the deployed storefront of Litium Accelerator and show briefly what it includes
+
+* Mega menu
+* Categories
+    * Category filter
+* Search
+    * Search filter
+* Product page
+    * Place item in cart
+* Checkout
+    * Place order with user registration
+
+---
+
+# Login to backoffice
+
+<!-- span fix so that markdown is not formatting the url as clickable link: -->
+## Login URL: http<span>://</span>mydomain/litium
+
+Login with **your windows account username and password**
+
+* If you don't belong to the local administrators group in windows you need to [change systemUserGroup in Web.config](https://docs.litium.com/documentation/get-started/web_config) to specify a different group to allow login locally.
+
+* If you are on a domain it should be added to the loginname, otherwise just add a leading backslash, example:
+
+    * With domain: **`MYORG\first.last@myorg.com`**
+
+    * Without domain: **`\first.last@myorg.com`**
+
+???
+
+TODO Add instructions or link on how to change allowed login group
+
+---
+
+background-image: url(Images/backoffice-ui.png)
+
+# Administration UI
+
+* Angular
+
+* [ASP.NET WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis)
+
+* [Signalr](https://docs.microsoft.com/en-us/aspnet/signalr/overview/getting-started/introduction-to-signalr)
+
+* Still webforms in <br/> E-commerce (Sales) module
+
+---
+
+# Accelerator – What is deployed?
+
+1. New site in websites area
+
+1. New assortment in PIM
+
+1. Templates and fields for PIM, Websites, Customers and Blocks 
+
+1. Globalization artifacts
+    * Channel
+    * Country
+    * Currency
+    * Domain name
+    * Market
+    * Tax class
+
+---
+template: section
+# Demo: Litium Backoffice
+
+???
+1. Show the dashboard and default widgets
+1. Show control panel
+    1. Globalization
+1. Very briefly show Media
+1. View the person created with the frontend order person
+1. View the order created earlier in fromtend demo
+1. Go through PIM
+    1. Base product and variants
+    1. Prices 
+    1. Stock balances
+    1. Publishing to channel
+1. Show Websites
+    1. Publishing to channel
+
+---
+template: section
+# Demo: Architecture
+
+---
+
+background-image: url(Images/architecture-03.png)
+
+---
+
+# Component model
+
+* Namespaces
+    * Same namespace for domain entity and its service contract. 
+    * Example: `Variant` and `VariantService` are in the same `Litium.Products` namespace
+
+* Assembly Structure, examples
+    * `Litium.Abstractions`
+    * `Litium.Web.Abstractions`
+    * `Litium.Web.Mvc.Abstractions`
+    * `Litium.Web.WebApi.Abstractions`
+    * `Litium.Web.Administration.Abstractions`
+
+* Implementations
+    * `Litium.Application`
+    * `Litium.Infrastructure.MicrosoftServiceBus`
+
+---
+
+# Service model
+
+* Litium contracts (Services)
+    * Artifacts that have “methods” or “operations”
+
+* Interfaces
+    * Implement an interface to extend the functionality
+    * Or change default functionality by extending default implementation using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
+    * Example: IPriceCalculator
+
+* Abstract Classes
+    * Declare service definitions that implementation projects are **not expected to change** 
+    * Example: BaseProductService
+
+---
+
+# Concurrency
+
+## What is it?
+
+* Pessimistic locking – prevent edits when an entity is being edited
+* Optimistic locking – allow edit but check before save if the item has been edited since it was read
+
+--
+## Concurrency in Litium
+
+* Optimistic concurrency is available **only in Ecommerce area**
+* No other areas have concurrency checks!
+* It is possible to enforce pessimistic concurrency with DistributedLock:
+
+    ```C#
+    using (_distributedLockService.AcquireLock(key, TimeSpan.FromSeconds(10)))
+    {
+        // Work with the locked entity
+        
+        // Tip: the Redis-task has a subtask for working with distributed lock
+    }
+    ```
+
+???
+
+The optimistic concurrency control approach doesn't actually lock anything - instead, it asks User A to remember what the row looked like when he first saw it, and when it's time to update it, the user asks the database to go ahead only if the row still looks like he remembers it. 
+
+https://blogs.msdn.microsoft.com/marcelolr/2010/07/16/optimistic-and-pessimistic-concurrency-a-simple-explanation/
+
+---
+template:section
+# Data Modelling
+
+---
+
+# Entities
+
+### The following Litium entities support data modelling with the field framework
+
+| PIM | Customers | Websites | Media | Globalization | 
+| :-: | :-: | :-: | :-: | :-: |
+| Product | Person | Website | Media | Market |
+| Category | Group | Page | Channel | Folder |
+| | Organization | | Block |
+
+???
+
+With Litium 8 additional entities from E-commerce will be added
+
+---
+
+# Field Framework
+
+* Handles all “dynamic” fields (fields defined in the project)
+
+--
+* Developers can [create their own field types](https://docs.litium.com/documentation/architecture/field-framework/creating-a-custom-field-type) 
+    
+    * Field types are per **Installation**
+
+    * Field instances are per **Area**
+
+--
+* The field does not need to be added to a Field template be added to an entity - The field template is not the container of fields
+    
+    * Skip adding a field to a template to make it hidden for editors
+    
+    * Consider field template as a grouping, and a way to define the display template
+
+--
+* Setup is done in the `\Src\Litium.Accelerator\Definitions\`-namespace
+
+???
+
+Non-dynamic fields are for example id, name and articlenumber
+
+In Litium 4.X the field had to be in a fieldtemplate to be used
+
+---
+
+# Field Definition
+
+##  Defined for each Area
+
+* `Litium.WebSites.WebSiteArea`
+* `Litium.Products.ProductArea`
+* `Litium.Customers.CustomerArea`
+* `Litium.Blocks.BlockArea`
+
+Definitions are in `\Src\Litium.Accelerator\Definitions\`
+
+Example:
+```C#
+new FieldDefinition<CustomerArea>("SocialSecurityNumber", SystemFieldTypeConstants.Text)
+{
+    CanBeGridColumn = true,
+    CanBeGridFilter = true,
+    MultiCulture = false,
+}
+```
+
+---
+# Field template
+
+## The field definitions can be grouped into field groups and added to a field template
+
+![Field template](images/field-template.png)
+
+???
+
+TODO - Replace image with draw.io
+
+---
+# Field template
+
+.left-col[
+```C#
+new PersonFieldTemplate("B2CPersonTemplate")
+{
+    FieldGroups = new []
+    {
+        new FieldTemplateFieldGroup()
+        {
+            Id = "General",
+            Collapsed = false,
+            Fields =
+            {
+                SystemFieldDefinitionConstants.FirstName,
+                SystemFieldDefinitionConstants.LastName,
+                SystemFieldDefinitionConstants.Email,
+                SystemFieldDefinitionConstants.Phone,
+                "SocialSecurityNumber"
+            }
+        }
+    }
+}
+```
+]
+.right-col[
+* _Fields_ can be linked to a _field group_
+
+* _Field groups_ are then linked to _field templates_
+
+.center[![Template to group link](images/field-template-group-link.png)]
+]
+
+???
+
+TODO - Replace image with draw.io
+
+---
+# Pointer field type
+
+* A field type that points to other entities
+
+* Single or multi select
+
+<img src="images/pointer-field-type.png" height="200em" />
+
+```C#
+new FieldDefinition<BlockArea>(BlockFieldNameConstants.Link, SystemFieldTypeConstants.Pointer)
+{
+    Option = new PointerOption { EntityType = PointerTypeConstants.WebsitesPage }
+}
+```
+
+???
+
+TODO - Replace image with draw.io
+
+---
+# Multi field
+
+.left-col[
+* A field that is a container for other fields
+
+* The only field that can be used as array
+]
+
+.right-col.right[<img class="right-col" src="images/multifield-slide.png" />]
+
+.full-col[
+```C#
+new FieldDefinition<BlockArea>(BlockFieldNameConstants.Banners, 
+    SystemFieldTypeConstants.MultiField)
+{
+    Option = new MultiFieldOption { 
+        IsArray = true, 
+        Fields = new List<string>() { 
+            BlockFieldNameConstants.LinkText, 
+            BlockFieldNameConstants.BlockImagePointer, 
+            BlockFieldNameConstants.LinkToPage
+        } 
+    }
+}
+```
+]
+
