@@ -1,8 +1,41 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Droid Serif";
 }
-
-a {
-  color: #00B7FF;
+h1,
+h2,
+h3 {
+  font-family: "Yanone Kaffeesatz";
+  font-weight: normal;
+}
+.remark-code,
+.remark-inline-code {
+  font-family: "Ubuntu Mono";
+}
+table {
+  width: 100%;
+}
+.remark-slide-content {
+  background-size: contain;
+}
+.section-background {
+  background-color: #1494f6;
+  color: white;
+  background-image: url("../Images/white.png");
+  background-position-y: 0em;
+  background-position-x: 0em;
+  background-size: 100% 50%;
+  display: block;
+  height: 100%;
+  padding-top: 25%;
+}
+.left-col {
+  width: 50%;
+  float: left;
+}
+.right-col {
+  width: 50%;
+  float: right;
+}
+.small {
+  font-size: small;
 }

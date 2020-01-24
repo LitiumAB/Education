@@ -2,19 +2,37 @@ layout: true
 name: section
 class: center, top, section-background
 
-<div class="section-background-white">
-    <img src="Images/litium_logotyp_rgb.svg" alt="Litium-logo" height="100"/>
+<div>
+    <img src="Images/litium_logotyp_rgb.svg" alt="Litium-logo" height="100em" />
 </div>
 
 ---
-template: section
 
+template: section
 # Developer Education
 
+
+
 ---
+
+layout: true
+name: task
+class: center, top
+
+<img src="Images/devtask.svg" alt="Development task" height="200em" />
+
+# Development task
+
+All tasks are available at https://github.com/LitiumAB/Education/ in folder _Developer education/Bookstore_
+
+### Complete the task: 
+
+{{content}}
+
+---
+
 layout: true
 name: default
-
 <img src="Images/litium_logotyp_rgb.svg" alt="Litium-logo" height="20"/>
 
 ---
@@ -240,3 +258,107 @@ template: section
 * The NuGet-feed is accessed using your [Litium Docs](http://docs.litium.com) user account
 
 * All packages that start with Litium.* are distributed as individual nuget packages
+
+---
+
+# Installation Pre-requisites
+
+System requirements for local development environment are avaliable on [Litium Docs site](https://docs.litium.com/documentation/get-started/system-requirements) 
+
+## Required
+
+* Visual Studio 2019
+* Sql Server 2016 or later **(2016 required by Litium hosting!)**
+* .NET 4.7.2
+* [Litium NuGet feed](https://docs.litium.com/download/litium-nuget-feed) - Requires partner account on docs.litium.com
+
+## Optional (but recommended)
+
+* IIS (verify that .NET development is enabled through _“Turn windows features on/off”_)
+* SMTP Server
+* Elastic search
+* Redis
+
+---
+
+# NuGet package for installation
+
+--
+.left-col.center[
+## Litium.Web.Setup.Complete
+<img src="images/nuget-setup-web.png" alt="Nuget web setup" width="150"/>
+]
+
+--
+.right-col.center[
+## Litium.Setup.Complete
+<img src="images/nuget-setup.png" alt="Nuget setup" width="150"/>
+]
+
+???
+
+Litium.Setup.complete is enough when web is not needed, for instance for the integration kit Windows service or the Litium Testproject
+
+---
+# Distribution – Add-Ons/Accelerator
+
+## Compiled Add-Ons (e.g. payment provider addOns)
+
+Install via NuGet packages
+
+## Accelerator and source code Add-Ons (e.g. Integration Kit)
+
+Download from https://docs.litium.com 
+
+## The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
+
+---
+template: task
+
+# Installation
+
+---
+
+template: section
+
+# Installation review
+
+---
+
+# Options in Web.config
+
+* Connectionstrings for database, Elasticsearch and Redis
+
+* Files folder
+
+    * Temporary files
+    
+    * Lucene search index files
+    
+    * Media files
+        * In a multi server environment the media files should be shared using the CommonFilesDirectory-setting
+
+    * Sessionstate, inProc vs StateServer
+        * Use StateServer in local development to verify serialization support
+
+    * SMTP
+
+Read more at https://docs.litium.com/documentation/get-started/web_config
+
+---
+
+# Useful tools
+
+## [localtest.me](http://readme.localtest.me/)
+You can use <mysite>.localtest.me instead of using windows hosts file
+Will not work offline
+
+## [ReAttach](https://marketplace.visualstudio.com/items?itemName=ErlandR.ReAttach) 
+Visual Studio addon that makes it easy to attach to IIS process for debugging.
+
+## [Baretail](https://www.baremetalsoft.com/baretail/) 
+To keep an eye on the log
+
+## [PaperCut](https://github.com/ChangemakerStudios/Papercut)
+For local email testing
+
