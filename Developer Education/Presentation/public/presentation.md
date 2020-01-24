@@ -1181,3 +1181,228 @@ Options to extend/replace a plugin
 
 https://docs.litium.com/documentation/developer-guides/sales/architecture-design
 https://docs.litium.com/documentation/developer-guides/sales/architecture-design/ecommercepluginarchitecture/ipluginselector-interface-and-plugin
+
+---
+# Pricing rules
+
+* Pricing rules defines how price of a product is determined and how the order grand total and taxes are calculated
+
+* The pricing rules plugin use info from order price fields to do calculations
+
+* Plugins can be replaced by custom code
+
+<img src="images/ecom-pricing-rules.png" width="100%" />
+
+.small[
+https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1
+https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1/changing-pricing-rules
+]
+
+---
+# State transitions
+
+.left-col[
+<img src="images/ecom-order-states.png" height="65%" />    
+]
+.right-col[
+* OrderState, DeliveryState and Paymentstate flows execute together
+
+* PaymentState inside Litium, not possible to modify
+
+* States can only be changed according to predefined conditions
+
+* The implementation project can add/remove/modify states and the various conditions and transitions among them
+]
+
+
+.full-col.small[
+https://docs.litium.com/documentation/developer-guides/sales/working_with_state_transitions
+https://docs.litium.com/documentation/developer-guides/sales/architecture-design/state_transition_plugin_1
+]
+
+???
+
+States
+* Set conditions that need to be fulfilled to enter or exit a state 
+    * Show OrderStateBuilder.TransitionsFromInitState 287 Init to Cancelled
+    * Show DeliveryStateBuilder (95) from Init to Processing: You cannot start delivery if order is not confirmed
+* Entry-/Exit actions
+    * OrderStateBuilder (34), status confirmed 
+    * States should not be changed in entry-/exit actions!!
+* Related states, such as payment pushing order forward, is setup in StateTransitionBuilder
+
+
+Demo in backoffice:
+* Place order
+* Show Order/Delivery/Payment in BO
+* Change deliverystate in backoffice from Init to Processing
+    * Order will go from confirmed into processing
+* Change deliverystatus from processing to delivered
+    * Order will go to completed
+    * Payment will go to paid
+
+* Show how this is set up in code
+    * Show code in StateTransitionBuilder
+
+---
+# State transitions – In Accelerator
+
+.left-col[
+<img src="images/ecom-order-states-accelerator.png" width="80%" />    
+]
+.right-col[
+All the transitions are done automatically based on Delivery state and Payment state transitions
+]
+
+.full-col.small[
+https://docs.litium.com/documentation/litium-accelerators/develop/state-transitions/order-states-in-accelerators
+]
+
+---
+# Campaigns
+
+* A campaign has a single action and zero to many conditions
+    * All campaign conditions need to be met for the action to be applied
+* It is possible to develop both custom campaign actions & custom campaign conditions
+
+.small[
+https://docs.litium.com/documentation/developer-guides/sales/campaigns
+]
+
+---
+template: section
+# PIM
+## Product Information Management
+
+---
+# Product structure
+
+<img src="images/pim-product-1.png" width="60%" />
+
+???
+
+* The baseproduct is a container
+* The variant is the buyable entity of the product
+* Mention that price and stock is only set on the Variant
+
+TODO - Convert image to draw.io
+
+---
+# Product structure
+
+<img src="images/pim-product-2.png" width="100%" />
+
+???
+
+* Articlenumber is mandatory field on both base product and variant
+* Fieldtemplates can have fields on both baseproduct and variant level
+
+TODO - Convert image to draw.io
+
+---
+# PIM Data Model
+
+<img src="images/pim-data-model.png" width="100%" />
+
+???
+
+If multiple categories are connected then other categories have canonical to main category to avoid seo issues with duplicate content
+
+A website can only be connected to one assortment, only products in that assortment will work with correct url’s
+
+Show lists in Backoffice!
+* A list can be used and published on a website
+* A dynamic list is a static list with an event based engine that adds/removes items from the list 
+
+---
+# Relations between products and categories
+
+<img src="images/pim-relations.png" width="100%" />
+
+## Relationship types
+* Directional “Accessories”
+* Bi-directional “Similar products”
+
+---
+# Display templates
+
+* Possible to define different templates per website
+
+* Products can use either base product url or variant url
+
+    * Defined on the display template
+
+    * When variant url is used it is possible to manage how variants are grouped in listings with `IIndexDocumentMerger<Variant>`
+
+    * In Control _Panel > Accelerator_ the default implementation has a UI to select grouping field
+
+???
+
+Show displaytemplate for PIM per website on Litium Demosite
+
+---
+# Common PIM extension points
+
+### `IPriceCalculator`
+
+Get price from ERP in complex B2B scenarios
+
+### `IStockStatusCalculator`
+
+Adjust so that package product inventory is the sum of its parts
+
+---
+template: task
+# Pricing rules
+
+---
+template: section
+
+# Area: Customers
+
+---
+# Customers (Relations module)
+
+## A registry of customers, permission groups & organizations
+
+### In standard accelerator there is no standalone user registration page
+
+Instead a new customer is created during checkout if the _“create account”_-checkbox is selected when an order is submitted
+
+See the `RegisterNewUser()`-method in `Src\Litium.Accelerator\Services\CheckoutServiceImpl.cs`
+
+???
+
+TODO - more content on customers?
+
+---
+template: section
+
+# Area: Media
+
+---
+# Media
+
+* Stores all images and files
+
+* Physically the images are saved in the “Files/media”-folder
+
+    * Use CommonFilesDirectory in multiserver scenarios
+
+* If many products need to be enriched with images use the [media mapper addOn](https://docs.litium.com/documentation/add-ons/product-management/product-media-mapper_1)
+
+---
+template: section
+
+# Logging
+
+---
+# Audit log
+
+* Logging of updates in PIM
+
+* Logging when users with access to customer or order area login to the system
+
+    * This log has no UI
+
+<img src="images/audit-log.png" width="100%" />
