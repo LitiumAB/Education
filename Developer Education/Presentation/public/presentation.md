@@ -614,7 +614,10 @@ TODO - Replace image with draw.io
 ---
 # Field template
 
-.left-col[
+* _Fields_ can be linked to a _field group_
+
+* _Field groups_ are then linked to _field templates_
+
 ```C#
 new PersonFieldTemplate("B2CPersonTemplate")
 {
@@ -636,18 +639,6 @@ new PersonFieldTemplate("B2CPersonTemplate")
     }
 }
 ```
-]
-.right-col[
-* _Fields_ can be linked to a _field group_
-
-* _Field groups_ are then linked to _field templates_
-
-.center[![Template to group link](images/field-template-group-link.png)]
-]
-
-???
-
-TODO - Replace image with draw.io
 
 ---
 # Pointer field type
@@ -659,7 +650,8 @@ TODO - Replace image with draw.io
 <img src="images/pointer-field-type.png" height="200em" />
 
 ```C#
-new FieldDefinition<BlockArea>(BlockFieldNameConstants.Link, SystemFieldTypeConstants.Pointer)
+new FieldDefinition<BlockArea>(BlockFieldNameConstants.Link, 
+    SystemFieldTypeConstants.Pointer)
 {
     Option = new PointerOption { EntityType = PointerTypeConstants.WebsitesPage }
 }
@@ -697,3 +689,495 @@ new FieldDefinition<BlockArea>(BlockFieldNameConstants.Banners,
 ```
 ]
 
+---
+
+# Entity Model
+
+* Each entity has its own “entity service”
+
+* Use the service to get, create, update and delete entities
+
+```C#
+public abstract class ChannelService : IEntityService<Channel>, 
+    IEntityAllService<Channel>
+{
+    protected ChannelService();
+
+    public abstract void Create([NotNull] Channel channel);
+
+    public abstract void Delete([NotNull] Channel channel);
+
+    public abstract Channel Get(Guid systemId);
+    public abstract Channel Get([NotNull] string id);
+    public abstract IEnumerable<Channel> Get([NotNull] IEnumerable<Guid> systemIds);
+    public abstract IEnumerable<Channel> GetAll();
+
+    public abstract void Update([NotNull] Channel channel);
+}
+```
+
+---
+# Entity model - Updating an entity
+
+1. Create an updatable copy by calling `MakeWritableClone()` on the entity _(objects are read only because cached entities should be non modifiable)_
+
+1. Update the clone and call the update method of the respective entity service
+
+Sample from `LoginServiceImpl`:
+```C#
+user = user.MakeWritableClone();
+if (mustChangePasswordAtNextLogon)
+{
+    user.LoginCredential.PasswordExpirationDate = DateTimeOffset.UtcNow;
+}
+user.LoginCredential.NewPassword = newPassword;
+using (_securityContextService.ActAsSystem())
+{
+    _personService.Update(user);
+}
+```
+
+???
+
+Makewriteableclone - Creates a clone of the object in cache
+All items are read only when fetched, writeable object replaces item in cache
+
+---
+# Entity model - Relationships between entities
+
+* Domain models relationships
+
+    * “parent entity” – “child entity” (example baseproduct – variant, a variant cannot exist without a baseproduct)
+
+    * “entity” – “entity”
+
+* A parent entity has “Links” to child entities
+
+    * The link has the SystemId of the child entity
+
+    * The link may have additional information related to the relationship
+
+---
+# Entity model - Relationships between entities
+
+<img src="images/countrytotaxclasslink2.png" width="70%" />
+
+```C#
+var link = new CountryToTaxClassLink(taxClass.SystemId);
+
+// The link can have additional information related to the relationship
+link.VatRate = vatRate;
+
+country.TaxClassLinks.Add(link);
+_countryService.Update((Country)country);
+```
+
+### A TaxClass can exist on its own, but CountryToTaxClassLink needs a Country to exist
+
+Implication: TaxClass has its own TaxClassService, but there is no _CountryToTaxClassLinkService_
+
+???
+
+A country does not have a tax class object
+Entities are connected with a link-object that can have its own data
+
+Similar to a connecting-table in SQL Server
+
+---
+
+# Automapper
+A convention-based object-object mapper.
+
+### What is AutoMapper?
+
+> “Object-object mapping works by transforming an input object of one type into an output object of a different type.”
+
+### Why use AutoMapper?
+
+> "Mapping code is boring. Testing mapping code is even more boring. AutoMapper provides simple configuration of types, as well as simple testing of mappings."
+
+http://docs.automapper.org/en/stable/Getting-started.html
+
+---
+
+# Automapper
+
+## Register
+```C#
+cfg.CreateMap<PageModel, ArticleViewModel>()
+    .ForMember(x => x.Title, m => m.MapFromField(PageFieldNameConstants.Title))
+    .ForMember(x => x.Text, m => m.MapFromField(PageFieldNameConstants.Text))
+    .ForMember(x => x.Image, m => m.MapFrom<ImageModelResolver>());
+```
+
+## Use
+```C#
+var articleViewModel = pageModel.MapTo<ArticleViewModel>();
+```
+
+## Learn more
+http://docs.automapper.org/
+
+---
+template:section
+# Area: Websites
+
+---
+
+# Blocks
+
+* Has data modelling
+
+* Rendered inside a BlockContainer of a page
+
+* Allow editors to easily change the page structure without developer involvement
+
+* A Block can be Global or Local
+
+    * **Local:** a page has its own instance of a block
+
+    * **Global:** the block has a reference to a single global instance that can be used on multiple pages
+    
+---
+
+# Websites domain model
+
+* Pages can be “active” in different channels
+* A `DraftPage` is the working copy of a Page
+    * A page can only have a single `DraftPage`
+
+<img src="images/websites-domain-model.png" width="85%" />
+
+???
+
+TODO - Convert image to draw.io
+
+TODO - Info om WebsiteTextContainer
+
+---
+template:section
+# Area: Globalization
+
+---
+
+# Litium.Globalization
+
+### Entities that are common across areas
+
+* DomainName
+
+* TaxClass
+
+* Language
+
+* Currency
+
+* Country
+
+* Channel (has field framework)
+
+* Market (has field framework)
+
+---
+
+# Market
+
+* Programmatically a market is a group of channels
+
+* Supports data modelling (has the field framework)
+
+* **Products** are sold in a **market** through different **channels**
+
+<img src="images/market-domain-model.png" width="85%" />
+
+???
+
+TODO - Change image into draw.io
+
+---
+# Channel
+
+* Has domain names
+
+* Belongs to a market
+
+* May have a website
+
+* Languags
+
+    * Website language
+
+    * Products language
+
+* Defined for a list of countries
+
+* Supports data modelling
+
+---
+# Channel
+
+<img src="images/market-domain-model.png" width="85%" />
+
+---
+# Country & Tax class
+
+* Products are defined with a Tax class
+
+* The VAT percentage for each Tax class is defined on Country
+
+    * All products with the same tax class has the same VAT percentage
+
+<img src="images/countrytotaxclasslink2.png" width="85%" />
+
+---
+template: section
+# Dependency injection
+---
+# Dependency injection
+
+### Dependency injection for five-year-olds
+> When you go and get things out of the refrigerator for yourself, you can cause problems. You might leave the door open, you might get something Mommy or Daddy doesn't want you to have. You might even be looking for something we don't even have or which has expired.
+
+> *What you should be doing is stating a need*, "I need something to drink with lunch," and then we will make sure you have something when you sit down to eat.
+
+_John Munsch, 28 October 2009._
+
+From https://en.wikipedia.org/wiki/Dependency_injection
+
+---
+# Using dependency injection in Litium
+
+```C#
+public class Needy
+{
+    public Needy(IIceCream iceCream) // I just want any icecream
+    {
+        iceCream.Serve();
+    }
+}
+
+// This decorator handles the entire dependency injection registration
+[Service(ServiceType = typeof(IIceCream))]
+public interface IIceCream
+{
+    void Serve();
+}
+
+// This implementation gets sent to Needy when needed 
+public class ChocolateIceCream : IIceCream
+{
+    public void Serve()
+    {
+        // Serve some chocolate icecream
+    }
+}
+```
+[Read more on Litium Docs](https://docs.litium.com/documentation/architecture/dependency-injection/service-registration)
+
+---
+# Dependency injection decorators
+
+```C#
+[Service(ServiceType = typeof(IIceCream), Lifetime = DependencyLifetime.Singleton)]
+[RequireServiceImplementation]
+public abstract class StockService
+{
+    // ...
+}
+
+```
+## Lifetime
+* **Singleton:** Clients will always receive that same instance from the container
+
+* **Scoped:** For every request within a scope (usually the web request)
+
+* **Transient:** A new instance of the component will be created each time the service is requested from the container
+
+## RequireServiceImplementation
+* When a implementation is required for the application to run
+
+---
+template: task
+# Author service
+
+---
+# Service Decorator
+
+* To change or replace default implementation
+
+    * Usually to inject business logic
+
+    * “Strategy pattern” in software design
+
+* To inject new business logic
+
+    * “Decorator pattern” in software design
+
+* Advantages over “inheritance” (subclass)
+
+    * Dynamically add/replace business logic
+
+    * Reference Litium abstraction namespaces only
+
+    * Extend without knowing which class implements interface
+
+---
+template: task
+# Author service decorator
+
+---
+template: section
+# Security token
+
+---
+# Security token
+
+* In Litium, permissions are enforced by using “SecurityToken” object
+
+    * `SecurityToken.CurrentSecurityToken` contains the security token for the logged in user
+
+* Current token is automatically “applied” in the “code execution context”
+
+    * Code is always executed using the currently logged in users permissions
+
+    * If not logged in this is anonymous permission
+
+---
+# Security token
+
+If we want to create objects in a integration job the running context will lack permissions to modify data:
+```C#
+var categoryToChannelLink = new CategoryToChannelLink(channelId);
+category = category.MakeWritableClone();
+category.ChannelLinks.Add(categoryToChannelLink);
+
+_categoryService.Update(category);
+```
+
+--
+If the current user does not have permission a `Litium.Security.AuthorizationException` is thrown when `Update()` is called
+
+--
+To solve this we can temporarily impersonate the SystemUser:
+```C#
+using(_securityContextService.ActAsSystem())
+{
+    _categoryService.Update(category);
+}
+```
+
+---
+# Security Token – Old API (Ecommerce)
+
+* In the old API the token is has to be passed into every API method that requires permission enforcement
+
+* Current SecurityToken can be constructor injected
+
+* Can also be taken from the static SecurityToken.CurrentSecurityToken
+ 
+Example from `Src\Litium.Accelerator\Services\CheckoutServiceImpl.cs`:
+```C#
+public override void ChangeDeliveryMethod(Guid deliveryMethodId)
+{
+    var currentOrderCarrier = _requestModelAccessor.RequestModel.Cart.OrderCarrier;
+    _moduleECommerce.CheckoutFlow.AddDelivery(
+        currentOrderCarrier, 
+        deliveryMethodId, 
+        new AddressCarrier(), 
+        SecurityToken.CurrentSecurityToken);
+    _moduleECommerce.Orders.CalculateOrderTotals(
+        currentOrderCarrier, 
+        SecurityToken.CurrentSecurityToken);
+}
+```
+
+---
+template: section
+# Area: Ecommerce
+
+---
+# Create order
+
+<img src="images/ecom-create-order.png" width="90%" />
+
+.small[
+Image from https://docs.litium.com/documentation/litium-documentation/sales/checkout_flow
+
+Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order
+]
+
+???
+
+TODO - Replace image with draw.io
+
+---
+
+<img src="images/ecom-create-order-detail.png" width="90%" />
+
+.small[Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
+
+---
+# The shopping cart
+
+.left-col[
+* Cart object is kept in Session
+
+* Can be persisted
+
+    * In DB – need to be logged in
+
+    * Per machine – using cookies
+
+* Only article number and quantity is stored, other information might change, e.g. Prices
+]
+.right-col[
+<img src="images/ecom-cart.png" width="150%" />
+]
+.full-col.small[Read more: https://docs.litium.com/documentation/litium-documentation/sales/shopping_cart]
+
+---
+# Checkoutflow info
+
+* Checkout flow is the process of buying the items in the shopping cart
+
+* CheckoutFlowInfo Keeps additional information required during checkout that is not saved in the Order
+
+* Example: Used to pass CancelUrl and ReturnUrl payment providers
+
+---
+# Payment providers - collect payment
+
+<img src="images/ecom-payment-provider.png" width="100%" />
+
+```XML
+<pluginSettingx traceMode="true">
+```
+
+.small[
+https://docs.litium.com/documentation/developer-guides/sales/payment-providers
+https://docs.litium.com/documentation/add-ons/payments/overview
+]
+
+???
+
+Payment provider configurations has tracemode-setting to activate logging
+
+---
+background-image: url(Images/ecom-plugins.png)
+
+# Plugins in Ecommerce
+
+???
+
+ECommerce plugins allow extending the ECommerce functionality and customizing its behaviour.
+
+It is possible to have multiple implementations of plugins and create custom selectors to decide which plugin to use, see IPluginSelector link in slide for more information.
+
+Options to extend/replace a plugin
+
+1. Replace implementation by creating class that implements interface, LitiumStudio will automatically detect your custom implementation and will use it instead of the default implementation.
+
+2. Write your classes by extending the classes provided by the default implementation. Usually the default implementation provide virtual methods to allow this type of extention.
+
+https://docs.litium.com/documentation/developer-guides/sales/architecture-design
+https://docs.litium.com/documentation/developer-guides/sales/architecture-design/ecommercepluginarchitecture/ipluginselector-interface-and-plugin
