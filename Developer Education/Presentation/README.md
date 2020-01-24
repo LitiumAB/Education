@@ -28,11 +28,13 @@ From: https://github.com/gnab/remark/wiki/Keyboard-shortcuts
 
 ### Run the presentation on a local machine (Offline)
 
-1. Checkout the education repository or download the files as zip.
+1. Checkout the education repository or download the files as zip
 1. Start a command prompt or terminal in the _Presenation_-folder
-1. run the command `npm install` to install required node modules
+1. run the command `npm install` to install required node modules (npm install might fail, then try `yarn install` which is more stable, [read more](https://legacy.yarnpkg.com/en/docs/getting-started))
 1. run the command `npm start` to start the presenation website
 1. the site is avaliable at http://localhost:3000
+
+Additional setup information is avaliable at https://expressjs.com/en/starter/generator.html
 
 If you need to run the presentation offline it needs to be set up in a local web server, for example [http-server](https://www.npmjs.com/package/http-server).
 
