@@ -23,7 +23,7 @@ class: center, top
 
 # Development task
 
-All tasks are available at https://github.com/LitiumAB/Education/ in folder _Developer education/Bookstore_
+All tasks are available at https://github.com/LitiumAB/Education/<br />in folder _Developer education/Bookstore_
 
 ### Complete the task: 
 
@@ -1100,11 +1100,8 @@ template: section
 
 <img src="images/ecom-create-order.png" width="90%" />
 
-.small[
-Image from https://docs.litium.com/documentation/litium-documentation/sales/checkout_flow
-
-Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order
-]
+.footer[Image from https://docs.litium.com/documentation/litium-documentation/sales/checkout_flow<br/>
+Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
 
 ???
 
@@ -1114,7 +1111,7 @@ TODO - Replace image with draw.io
 
 <img src="images/ecom-create-order-detail.png" width="90%" />
 
-.small[Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
+.footer[Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
 
 ---
 # The shopping cart
@@ -1130,10 +1127,8 @@ TODO - Replace image with draw.io
 
 * Only article number and quantity is stored, other information might change, e.g. Prices
 ]
-.right-col[
-<img src="images/ecom-cart.png" width="150%" />
-]
-.full-col.small[Read more: https://docs.litium.com/documentation/litium-documentation/sales/shopping_cart]
+.right-col[<img src="images/ecom-cart.png" width="100%" class="img-border" />]
+.footer[Read more: https://docs.litium.com/documentation/litium-documentation/sales/shopping_cart]
 
 ---
 # Checkoutflow info
@@ -1153,10 +1148,8 @@ TODO - Replace image with draw.io
 <pluginSettingx traceMode="true">
 ```
 
-.small[
-https://docs.litium.com/documentation/developer-guides/sales/payment-providers
-https://docs.litium.com/documentation/add-ons/payments/overview
-]
+.footer[https://docs.litium.com/documentation/developer-guides/sales/payment-providers<br/>
+https://docs.litium.com/documentation/add-ons/payments/overview]
 
 ???
 
@@ -1193,10 +1186,8 @@ https://docs.litium.com/documentation/developer-guides/sales/architecture-design
 
 <img src="images/ecom-pricing-rules.png" width="100%" />
 
-.small[
-https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1
-https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1/changing-pricing-rules
-]
+.footer[https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1<br/>
+https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1/changing-pricing-rules]
 
 ---
 # State transitions
@@ -1215,10 +1206,8 @@ https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1
 ]
 
 
-.full-col.small[
-https://docs.litium.com/documentation/developer-guides/sales/working_with_state_transitions
-https://docs.litium.com/documentation/developer-guides/sales/architecture-design/state_transition_plugin_1
-]
+.footer[https://docs.litium.com/documentation/developer-guides/sales/working_with_state_transitions
+https://docs.litium.com/documentation/developer-guides/sales/architecture-design/state_transition_plugin_1]
 
 ???
 
@@ -1254,9 +1243,7 @@ Demo in backoffice:
 All the transitions are done automatically based on Delivery state and Payment state transitions
 ]
 
-.full-col.small[
-https://docs.litium.com/documentation/litium-accelerators/develop/state-transitions/order-states-in-accelerators
-]
+.footer[https://docs.litium.com/documentation/litium-accelerators/develop/state-transitions/order-states-in-accelerators]
 
 ---
 # Campaigns
@@ -1265,9 +1252,7 @@ https://docs.litium.com/documentation/litium-accelerators/develop/state-transiti
     * All campaign conditions need to be met for the action to be applied
 * It is possible to develop both custom campaign actions & custom campaign conditions
 
-.small[
-https://docs.litium.com/documentation/developer-guides/sales/campaigns
-]
+.footer[https://docs.litium.com/documentation/developer-guides/sales/campaigns]
 
 ---
 template: section
@@ -1405,4 +1390,524 @@ template: section
 
     * This log has no UI
 
-<img src="images/audit-log.png" width="100%" />
+<img src="images/audit-log.png" width="100%" class="img-border" />
+
+---
+# Error handling
+
+## All errors should be logged by the developer.
+* Wrap with `try/catch` 
+
+* Never `catch` without logging the exception
+
+## Constructor inject `ILogger<Type>`
+* In static classes (like extension methods) use `typeof(MyClass).Log()`
+
+* Avoid using `this.Log()` extension method (harder to test)
+
+
+---
+# Event log
+
+* Log to database, access in backoffice
+    <img src="images/event-log.png" width="100%" class="img-border" />
+
+--
+- Log to file
+    <img src="images/event-log-file.png" width="100%" class="img-border" />
+
+--
+* Manage in NLog.config
+
+---
+template: section
+# Events
+
+---
+# Event system
+
+* All events are handled by `Litium.Events.EventBroker` (publish/subscribe)
+
+    * To write your own events, or to listen to and trigger existing events
+
+* All events are triggered by the application
+
+* All events are local
+    * i.e. in a multi server environment, update of an entity raises an event **only on current server**.
+
+    * Adjust scope when publishing event to also send it to all servers via service bus
+
+* You may modify the database (at own risk!) but this bypasses all change events
+
+???
+
+Events are used to sync cache and search index on every application/server
+
+---
+# Event system - Example
+
+### Step 1: Declare the event class, typed with the object we need to pass:
+```C#
+public class MyEvent : EventArgs<Currency>, IMessage
+{
+    public MyEvent(Currency item) : base(item)
+    {
+        
+    }
+}
+```
+
+### Step 2: Publish the event:
+```C#
+public class MyEventPublisher
+{
+    private readonly EventBroker _eventBroker;
+
+    public MyEventPublisher(EventBroker eventBroker)
+    {
+        _eventBroker = eventBroker
+    }
+
+    public void SendEvent()
+    {
+        _eventBroker.Publish(new MyEvent(new Currency("SEK")));
+    }
+}
+```
+
+### Step 3: Subscribe to the event and act when it occurs:
+```C#
+// The autostart decorator on the creates an instance so that our subscription
+// gets registered when the application starts
+[Litium.Runtime.Autostart]
+public class MyEventSubscriber : IDisposable
+{
+    private readonly ISubscription<MyEvent> _subscription;
+
+    public MyEventSubscriber(EventBroker eventBroker)
+    {
+        // Register a subscription on the EventBroker
+        eventBroker.Subscribe<MyEvent>(ev => {
+            // This code will execute every time MyEvent is published
+            // Get the currencyobject from the event instance and act on the data
+            var currency = ev.Item
+        });
+    }
+
+    public void Dispose()
+    {
+        // Remove the event from the event broker
+        _subscription.Dispose();
+    }
+}
+```
+
+???
+
+* Interface `IMessage` need to be implemented by all classes that should be send as an event on the Litium.Events.EventBroker
+
+* Overload on `_eventBroker.Publish()` that accepts scope parameter to possibly send to all applications
+
+
+---
+# Service bus
+
+* Used to send messages between applications. 
+
+* The queue is outside the application
+
+    * Processed even if application restarts
+    * Free up resources by running queue in the background
+
+* Two different types of message queues
+
+    * Queue – Same message queue for all applications
+    * Topic – Unique queue for each application
+
+* Required in all multi-server solutions 
+
+* Note: Servers are updated **“Near real time”**
+
+
+???
+
+* Local on application if no Service Bus is configured, can be used to develop locally without setting up service bus
+
+* Application = A running Litium instance connected to the same database
+
+* Example Queue: Update smart list content (in db-table) - only one server has to do the job
+
+* Example Topic: Remove from cache (must be done on all servers)
+
+* By default the queue is stored in the bus for approx 1 day
+
+* Supported: 
+    * Redis
+    * Windows service bus on a server 
+    * Azure service bus
+
+---
+template: section
+# Validation
+
+---
+# Business rules validation
+
+```C#
+public class ValidationExample : ValidationRuleBase<Currency>
+{
+    public override ValidationResult Validate(Currency entity, 
+        ValidationMode validationMode, CultureInfo culture)
+    {
+        var result = new ValidationResult();
+        if(entity.TextFormat != "C0")
+        {
+            result.AddError("TextFormat", "Need to be C0")
+        }
+        return result;
+    }
+}
+```
+
+* Inheriting `ValidationRuleBase` instead of `IValidationRule` gives a typed entity
+
+---
+template: task
+# Author field
+
+---
+template: task
+# Validation
+
+---
+template: section
+# Web API
+
+---
+# Web API
+
+* Useful for
+
+    * RESTful applications
+
+    * Integration when server is communicating with other servers.
+
+* Service Accounts – Access services without access to Litium Backend
+
+* **OnlyJwtAuthorization** - attribute to restrict API endpoint to only use JSON Web Token (JWT)
+
+* **OnlyServiceAccountAuthorization** – attribute to restrict API endpoint to only allow Service Accounts
+
+.footer[Read more: https://docs.litium.com/documentation/architecture/web-api]
+ 
+---
+# Headless API AddOn
+
+* Platform to build use Litium E-Commerce via Web API 
+
+* In particular to use external CMS systems with Litium as the Ecommerce processing and PIM data engine
+
+* https://docs.litium.com/documentation/add-ons/integration/litium-headless-api
+
+---
+template: task
+# Web API
+
+---
+template: section
+# Searching & Batching
+
+---
+# Search
+
+* Litium Accelerator uses Elastic Search as search engine
+
+* Litium Backoffice searches directly against the database
+
+--
+## Search in Litium E-Commerce
+
+* Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and frontend. 
+
+* This will be replaced with above technology in Litium version 8
+
+.footer[Read more: https://docs.litium.com/documentation/architecture/search]
+---
+# Batching data
+
+```C#
+Litium.Data.DataService.CreateBatch
+```
+
+### Create, Delete and Update multiple domain objects in a single transaction
+
+* If one operation fails, the whole batch is rolled back. 
+
+* All entities in a single batch are logged together in logging for auditing
+
+* Bigger batches **might be slower** than small batches
+
+    * Developers need to find the balance for batch size in the project
+
+        _(Example, sync 5 items at a time might be optimal and 10 is actually slower)_
+
+???
+
+Example, create a baseproduct and all variants in a single transaction to avoid creating incomplete products
+
+---
+# Batching example
+
+## `Litium.Data.DataService.CreateBatch`
+
+```C#
+var baseProduct2Delete = _baseProductService.Get("123-456");
+var fieldTemplateSystemId = baseProduct2Delete.FieldTemplateSystemId;
+
+var baseProduct = new BaseProduct("777-d1", fieldTemplateSystemId) 
+{ 
+    SystemId = Guid.NewGuid() 
+};
+var variant = new Variant("445-87", baseProduct.SystemId);
+
+using (var db = _dataService.CreateBatch())
+{
+    db.Delete(baseProduct2Delete);
+
+    db.Create(baseProduct);
+    db.Create(variant); // If the variant fails the baseproduct is not created
+
+    db.Commit();
+}
+```
+.footer[See the full code sample on https://docs.litium.com/documentation/architecture/data-service]
+
+---
+# Querying data
+
+```C#
+Litium.Data.DataService.CreateQuery
+```
+
+## Querying direct towards database
+
+Do not use towards public site, without implementing own [caching](https://docs.litium.com/documentation/architecture/distributed-caching)!
+
+???
+
+Caching example is done in the Redis development task
+
+---
+# Batching example
+
+## `Litium.Data.DataService.CreateQuery`
+
+```C#
+using (var query = _dataService.CreateQuery<BaseProduct>(opt => opt.IncludeVariants()))
+{
+    var q = query.Filter(filter => filter
+        .Bool(boolFilter => boolFilter
+            .Must(boolFilterMust => boolFilterMust
+                .Field("MyField", "eq", "MyValue")
+                .Field("MyField2", "neq", "MyValue"))
+            .MustNot(boolFilterMustNot => boolFilterMustNot
+                .Id("neq", "my_new_articlenumber"))))
+        .Sort(sorting => sorting
+            .Field("MyField3", CultureInfo.CurrentCulture, SortDirection.Descending));
+
+    int totalRecords = q.Count();
+    List<BaseProduct> result = q
+        .Skip(25)
+        .Take(20)
+        .ToList();
+}
+```
+.footer[See the full code sample on https://docs.litium.com/documentation/architecture/data-service]
+
+---
+template: task
+# Data service
+
+---
+template: section
+# Accelerator frontend development
+
+---
+# Front end code structure
+
+* Component based
+
+* ES6
+
+* React + Redux
+
+* [BEM](http://getbem.com/introduction/) (Block, Element, Modifier methodology) for CSS
+
+    * Modular: Styling independent of elements type and nesting
+
+    * Encourage reusing blocks
+
+    * Avoids multilevel nesting and minimal CSS selectors
+
+* Foundation Zurb
+
+* Foundation Email
+
+---
+# React components - Rendering the Buy button
+
+1. Buy button is added on the server in the MVC view `_VariantItem.cshtml`:
+    ```Razor
+    @Html.BuyButton(model => model.ProductItem, isBuyButton: true) 
+    ```
+    The HTML-helper used from `ProductItemViewModelHtmlExtensions` renders a HTML-tag:
+    ```HTML
+    <buy-button ...
+    ```
+1. In `index.js` on the client Litium identifies tags that are React-components (for example buy-button and minicart) and replace these tags with [Redux containers](https://redux.js.org/basics/usage-with-react/#presentational-and-container-components). The same [Redux store](https://redux.js.org/basics/store/) is injected in every component.
+
+    ```JavaScript
+    const bootstrapComponents = () => {
+        if (document.getElementById('miniCart')) {
+            ReactDOM.render(
+                <Provider store={store}>
+                    <MiniCartContainer />
+                </Provider>,
+                document.getElementById('miniCart')
+            );
+        }
+        ...
+    ```
+1. In `BuyButton.container.js` the button is rendered, the click-event of the button triggers the add event of `Cart.action.js`:
+    ```JavaScript
+    import { add as addToCart } from '../Actions/Cart.action';
+    ```
+    
+    ```JavaScript
+    render() {
+        return (
+            <span ref={this.buttonRef}>
+                <BuyButton {...this.props} 
+                    onClick={(articleNumber, quantityFieldId) => this.props.addToCart(
+                        this.buttonRef.current, articleNumber, quantityFieldId)} />
+            </span>
+        );
+    }
+    ```
+
+.footer[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
+---
+# React components - Clicking the Buy button
+
+1. When a buybutton is clicked the `Add()`-method in `Cart.action.js` trigger a POST to the server:
+    ```JavaScript
+    return post('/api/cart/add', { articleNumber, quantity: parseInt(quantity) })
+        .then(response => response.json())
+        .then(cart => {
+            dispatch(receive(cart));
+    ```
+1. After returning from the server controller `Litium.Accelerator.Mvc.Controllers.Api.CartController.Add()` the `receive`-action is triggered
+
+1. In `Cart.reducer.js` the `CART_RECEIVE`-action updates state with fresh cart data from the server
+    ```JavaScript
+    switch (action.type) {
+        case CART_RECEIVE:
+        case CART_SHOW_INFO:
+            return {
+                ...state,
+                ...action.payload,
+            };
+        default:
+            return state;
+    }
+    ```
+    `action.payload` contains the cart passed in `dispatch(receive(cart))`
+
+1. All components that share state gets updated, for example the MiniCart-component
+
+.footer[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
+---
+# State on the client
+
+To give the stateless Web API controllers access to the current Litium state (current page/channel/product) that data needs to be passed in every request.
+
+1. In the shared view `\Shared\Framework\ClientContext.cshtml` the global object **`window.__litium.requestContext`** is written to the rendered page:
+
+    <img src="images/client-state-console.png" width="95%" class="img-border" />
+
+1. When the client then sends a ajax-request to the server the call is done using `Services/http.js` that attaches `window.__litium.requestContext` to the request
+
+    ```JavaScript
+    headers: {
+        'litium-request-context': JSON.stringify(window.__litium.requestContext),
+    }
+    ```
+
+1. `RequestModelHandler` on the server parses the object in the request and store it in `RequestModelAccessor`
+
+    ```C#
+    var siteSettingViewModel = request.Headers.GetSiteSettingViewModel();
+    ```
+
+1. A API Controller (for example `CheckoutController`) can then inject and use `RequestModelAccessor` to get state for the request
+    ```C#
+    public CheckoutController(RequestModelAccessor requestModelAccessor ...
+    {
+        ...
+    ```
+
+
+---
+template: section
+# Upgrading
+
+---
+# Upgrading
+
+* As with installation, upgrading is done through Visual Studio
+
+* Upgrading the database is done with a SQL-script
+
+    * `packages\Litium.Setup.Core\tools\UpgradeToLatest.sql`
+
+    * Can be executed with Package Manager Console in Visual Studio
+        ```console
+        Update-LitiumDatabase
+        ```
+
+    * No way back, backup before running the script
+
+---
+template: section
+# Next step
+
+---
+# Support
+
+## Solution related help, License or technical questions
+support@litium.com 
+
+phone: 036-210 33 30
+
+## Technical failures, bug reports
+https://docs.litium.com/support/bugs/report-a-bug
+
+## General Litium questions and discussions
+https://forum.litium.com 
+
+.footer[Read more: https://docs.litium.com/support]
+
+---
+# License
+
+* A license file is required to access Litium from a machine other than localhost
+
+    * The initial installation uses a demo license which only allows requests from the local computer.
+
+* The license must cover all environments (test/prod/stage) that customers have access to
+
+* Request a License file from https://docs.litium.com/support/request-license
+
+---
+template: section
+# GAME OVER

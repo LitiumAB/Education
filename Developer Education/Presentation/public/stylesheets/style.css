@@ -40,6 +40,13 @@ table {
   width: 50%;
   float: right;
 }
-.small {
+.footer { 
   font-size: small;
+  position: absolute; 
+  bottom: 15px; 
+  left: 60px 
+}
+.img-border {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
 }
