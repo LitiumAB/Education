@@ -1,0 +1,52 @@
+body {
+  font-family: "Droid Serif";
+}
+h1,
+h2,
+h3 {
+  font-family: "Yanone Kaffeesatz";
+  font-weight: normal;
+}
+.remark-code,
+.remark-inline-code {
+  font-family: "Ubuntu Mono";
+}
+table {
+  width: 100%;
+}
+.remark-slide-content {
+  background-size: contain;
+}
+.section-background {
+  background-color: #1494f6;
+  color: white;
+  background-image: url("../Images/white.png");
+  background-position-y: 0em;
+  background-position-x: 0em;
+  background-size: 100% 50%;
+  display: block;
+  height: 100%;
+  padding-top: 25%;
+}
+.full-col {
+  width: 100%;
+  float: left;
+}
+.left-col {
+  width: 50%;
+  float: left;
+}
+.right-col {
+  width: 50%;
+  float: right;
+}
+.footer { 
+  font-size: small;
+  position: absolute; 
+  bottom: 15px; 
+  left: 60px 
+}
+.img-border {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+}
