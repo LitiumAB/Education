@@ -40,7 +40,7 @@ The `Litium:Elasticsearch:Synonym:Host` key defined above is a url that will be 
 
 ## Test
 
-1. When the site has restarted the **Elastic** menu option is avaliable in Litium backoffice, select it and rebuild all indices (the rebuild can be tracked in the _elastic.log_ file in your solution-directory):
+1. When the site has restarted the **Elasticsearch** menu option is avaliable in Litium backoffice, select it and rebuild all indices (the rebuild can be tracked in the _elasticsearch.log_ file in your solution-directory):
    ![Alt text](Images/elastic-in-litium-bo.png "Elasticsearch BO")
 1. Open your public website and verify that the search is working
 
@@ -49,9 +49,5 @@ The `Litium:Elasticsearch:Synonym:Host` key defined above is a url that will be 
 There are in general three places to look for any issue that you experience during setup and test:
 
 1. Litium event log - found as the file _litium.log_ in solution folder
-1. Litium Elasticsearch log - found as the file _elastic.log_ in solution folder
-1. Elasticsearch log in docker - run the following command to get logs from the last minute:
-    ```console
-    docker logs --since 1m elasticsearch
-    ```
-    Additional documentation on options for `docker logs` can be found at https://docs.docker.com/engine/reference/commandline/logs/
+1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in solution folder
+1. Elasticsearch log in docker - see _Useful docker commands_ in the [Docker task](../Docker) for details on how to read

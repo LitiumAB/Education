@@ -39,4 +39,4 @@ Below tasks might not be covered during classroom education but it is recommende
 
 The tasks below cover functionality which is no longer relevant for the developer education.
 
-1. [Lucene search (removed in Litium 7.4)](./Lucene%20search)
+1. [Lucene.Net search (removed in Litium 7.4)](./Lucene.Net%20search)

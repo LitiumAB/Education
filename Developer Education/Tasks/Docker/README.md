@@ -22,7 +22,7 @@
 
 ## Stop/Remove
 
-Press `CTRL+C` to stop the containers and restart again with 
+Press `CTRL+C` to stop the running containers and restart again with 
 ```console
 docker-compose up
 ```
@@ -41,44 +41,65 @@ docker-compose down
 
 ## FAQ
 
-If you run in to There are in general three places to look for any issue that you experience during setup:
+If you run in to problems here are three good places to look for information:
 
 1. Litium event log - found as the file _litium.log_ in solution folder
-1. Litium Elasticsearch log - found as the file _elastic.log_ in solution folder
-1. Elasticsearch log in docker - Run the following command to get logs from the last minute (replace litium-elastic-demo with other container names if needed):
-    ```console
-    docker logs --since 1m litium-elastic-demo
-    ```
-    Additional documentation on options for `docker logs` can be found at https://docs.docker.com/engine/reference/commandline/logs/
+1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in solution folder
+1. Elasticsearch log in docker - see _Useful docker commands_ below for details on how to read the log
 
 ### Conflicting ports
 
-If you get an a port conflict error when you run the `docker-compose up` command then either change ports in the yaml-file or remove the existing container.
+Error example: `Bind for 0.0.0.0:6379 failed: port is already allocated`
 
-Error example:
-> Bind for 0.0.0.0:6379 failed: port is already allocated
+If you get an this error when you run the `docker-compose up` command then either change ports in the yaml-file or remove the existing container occupying the port (see instcuctions on how to remove in _Useful docker commands_ below)
 
+## Useful docker commands
+
+### Container listing
 Get a list of existing containers (remove `-a` to only get running containers):
 ```console
 docker ps -a
 ```
 
-Use `docker stop` to stop a container
+### Read container logs
+Run the following command to get logs from the last minute (replace litium-elastic-demo with other container names if needed):
+```console
+docker logs --since 1m [pid/name]
+```
+Optionally use the `-f` parameter to get live updates written to the console:
+```console
+docker logs -f [pid/name]
+```
+
+Additional documentation on options for `docker logs` can be found at https://docs.docker.com/engine/reference/commandline/logs/
+
+### Stop container
+Stop individual container
 ```console
 docker stop litium-redis-demo
 ```
-
 Or use the following command to stop all containers by combining the previous commands
 ```console
 docker stop $(docker ps -a -q)
 ``` 
 
+### Start container
 Start individual containers
 ```console
 docker start litium-redis-demo
 ```
 
-Remove ALL stopped containers
+### Remove container
+
+Remove individual container:
+```console
+docker rm [pid/name]
+```
+Remove ALL containers:
+```console
+docker rm -f $(docker ps -aq)
+```
+Remove ALL stopped containers AND ALL unused resources:
 ```console
 docker system prune
 ```

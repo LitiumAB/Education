@@ -1,6 +1,6 @@
-# Lucene search
+# Lucene.Net search
 
-> Lucene is replaced by Elastic search in the Accelerator from Litium 7.4. Lucene is still part of the platform and is used to search for data in the E-Commerce module.
+> Lucene.Net is replaced by Elasticsearch in the Accelerator from Litium 7.4. Lucene.Net is still part of the platform and is used to search for data in the E-Commerce module.
 
 > To do this task you first need to complete the task [Web API](../Web%20API)
 
@@ -8,7 +8,7 @@ For the API to be useful for the resellers they have to be able to get a list of
 
 We need to extend `IAuthorService` with a method to get all authors and make this mehod avaliable through the API.
 
-To do this we will be using the [Lucene search engine in Litium](https://docs.litium.com/documentation/architecture/search).
+To do this we will be using the [Lucene.Net search engine in Litium](https://docs.litium.com/documentation/architecture/search).
 
 1. Add method `List<(Guid, string)> GetAuthors();` to `IAuthorService` to return a list of tuples with id and name of all authors
 1. Inject `Litium.Foundation.Solution` and `Litium.FieldFramework.FieldTemplateService` in `AuthorService`

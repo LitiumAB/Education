@@ -276,7 +276,7 @@ System requirements for local development environment are avaliable on [Litium D
 
 * IIS (verify that .NET development is enabled through _“Turn windows features on/off”_)
 * SMTP Server
-* Elastic search
+* Elasticsearch
 * Redis
 
 ---
@@ -333,7 +333,7 @@ template: section
 
     * Temporary files
     
-    * Lucene search index files
+    * Lucene.Net search index files
     
     * Media files
         * In a multi server environment the media files should be shared using the CommonFilesDirectory-setting
@@ -1620,7 +1620,7 @@ template: section
 ---
 # Search
 
-* Litium Accelerator uses Elastic Search as search engine
+* Litium Accelerator uses Elasticsearch as search engine
 
 * Litium Backoffice searches directly against the database
 
