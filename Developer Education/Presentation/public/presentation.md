@@ -23,7 +23,7 @@ class: center, top
 
 # Development task
 
-All tasks are available at https://github.com/LitiumAB/Education/<br />in folder _Developer education/Bookstore_
+All tasks are available at https://github.com/LitiumAB/Education/<br />in folder _Developer education/Tasks_
 
 ### Complete the task: 
 
