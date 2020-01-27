@@ -1,6 +1,6 @@
 # Litium Developer Education Presentation 
 
-The slides are created with [Remark](https://remarkjs.com/).
+The presentation is avaliable online at https://litiumdev.azurewebsites.net/
 
 ## FAQ
 
@@ -22,6 +22,8 @@ The following shortcuts are avaliable when running the presentation. All of thes
 From: https://github.com/gnab/remark/wiki/Keyboard-shortcuts
 
 ### Working with the presentation
+
+The slides are created with [Remark](https://remarkjs.com/)
 
 * [Remark Wiki](https://github.com/gnab/remark/wiki)
 * Remark renders HTML with [marked.js](https://github.com/markedjs/marked) wich implement [Github flavored markdown](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax).
