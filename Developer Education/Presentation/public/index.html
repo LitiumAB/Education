@@ -16,8 +16,16 @@
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
     </script>
     <script>
+        // Avaliable config options: https://github.com/gnab/remark/wiki/Configuration
         var slideshow = remark.create({
-            sourceUrl: 'presentation.md'
+            navigation: {
+                touch: false,
+                scroll: false,
+                click: true
+            },
+            ratio: '16:9',
+            sourceUrl: 'presentation.md',
+            countIncrementalSlides: false
         });
     </script>
 </body>

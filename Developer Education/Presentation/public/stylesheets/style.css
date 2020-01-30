@@ -26,7 +26,7 @@ table {
   background-size: 100% 50%;
   display: block;
   height: 100%;
-  padding-top: 25%;
+  padding-top: 18%;
 }
 .full-col {
   width: 100%;
@@ -40,13 +40,22 @@ table {
   width: 50%;
   float: right;
 }
-.footer { 
+.small {
   font-size: small;
-  position: absolute; 
-  bottom: 15px; 
-  left: 60px 
+}
+.footer {
+  font-size: small;
+  position: absolute;
+  bottom: 15px;
+  left: 60px;
 }
 .img-border {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
+}
+.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  display: block;
+  height: 700px;
 }

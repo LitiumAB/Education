@@ -11,8 +11,6 @@ class: center, top, section-background
 template: section
 # Developer Education
 
-
-
 ---
 
 layout: true
@@ -37,10 +35,8 @@ name: default
 
 ---
 
-# Agenda
---
 .left-col[
-## Day 1
+## Agenda day 1
 
 * About Litium
 
@@ -49,8 +45,6 @@ name: default
 * Installation
 
 * Architecture
-
-* Data modelling
 
 * Litium area Websites
 
@@ -62,7 +56,7 @@ name: default
 ]
 --
 .right-col[
-## Day 2
+## Agenda day 2
 
 * Litium areas E-Commerce, PIM, Customers and Media
 
@@ -74,49 +68,42 @@ name: default
 
 * Web API
 
-* Searching & Batching
+* Data service
 
-* React in Accelerator
-
-* Automated testing
+* Accelerator frontend development
 
 * Certification exam
 ]
+---
+class: center
+
+# Goals
+
+### Knowledge
+
+> Your ambition is to make you a confident and independent developer, <br/>ready to participate in Litium projects. 
+
+> You will know how to implement most requirements, <br/>and know where to find answers when you don´t.
+
+--
+### Certification
+
+> A Litium Developer Certification is a quality mark that build custumer trust. 
+
+> Litium Certifications also add business value to partner organizations. 
 
 ---
-template: default
 background-image: url(Images/features.png)
 
 ---
-template: default
-background-image: url(Images/architecture-01.png)
+
+<img src="Images/architecture-01.png" alt="Architecture" width="100%" />
 
 ???
 
 Product Information System
 Order Management System
 Content Management System
-
----
-
-# AddOns
-
-## Following are some of the most frequently used AddOns
---
-### Product Media Mapper 
-To connect images and files to products automatically
---
-### Payment providers 
-Klarna, Dibs, PayEx, Adyen, PayPal, Nets, Handelsbanken Ecster, Skrill
---
-### Integration kit
-Starting platform to develop file based integrations towards Litium
-
----
-
-background-image: url(Images/connect.png)
-
-# Litium connect
 
 ---
 
@@ -141,10 +128,9 @@ background-image: url(Images/connect.png)
 TODO - Add additional info on usage for each bullet
 
 ---
-background-image: url(Images/roadmap.png)
-
 # Roadmap
 
+<img src="Images/roadmap.png" alt="Roadmap" width="100%" />
 
 
 ---
@@ -170,9 +156,9 @@ template: section
 * Start with current code snapshot and once customized the accelerator will be part of the solution. 
 
 ---
-background-image: url(Images/accelerator-model.png)
-
 # Litium Accelerator
+
+<img src="Images/accelerator-model.png" width="100%" />
 
 ???
 
@@ -181,10 +167,13 @@ BLL Allows the same business logic to be used in both Web API and in MVC Views
 ---
 
 # Accelerator technical choices
+
 --
+
 * Design - less is more
 
 --
+
 * Zurb Foundation
     * …for Sites
     * …for E-mails
@@ -253,6 +242,7 @@ template: section
 * With or without accelerator
 
 --
+
 ## Litium is distributed through a private NuGet-feed
 
 * The NuGet-feed is accessed using your [Litium Docs](http://docs.litium.com) user account
@@ -265,14 +255,14 @@ template: section
 
 System requirements for local development environment are avaliable on [Litium Docs site](https://docs.litium.com/documentation/get-started/system-requirements) 
 
-## Required
+### Required
 
 * Visual Studio 2019
 * Sql Server 2016 or later **(2016 required by Litium hosting!)**
 * .NET 4.7.2
 * [Litium NuGet feed](https://docs.litium.com/download/litium-nuget-feed) - Requires partner account on docs.litium.com
 
-## Optional (but recommended)
+### Optional (but recommended)
 
 * IIS (verify that .NET development is enabled through _“Turn windows features on/off”_)
 * SMTP Server
@@ -302,15 +292,16 @@ Litium.Setup.complete is enough when web is not needed, for instance for the int
 ---
 # Distribution – Add-Ons/Accelerator
 
-## Compiled Add-Ons (e.g. payment provider addOns)
+### Compiled Add-Ons (e.g. payment provider addOns)
 
 Install via NuGet packages
 
-## Accelerator and source code Add-Ons (e.g. Integration Kit)
+### Accelerator and source code Add-Ons (e.g. Integration Kit)
 
 Download from https://docs.litium.com 
 
-## The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
+--
+### The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
 
 ---
 template: task
@@ -349,18 +340,22 @@ Read more at https://docs.litium.com/documentation/get-started/web_config
 
 # Useful tools
 
-## [localtest.me](http://readme.localtest.me/)
-You can use <mysite>.localtest.me instead of using windows hosts file
+* [localtest.me](http://readme.localtest.me/)
+    
+    You can use <mysite>.localtest.me instead of using windows hosts file
 Will not work offline
 
-## [ReAttach](https://marketplace.visualstudio.com/items?itemName=ErlandR.ReAttach) 
-Visual Studio addon that makes it easy to attach to IIS process for debugging.
+* [ReAttach](https://marketplace.visualstudio.com/items?itemName=ErlandR.ReAttach) 
+    
+    Visual Studio addon that makes it easy to attach to IIS process for debugging.
 
-## [Baretail](https://www.baremetalsoft.com/baretail/) 
-To keep an eye on the log
+* [Baretail](https://www.baremetalsoft.com/baretail/) 
 
-## [PaperCut](https://github.com/ChangemakerStudios/Papercut)
-For local email testing
+    To keep an eye on the log
+
+* [PaperCut](https://github.com/ChangemakerStudios/Papercut)
+
+    For local email testing
 
 ---
 
@@ -456,11 +451,11 @@ template: section
 
 ---
 template: section
-# Demo: Architecture
+# Architecture
 
 ---
 
-background-image: url(Images/architecture-03.png)
+<img src="Images/architecture-03.png" width="85%" />
 
 ---
 
@@ -501,18 +496,18 @@ background-image: url(Images/architecture-03.png)
 
 # Concurrency
 
-## What is it?
-
 * Pessimistic locking – prevent edits when an entity is being edited
 * Optimistic locking – allow edit but check before save if the item has been edited since it was read
 
 --
+
 ## Concurrency in Litium
 
 * Optimistic concurrency is available **only in Ecommerce area**
-* No other areas have concurrency checks!
-* It is possible to enforce pessimistic concurrency with DistributedLock:
 
+* No other areas have concurrency checks!
+
+* It is possible to enforce pessimistic concurrency with DistributedLock:
     ```C#
     using (_distributedLockService.AcquireLock(key, TimeSpan.FromSeconds(10)))
     {
@@ -603,7 +598,7 @@ new FieldDefinition<CustomerArea>("SocialSecurityNumber", SystemFieldTypeConstan
 ---
 # Field template
 
-## The field definitions can be grouped into field groups and added to a field template
+### The field definitions can be grouped into field groups and added to a field template
 
 ![Field template](images/field-template.png)
 
@@ -760,13 +755,11 @@ All items are read only when fetched, writeable object replaces item in cache
 ---
 # Entity model - Relationships between entities
 
-<img src="images/countrytotaxclasslink2.png" width="70%" />
+<img src="images/countrytotaxclasslink2.png" width="50%" />
 
 ```C#
 var link = new CountryToTaxClassLink(taxClass.SystemId);
-
-// The link can have additional information related to the relationship
-link.VatRate = vatRate;
+link.VatRate = vatRate; // The link can have additional information related to the relationship
 
 country.TaxClassLinks.Add(link);
 _countryService.Update((Country)country);
@@ -802,7 +795,7 @@ http://docs.automapper.org/en/stable/Getting-started.html
 
 # Automapper
 
-## Register
+### Register
 ```C#
 cfg.CreateMap<PageModel, ArticleViewModel>()
     .ForMember(x => x.Title, m => m.MapFromField(PageFieldNameConstants.Title))
@@ -810,12 +803,12 @@ cfg.CreateMap<PageModel, ArticleViewModel>()
     .ForMember(x => x.Image, m => m.MapFrom<ImageModelResolver>());
 ```
 
-## Use
+### Use
 ```C#
 var articleViewModel = pageModel.MapTo<ArticleViewModel>();
 ```
 
-## Learn more
+### Learn more
 http://docs.automapper.org/
 
 ---
@@ -843,16 +836,19 @@ template:section
 # Websites domain model
 
 * Pages can be “active” in different channels
-* A `DraftPage` is the working copy of a Page
-    * A page can only have a single `DraftPage`
+* A `DraftPage` is the working copy of a Page (a page can only have a single `DraftPage`)
 
-<img src="images/websites-domain-model.png" width="85%" />
+<img src="images/websites-domain-model.png" width="70%" />
 
 ???
 
 TODO - Convert image to draw.io
 
 TODO - Info om WebsiteTextContainer
+
+---
+template: task
+# Author page
 
 ---
 template:section
@@ -986,14 +982,12 @@ public abstract class StockService
 }
 
 ```
-## Lifetime
+### Lifetime
 * **Singleton:** Clients will always receive that same instance from the container
-
 * **Scoped:** For every request within a scope (usually the web request)
-
 * **Transient:** A new instance of the component will be created each time the service is requested from the container
 
-## RequireServiceImplementation
+### RequireServiceImplementation
 * When a implementation is required for the application to run
 
 ---
@@ -1109,7 +1103,7 @@ TODO - Replace image with draw.io
 
 ---
 
-<img src="images/ecom-create-order-detail.png" width="90%" />
+<img src="images/ecom-create-order-detail.png" width="70%" />
 
 .footer[Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
 
@@ -1142,7 +1136,7 @@ TODO - Replace image with draw.io
 ---
 # Payment providers - collect payment
 
-<img src="images/ecom-payment-provider.png" width="100%" />
+<img src="images/ecom-payment-provider.png" width="70%" />
 
 ```XML
 <pluginSettingx traceMode="true">
@@ -1156,9 +1150,10 @@ https://docs.litium.com/documentation/add-ons/payments/overview]
 Payment provider configurations has tracemode-setting to activate logging
 
 ---
-background-image: url(Images/ecom-plugins.png)
 
 # Plugins in Ecommerce
+
+<img src="Images/ecom-plugins.png" width="70%" />
 
 ???
 
@@ -1262,7 +1257,7 @@ template: section
 ---
 # Product structure
 
-<img src="images/pim-product-1.png" width="60%" />
+<img src="images/pim-product-1.png" width="40%" />
 
 ???
 
@@ -1275,7 +1270,7 @@ TODO - Convert image to draw.io
 ---
 # Product structure
 
-<img src="images/pim-product-2.png" width="100%" />
+<img src="images/pim-product-2.png" width="80%" />
 
 ???
 
@@ -1287,7 +1282,7 @@ TODO - Convert image to draw.io
 ---
 # PIM Data Model
 
-<img src="images/pim-data-model.png" width="100%" />
+<img src="images/pim-data-model.png" width="80%" />
 
 ???
 
@@ -1302,7 +1297,7 @@ Show lists in Backoffice!
 ---
 # Relations between products and categories
 
-<img src="images/pim-relations.png" width="100%" />
+<img src="images/pim-relations.png" width="60%" />
 
 ## Relationship types
 * Directional “Accessories”
@@ -1444,6 +1439,8 @@ template: section
 Events are used to sync cache and search index on every application/server
 
 ---
+class: scrollable
+
 # Event system - Example
 
 ### Step 1: Declare the event class, typed with the object we need to pass:
@@ -1501,6 +1498,9 @@ public class MyEventSubscriber : IDisposable
     }
 }
 ```
+<br/>
+<br/>
+<br/>
 
 ???
 
@@ -1581,7 +1581,7 @@ template: task
 
 ---
 template: section
-# Web API
+# Extending Litium
 
 ---
 # Web API
@@ -1599,7 +1599,33 @@ template: section
 * **OnlyServiceAccountAuthorization** – attribute to restrict API endpoint to only allow Service Accounts
 
 .footer[Read more: https://docs.litium.com/documentation/architecture/web-api]
- 
+
+---
+
+background-image: url(Images/connect.png)
+
+# Litium connect
+
+---
+# AddOns
+
+## Following are some of the most frequently used AddOns
+
+--
+
+### Product Media Mapper 
+To connect images and files to products automatically
+
+--
+
+### Payment providers 
+Klarna, Dibs, PayEx, Adyen, PayPal, Nets, Handelsbanken Ecster, Skrill
+
+--
+
+### Integration kit
+Starting platform to develop file based integrations towards Litium
+
 ---
 # Headless API AddOn
 
@@ -1625,6 +1651,7 @@ template: section
 * Litium Backoffice searches directly against the database
 
 --
+
 ## Search in Litium E-Commerce
 
 * Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and frontend. 
@@ -1658,7 +1685,7 @@ Example, create a baseproduct and all variants in a single transaction to avoid 
 ---
 # Batching example
 
-## `Litium.Data.DataService.CreateBatch`
+### `Litium.Data.DataService.CreateBatch`
 
 ```C#
 var baseProduct2Delete = _baseProductService.Get("123-456");
@@ -1700,7 +1727,7 @@ Caching example is done in the Redis development task
 ---
 # Batching example
 
-## `Litium.Data.DataService.CreateQuery`
+### `Litium.Data.DataService.CreateQuery`
 
 ```C#
 using (var query = _dataService.CreateQuery<BaseProduct>(opt => opt.IncludeVariants()))
@@ -1754,6 +1781,8 @@ template: section
 * Foundation Email
 
 ---
+class: scrollable
+
 # React components - Rendering the Buy button
 
 1. Buy button is added on the server in the MVC view `_VariantItem.cshtml`:
@@ -1795,8 +1824,15 @@ template: section
     }
     ```
 
-.footer[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
+.small[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
+
+<br/>
+<br/>
+<br/>
+
 ---
+class: scrollable
+
 # React components - Clicking the Buy button
 
 1. When a buybutton is clicked the `Add()`-method in `Cart.action.js` trigger a POST to the server:
@@ -1825,8 +1861,14 @@ template: section
 
 1. All components that share state gets updated, for example the MiniCart-component
 
-.footer[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
+.small[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
+
+<br/>
+<br/>
+
 ---
+class: scrollable
+
 # State on the client
 
 To give the stateless Web API controllers access to the current Litium state (current page/channel/product) that data needs to be passed in every request.
@@ -1856,6 +1898,9 @@ To give the stateless Web API controllers access to the current Litium state (cu
         ...
     ```
 
+<br/>
+<br/>
+<br/>
 
 ---
 template: section
@@ -1884,15 +1929,15 @@ template: section
 ---
 # Support
 
-## Solution related help, License or technical questions
+### Solution related help, License or technical questions
 support@litium.com 
 
 phone: 036-210 33 30
 
-## Technical failures, bug reports
+### Technical failures, bug reports
 https://docs.litium.com/support/bugs/report-a-bug
 
-## General Litium questions and discussions
+### General Litium questions and discussions
 https://forum.litium.com 
 
 .footer[Read more: https://docs.litium.com/support]
@@ -1910,4 +1955,4 @@ https://forum.litium.com
 
 ---
 template: section
-# GAME OVER
+# Thank You!
