@@ -290,20 +290,6 @@ System requirements for local development environment are avaliable on [Litium D
 Litium.Setup.complete is enough when web is not needed, for instance for the integration kit Windows service or the Litium Testproject
 
 ---
-# Distribution – Add-Ons/Accelerator
-
-### Compiled Add-Ons (e.g. payment provider addOns)
-
-Install via NuGet packages
-
-### Accelerator and source code Add-Ons (e.g. Integration Kit)
-
-Download from https://docs.litium.com 
-
---
-### The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
-
----
 template: task
 
 # Installation
@@ -449,79 +435,6 @@ template: section
 1. Show Websites
     1. Publishing to channel
 
----
-template: section
-# Architecture
-
----
-
-<img src="Images/architecture-03.png" width="85%" />
-
----
-
-# Component model
-
-* Namespaces
-    * Same namespace for domain entity and its service contract. 
-    * Example: `Variant` and `VariantService` are in the same `Litium.Products` namespace
-
-* Assembly Structure, examples
-    * `Litium.Abstractions`
-    * `Litium.Web.Abstractions`
-    * `Litium.Web.Mvc.Abstractions`
-    * `Litium.Web.WebApi.Abstractions`
-    * `Litium.Web.Administration.Abstractions`
-
-* Implementations
-    * `Litium.Application`
-    * `Litium.Infrastructure.MicrosoftServiceBus`
-
----
-
-# Service model
-
-* Litium contracts (Services)
-    * Artifacts that have “methods” or “operations”
-
-* Interfaces
-    * Implement an interface to extend the functionality
-    * Or change default functionality by extending default implementation using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
-    * Example: IPriceCalculator
-
-* Abstract Classes
-    * Declare service definitions that implementation projects are **not expected to change** 
-    * Example: BaseProductService
-
----
-
-# Concurrency
-
-* Pessimistic locking – prevent edits when an entity is being edited
-* Optimistic locking – allow edit but check before save if the item has been edited since it was read
-
---
-
-## Concurrency in Litium
-
-* Optimistic concurrency is available **only in Ecommerce area**
-
-* No other areas have concurrency checks!
-
-* It is possible to enforce pessimistic concurrency with DistributedLock:
-    ```C#
-    using (_distributedLockService.AcquireLock(key, TimeSpan.FromSeconds(10)))
-    {
-        // Work with the locked entity
-        
-        // Tip: the Redis-task has a subtask for working with distributed lock
-    }
-    ```
-
-???
-
-The optimistic concurrency control approach doesn't actually lock anything - instead, it asks User A to remember what the row looked like when he first saw it, and when it's time to update it, the user asks the database to go ahead only if the row still looks like he remembers it. 
-
-https://blogs.msdn.microsoft.com/marcelolr/2010/07/16/optimistic-and-pessimistic-concurrency-a-simple-explanation/
 
 ---
 template:section
@@ -927,6 +840,119 @@ TODO - Change image into draw.io
 
 ---
 template: section
+# Architecture
+
+---
+
+<img src="Images/architecture-03.png" width="85%" />
+
+---
+
+# Component model
+
+* Namespaces
+    * Same namespace for domain entity and its service contract. 
+    * Example: `Variant` and `VariantService` are in the same `Litium.Products` namespace
+
+* Assembly Structure, examples
+    * `Litium.Abstractions`
+    * `Litium.Web.Abstractions`
+    * `Litium.Web.Mvc.Abstractions`
+    * `Litium.Web.WebApi.Abstractions`
+    * `Litium.Web.Administration.Abstractions`
+
+* Implementations
+    * `Litium.Application`
+    * `Litium.Infrastructure.MicrosoftServiceBus`
+
+---
+
+# Service model
+
+* Litium contracts (Services)
+    * Artifacts that have “methods” or “operations”
+
+* Interfaces
+    * Implement an interface to extend the functionality
+    * Or change default functionality by extending default implementation using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
+    * Example: IPriceCalculator
+
+* Abstract Classes
+    * Declare service definitions that implementation projects are **not expected to change** 
+    * Example: BaseProductService
+
+---
+# Redis
+
+> _"An open source, in-memory data structure store, used as a database, cache and message broker"_
+
+--
+
+### Redis in Litium
+
+* Distributed Cache
+
+* Concurrency
+
+* Service bus
+
+---
+
+# Distributed Cache
+
+Cache outside the Litium application
+
+* Does not clear when the site restarts
+
+* Faster than database
+
+* Reduces database usage
+
+.footer[An optional development task for distributed cache is avaliable]
+
+???
+
+Redis cache is second line to a short in memory 2-minute cache, for high performance and low memory usage
+
+Improvements in application startup from 3 minutes to 30 seconds
+
+---
+
+# Concurrency
+
+* Pessimistic locking – prevent edits when an entity is being edited
+* Optimistic locking – allow edit but check before save if the item has been edited since it was read
+
+--
+
+## Concurrency in Litium
+
+* Optimistic concurrency is available **only in Ecommerce area**
+
+* No other areas have concurrency checks!
+
+* It is possible to enforce pessimistic concurrency with DistributedLock:
+    ```C#
+    using (_distributedLockService.AcquireLock(key, TimeSpan.FromSeconds(10)))
+    {
+        // Work with the locked entity
+        
+        // Tip: the Redis-task has a subtask for working with distributed lock
+    }
+    ```
+
+.footer[An optional development task for distributed lock is avaliable]
+
+???
+
+With Redis, we use the well proven Redlock algorithm to achieve locking, with very high performance and stability, to make sure that only one order is created for the same payment
+
+The optimistic concurrency control approach doesn't actually lock anything - instead, it asks User A to remember what the row looked like when he first saw it, and when it's time to update it, the user asks the database to go ahead only if the row still looks like he remembers it. 
+
+https://blogs.msdn.microsoft.com/marcelolr/2010/07/16/optimistic-and-pessimistic-concurrency-a-simple-explanation/
+
+---
+template: section
 # Dependency injection
 ---
 # Dependency injection
@@ -982,12 +1008,14 @@ public abstract class StockService
 }
 
 ```
-### Lifetime
+#### Lifetime
 * **Singleton:** Clients will always receive that same instance from the container
-* **Scoped:** For every request within a scope (usually the web request)
+* **Scoped:** The same instance is used within the scope
+    * The entire web request
+    * The ececution of a scheduled task
 * **Transient:** A new instance of the component will be created each time the service is requested from the container
 
-### RequireServiceImplementation
+#### RequireServiceImplementation
 * When a implementation is required for the application to run
 
 ---
@@ -1546,6 +1574,10 @@ public class MyEventSubscriber : IDisposable
     * Windows service bus on a server 
     * Azure service bus
 
+Service bus in Microsoft Azure – 150 items/sec​
+Redis in Microsoft Azure – 400 items/sec​
+Redis in Litium Cloud – 5000 items/sec​
+
 ---
 template: section
 # Validation
@@ -1584,6 +1616,77 @@ template: section
 # Extending Litium
 
 ---
+# Litium core APIs
+
+<img src="images/core-apis-2.png" width="100%" />
+
+???
+
+Covers all entities
+Litium .NET API
+Litium Admin Web API
+Event subscription
+
+OpenAPI specification (previously swagger docs) to document our API, which means, you can actually auto-generate the API entities using the swag studio, or visual studio. 
+
+---
+
+background-image: url(Images/connect.png)
+
+# Litium connect
+
+---
+
+# Litium connect
+
+.left-col[
+### What is it?
+
+* Stand alone applications
+
+* High level Web API interface
+
+* Subscribe to Web hooks
+
+* Guaranteed delivery
+
+* Security with OAuth and Litium service accounts
+
+* High performance
+]
+
+--
+
+.right-col[
+### Benefits
+
+* Deploy and scale without restarting Litium
+
+* Litium version agnostic, example
+
+| Litium version | ERP Hub version | Channel Hub version | 
+| :-: | :-: | :-: |
+| 7.4 | 1.0 | - |
+| 8.0 | 1.0 | 1.0 |
+| 9.0 | 2.0 | 1.0 |
+
+* Integrations as applications
+]
+
+
+???
+
+Web hooks = Example, leave phonenumber to be called back in phone queue
+
+Guaranteed delivery = Litium tries to deliver the message a few times before giving up 
+
+---
+
+# Litium core APIs coverage
+
+<img src="images/core-apis.png" width="90%" />
+
+---
 # Web API
 
 * Useful for
@@ -1602,11 +1705,6 @@ template: section
 
 ---
 
-background-image: url(Images/connect.png)
-
-# Litium connect
-
----
 # AddOns
 
 ## Following are some of the most frequently used AddOns
@@ -1636,6 +1734,20 @@ Starting platform to develop file based integrations towards Litium
 * https://docs.litium.com/documentation/add-ons/integration/litium-headless-api
 
 ---
+# Distribution – Add-Ons/Accelerator
+
+### Compiled Add-Ons (e.g. payment provider addOns)
+
+Install via NuGet packages
+
+### Accelerator and source code Add-Ons (e.g. Integration Kit)
+
+Download from https://docs.litium.com 
+
+--
+### The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
+
+---
 template: task
 # Web API
 
@@ -1644,19 +1756,36 @@ template: section
 # Searching & Batching
 
 ---
-# Search
+# Litium Search
 
-* Litium Accelerator uses Elasticsearch as search engine
+* Litium Accelerator uses Litium Search
 
-* Litium Backoffice searches directly against the database
+* One distributed search engine for all web servers
 
---
+* Litium Search is built on Elasticsearch with additional plugins and administration interface
 
-## Search in Litium E-Commerce
+* Litium Backoffice (except E-Commerce) searches directly against the database
+
+* Accelerator is packaged with indices for pages, categories and products
+
+    * Additional indices can be added if needed
+
+* Litium Search is not yet avaliable in E-Commerce
+
+.footer[Read more: https://docs.litium.com/documentation/architecture/search]
+
+???
+
+It is possible to fine tune how the indexing of a item is made, and what fields to include​
+
+The configuration options is not only for indexing, you also get full flexibility when searching, you can improve the importance of different fields and adjust how search result should be presented to match what the visitor expect.
+
+---
+# Search in Litium E-Commerce
 
 * Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and frontend. 
 
-* This will be replaced with above technology in Litium version 8
+* This will be replaced by Litium Search in Litium version 8
 
 .footer[Read more: https://docs.litium.com/documentation/architecture/search]
 ---
@@ -1725,7 +1854,7 @@ Do not use towards public site, without implementing own [caching](https://docs.
 Caching example is done in the Redis development task
 
 ---
-# Batching example
+# Querying example
 
 ### `Litium.Data.DataService.CreateQuery`
 
@@ -1750,6 +1879,10 @@ using (var query = _dataService.CreateQuery<BaseProduct>(opt => opt.IncludeVaria
 }
 ```
 .footer[See the full code sample on https://docs.litium.com/documentation/architecture/data-service]
+
+???
+
+The querylanguage is custom but inspired by the structure in Elastic search
 
 ---
 template: task
@@ -1925,6 +2058,19 @@ template: section
 ---
 template: section
 # Next step
+
+---
+# Documentation
+
+## https://docs.litium.com/
+
+* Downloads and Release notes
+
+* Best practices
+
+* API Reference
+
+* Architecture
 
 ---
 # Support
