@@ -10,6 +10,7 @@ To simplify we will copy and modify files for the Article page.
 
 The template is what defines which fields that are avaliable when a Author page is created.
 
+1. Add _Author_ to `Litium.Accelerator.Constants.PageTemplateNameConstants`
 1. Copy `\Src\Litium.Accelerator\Definitions\Pages\ArticlePageTemplateSetup.cs` to `AuthorPageTemplateSetup.cs` in the same folder
     1. Replace all occurances of _article_ in the file with _author_
 1. Add a translation in `Src\Litium.Accelerator.Mvc\Site\Resources\Administration\Administration.resx`, use **key=**`fieldtemplate.websitearea.Author.name` and **value=**`Author page`
@@ -31,7 +32,6 @@ When the template definition is created you can create instances of your new pag
 
 With the MVC Controller and View created we can render the template on the site, but the Litium platform also need to know that the Author template and the Author controller are connected.
 
-1. Add _Author_ to `Litium.Accelerator.Constants.PageTemplateNameConstants`
 1. Add _Author_ to the `_controllerMapping`-list in `Litium.Accelerator.Mvc.Definitions.FieldTemplateSetupDecorator`, set type to `Websites.WebsiteArea` and reference your previously created `AuthorController` 
 
 ## 4. Try it out

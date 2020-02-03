@@ -59,3 +59,17 @@ table {
   display: block;
   height: 700px;
 }
+.jquery-modal.blocker {
+  /* Position document outline modal on top of slide */
+  z-index: 9;
+}
+.slideshow-outline-link {
+  bottom: 35px;
+  opacity: 0.3;
+  position: absolute;
+  right: 20px;
+}
+.outline-active-slide-link {
+  color: white;
+  background-color: #1494f6;
+}

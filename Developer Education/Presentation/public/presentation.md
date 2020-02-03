@@ -34,6 +34,7 @@ name: default
 <img src="Images/litium_logotyp_rgb.svg" alt="Litium-logo" height="20"/>
 
 ---
+name: Agenda
 
 .left-col[
 ## Agenda day 1
@@ -93,9 +94,12 @@ class: center
 > Litium Certifications also add business value to partner organizations. 
 
 ---
+name: Features
+
 background-image: url(Images/features.png)
 
 ---
+name: Architecture stack
 
 <img src="Images/architecture-01.png" alt="Architecture" width="100%" />
 
@@ -199,6 +203,7 @@ BEM provides a modular structure to your CSS project. Because of its unique nami
 https://medium.com/@dannyhuang_75970/what-is-bem-and-why-you-should-use-it-in-your-project-ab37c6d10b79
 
 ---
+name: MVC vs. React
 
 .left-col[
 # MVC
@@ -441,7 +446,6 @@ template:section
 # Data Modelling
 
 ---
-
 # Entities
 
 ### The following Litium entities support data modelling with the field framework
@@ -450,7 +454,7 @@ template:section
 | :-: | :-: | :-: | :-: | :-: |
 | Product | Person | Website | Media | Market |
 | Category | Group | Page | Channel | Folder |
-| | Organization | | Block |
+| | Organization | Block |
 
 ???
 
@@ -511,20 +515,9 @@ new FieldDefinition<CustomerArea>("SocialSecurityNumber", SystemFieldTypeConstan
 ---
 # Field template
 
-### The field definitions can be grouped into field groups and added to a field template
+* _Fields_ are added _field groups_
 
-![Field template](images/field-template.png)
-
-???
-
-TODO - Replace image with draw.io
-
----
-# Field template
-
-* _Fields_ can be linked to a _field group_
-
-* _Field groups_ are then linked to _field templates_
+* _Field groups_ are then added to _field templates_
 
 ```C#
 new PersonFieldTemplate("B2CPersonTemplate")
@@ -633,15 +626,11 @@ public abstract class ChannelService : IEntityService<Channel>,
 
 Sample from `LoginServiceImpl`:
 ```C#
-user = user.MakeWritableClone();
-if (mustChangePasswordAtNextLogon)
-{
-    user.LoginCredential.PasswordExpirationDate = DateTimeOffset.UtcNow;
-}
-user.LoginCredential.NewPassword = newPassword;
+person = person.MakeWritableClone();
+person.LoginCredential.NewPassword = newPassword;
 using (_securityContextService.ActAsSystem())
 {
-    _personService.Update(user);
+    _personService.Update(person);
 }
 ```
 
@@ -843,6 +832,8 @@ template: section
 # Architecture
 
 ---
+name: Arcitecture
+
 
 <img src="Images/architecture-03.png" width="85%" />
 
@@ -898,7 +889,7 @@ template: section
 
 ---
 
-# Distributed Cache
+# Redis Distributed Cache
 
 Cache outside the Litium application
 
@@ -997,7 +988,7 @@ public class ChocolateIceCream : IIceCream
 [Read more on Litium Docs](https://docs.litium.com/documentation/architecture/dependency-injection/service-registration)
 
 ---
-# Dependency injection decorators
+# Dependency injection lifetime
 
 ```C#
 [Service(ServiceType = typeof(IIceCream), Lifetime = DependencyLifetime.Singleton)]
@@ -1130,6 +1121,7 @@ Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-
 TODO - Replace image with draw.io
 
 ---
+name: Create order - detailed
 
 <img src="images/ecom-create-order-detail.png" width="70%" />
 
@@ -1749,6 +1741,7 @@ Download from https://docs.litium.com
 
 ---
 template: task
+
 # Web API
 
 ---
@@ -1886,6 +1879,7 @@ The querylanguage is custom but inspired by the structure in Elastic search
 
 ---
 template: task
+
 # Data service
 
 ---
