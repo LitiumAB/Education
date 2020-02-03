@@ -68,27 +68,30 @@ slideshow.on("showSlide", function(slide) {
 });
 
 $(document).ready(function() {
-  $(".remark-slide-container .remark-slide-content").each(function(index) {
-    // Add the link to open outline modal on each slide
-    $(this).append(
-      `
+  // 2 sec delay on rendering the links due to issue with slide rendering in prod
+  setTimeout(function() {
+    $(".remark-slide-container .remark-slide-content").each(function(index) {
+      // Add the link to open outline modal on each slide
+      $(this).append(
+        `
         <div class="slideshow-outline-link">
             <a href="#document-outline" rel="modal:open"><img src="images/index-icon.png" width="13px" /></a>
         </div>`
-    );
-  });
+      );
+    });
 
-  var outline = "<h1>Contents</h1>";
-  var slides = slideshow.getSlides();
-  for (var i = 0; i < slides.length; i++) {
-    var slide = slides[i];
+    var outline = "<h1>Contents</h1>";
+    var slides = slideshow.getSlides();
+    for (var i = 0; i < slides.length; i++) {
+      var slide = slides[i];
 
-    if (slide.properties.continued == "true") {
-      continue;
+      if (slide.properties.continued == "true") {
+        continue;
+      }
+
+      outline += getSlideHtml(slide);
     }
 
-    outline += getSlideHtml(slide);
-  }
-
-  $("#document-outline").prepend(outline);
+    $("#document-outline").prepend(outline);
+  }, 2000);
 });
