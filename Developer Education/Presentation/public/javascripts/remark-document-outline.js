@@ -38,6 +38,8 @@ function getSlideTitle(slide) {
 
 function getSlideHtml(slide) {
   var index = slide.getSlideIndex();
+  var isCurrentSlide = index == slideshow.getCurrentSlideIndex();
+
   var slideTitle = getSlideTitle(slide);
   if (!slideTitle) {
     console.error(
@@ -47,24 +49,21 @@ function getSlideHtml(slide) {
   }
 
   var isSection = slide.properties.template == "section";
-  var linkText = isSection
-    ? `<h3>${index + 1}. ${slideTitle}</h3>`
-    : `<span class="small">${index + 1}. ${slideTitle}</span><br />`;
-
-  var isCurrentSlide = index == slideshow.getCurrentSlideIndex();
-  var html = `<a href="#${index + 1}" id="slide-link-${index}" class="${
+  var linkText = `<div id="slide-link-${index}" class="${
     isCurrentSlide ? "outline-active-slide-link" : ""
-  }">${linkText}</a>`;
+  } outline-section-${isSection ? "header" : "item"}">${index +
+    1}. ${slideTitle}</div>`;
+  var html = `<a href="#${index + 1}">${linkText}</a>`;
   return html;
 }
 
 slideshow.on("showSlide", function(slide) {
   // Remove previous highlight
-  $("#document-outline a").attr("class", "");
+  $(".outline-active-slide-link").toggleClass("outline-active-slide-link", false);
 
   // Highlight the current slide in index
   var index = slide.getSlideIndex();
-  $("#slide-link-" + index).attr("class", "outline-active-slide-link");
+  $("#slide-link-" + index).toggleClass("outline-active-slide-link", true);
 });
 
 $(document).ready(function() {

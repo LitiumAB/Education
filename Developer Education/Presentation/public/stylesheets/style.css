@@ -73,3 +73,17 @@ table {
   color: white;
   background-color: #1494f6;
 }
+.outline-section-item {
+  font-size: small;
+  padding: 3px 3px 3px 20px;
+}
+.outline-section-header {
+  padding: 3px;
+}
+.outline-section-item, .outline-section-header {
+  margin: 6px 0 2px 0px;
+}
+.modal a:visited, .modal a:link {
+  color: black;
+  text-decoration: none;
+}

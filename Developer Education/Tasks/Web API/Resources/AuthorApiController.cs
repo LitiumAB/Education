@@ -1,6 +1,7 @@
 using System;
 using System.Web.Http;
 using Litium.Accelerator.Services;
+using Litium.Accelerator.ViewModels.Author;
 using Litium.Web.WebApi;
 
 namespace Litium.Accelerator.Mvc.Controllers.Api

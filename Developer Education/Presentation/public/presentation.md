@@ -71,7 +71,7 @@ name: Agenda
 
 * Data service
 
-* Accelerator frontend development
+* Accelerator front-end development
 
 * Certification exam
 ]
@@ -105,9 +105,11 @@ name: Architecture stack
 
 ???
 
-Product Information System
-Order Management System
-Content Management System
+* Product Information System
+
+* Order Management System
+
+* Content Management System
 
 ---
 
@@ -196,14 +198,15 @@ BLL Allows the same business logic to be used in both Web API and in MVC Views
 
 ???
 
-No JQuery
-
-BEM provides a modular structure to your CSS project. Because of its unique naming scheme, we won’t run into conflicts with other CSS names. BEM also provides a relationship between CSS and HTML. Ambiguous names are hard to maintain in the future.
+BEM 
+* provides a modular structure to your CSS project. 
+* Naming scheme to avoid conflicts with other CSS names
+* provides a relationship between CSS and HTML
 
 https://medium.com/@dannyhuang_75970/what-is-bem-and-why-you-should-use-it-in-your-project-ab37c6d10b79
 
 ---
-name: MVC vs. React
+name: Accelerator MVC & React
 
 .left-col[
 # MVC
@@ -292,10 +295,13 @@ System requirements for local development environment are avaliable on [Litium D
 
 ???
 
-Litium.Setup.complete is enough when web is not needed, for instance for the integration kit Windows service or the Litium Testproject
+Litium.Setup.complete is enough when web is not needed, in:
+* Integration kit Windows service 
+* Litium Testproject
 
 ---
 template: task
+name: Task: Installation
 
 # Installation
 
@@ -352,7 +358,7 @@ Will not work offline
 
 template: section
 
-# Demo: Litium Accelerator Frontend
+# Demo: Litium Accelerator Front-end
 
 ???
 
@@ -429,9 +435,10 @@ template: section
 1. Show the dashboard and default widgets
 1. Show control panel
     1. Globalization
+    1. Editing a field and a template
 1. Very briefly show Media
-1. View the person created with the frontend order person
-1. View the order created earlier in fromtend demo
+1. View the order created earlier in front-end demo
+1. View the person created with the placed order
 1. Go through PIM
     1. Base product and variants
     1. Prices 
@@ -439,6 +446,7 @@ template: section
     1. Publishing to channel
 1. Show Websites
     1. Publishing to channel
+    1. Blocks
 
 
 ---
@@ -474,7 +482,9 @@ With Litium 8 additional entities from E-commerce will be added
     * Field instances are per **Area**
 
 --
-* The field does not need to be added to a Field template be added to an entity - The field template is not the container of fields
+* The field does not need to be added to a Field template be added to an entity
+
+    * The field template is not the container of fields
     
     * Skip adding a field to a template to make it hidden for editors
     
@@ -590,6 +600,10 @@ new FieldDefinition<BlockArea>(BlockFieldNameConstants.Banners,
 ```
 ]
 
+???
+
+TODO - replace image with draw.io
+
 ---
 
 # Entity Model
@@ -636,8 +650,10 @@ using (_securityContextService.ActAsSystem())
 
 ???
 
-Makewriteableclone - Creates a clone of the object in cache
-All items are read only when fetched, writeable object replaces item in cache
+Makewriteableclone
+* Creates a clone of the object in cache
+* All items are read only when fetched
+* The writeable object replaces read-only item in cache
 
 ---
 # Entity model - Relationships between entities
@@ -673,10 +689,11 @@ Implication: TaxClass has its own TaxClassService, but there is no _CountryToTax
 
 ???
 
-A country does not have a tax class object
-Entities are connected with a link-object that can have its own data
+* A country does not have a tax class object
 
-Similar to a connecting-table in SQL Server
+* Entities are connected with a link-object that can have its own data
+
+* Similar to a connecting-table in SQL Server
 
 ---
 
@@ -750,6 +767,7 @@ TODO - Info om WebsiteTextContainer
 
 ---
 template: task
+name: Task: Author page
 # Author page
 
 ---
@@ -814,7 +832,11 @@ TODO - Change image into draw.io
 ---
 # Channel
 
-<img src="images/market-domain-model.png" width="85%" />
+<img src="images/channel-domain-model.png" width="85%" />
+
+???
+
+TODO - Replace image with draw.io
 
 ---
 # Country & Tax class
@@ -826,6 +848,10 @@ TODO - Change image into draw.io
     * All products with the same tax class has the same VAT percentage
 
 <img src="images/countrytotaxclasslink2.png" width="85%" />
+
+???
+
+TODO - Replace image with draw.io
 
 ---
 template: section
@@ -936,11 +962,14 @@ Improvements in application startup from 3 minutes to 30 seconds
 
 ???
 
-With Redis, we use the well proven Redlock algorithm to achieve locking, with very high performance and stability, to make sure that only one order is created for the same payment
-
+### Concurrency
 The optimistic concurrency control approach doesn't actually lock anything - instead, it asks User A to remember what the row looked like when he first saw it, and when it's time to update it, the user asks the database to go ahead only if the row still looks like he remembers it. 
 
 https://blogs.msdn.microsoft.com/marcelolr/2010/07/16/optimistic-and-pessimistic-concurrency-a-simple-explanation/
+
+
+### Distributed lock
+With Redis, we use the well proven Redlock algorithm to achieve locking, with very high performance and stability, to make sure that only one order is created for the same payment
 
 ---
 template: section
@@ -1011,6 +1040,7 @@ public abstract class StockService
 
 ---
 template: task
+name: Task: Author service
 # Author service
 
 ---
@@ -1036,6 +1066,7 @@ template: task
 
 ---
 template: task
+name: Task: Author service decorator
 # Author service decorator
 
 ---
@@ -1060,8 +1091,9 @@ template: section
 
 If we want to create objects in a integration job the running context will lack permissions to modify data:
 ```C#
-var categoryToChannelLink = new CategoryToChannelLink(channelId);
 category = category.MakeWritableClone();
+
+var categoryToChannelLink = new CategoryToChannelLink(channelId);
 category.ChannelLinks.Add(categoryToChannelLink);
 
 _categoryService.Update(category);
@@ -1073,7 +1105,8 @@ If the current user does not have permission a `Litium.Security.AuthorizationExc
 --
 To solve this we can temporarily impersonate the SystemUser:
 ```C#
-using(_securityContextService.ActAsSystem())
+// Pass optional parameter to ActAsSystem to show a more informative name in audit log:
+using(_securityContextService.ActAsSystem("MyIntegrationJob"))
 {
     _categoryService.Update(category);
 }
@@ -1314,6 +1347,8 @@ Show lists in Backoffice!
 * A list can be used and published on a website
 * A dynamic list is a static list with an event based engine that adds/removes items from the list 
 
+TODO - Replace image with draw.io
+
 ---
 # Relations between products and categories
 
@@ -1322,6 +1357,10 @@ Show lists in Backoffice!
 ## Relationship types
 * Directional “Accessories”
 * Bi-directional “Similar products”
+
+???
+
+TODO - Replace image with draw.io
 
 ---
 # Display templates
@@ -1336,10 +1375,6 @@ Show lists in Backoffice!
 
     * In Control _Panel > Accelerator_ the default implementation has a UI to select grouping field
 
-???
-
-Show displaytemplate for PIM per website on Litium Demosite
-
 ---
 # Common PIM extension points
 
@@ -1353,43 +1388,8 @@ Adjust so that package product inventory is the sum of its parts
 
 ---
 template: task
+name: Task: Pricing rules
 # Pricing rules
-
----
-template: section
-
-# Area: Customers
-
----
-# Customers (Relations module)
-
-## A registry of customers, permission groups & organizations
-
-### In standard accelerator there is no standalone user registration page
-
-Instead a new customer is created during checkout if the _“create account”_-checkbox is selected when an order is submitted
-
-See the `RegisterNewUser()`-method in `Src\Litium.Accelerator\Services\CheckoutServiceImpl.cs`
-
-???
-
-TODO - more content on customers?
-
----
-template: section
-
-# Area: Media
-
----
-# Media
-
-* Stores all images and files
-
-* Physically the images are saved in the “Files/media”-folder
-
-    * Use CommonFilesDirectory in multiserver scenarios
-
-* If many products need to be enriched with images use the [media mapper addOn](https://docs.litium.com/documentation/add-ons/product-management/product-media-mapper_1)
 
 ---
 template: section
@@ -1424,15 +1424,17 @@ template: section
 ---
 # Event log
 
+* Managed in NLog.config
+
+--
+
 * Log to database, access in backoffice
     <img src="images/event-log.png" width="100%" class="img-border" />
 
 --
-- Log to file
-    <img src="images/event-log-file.png" width="100%" class="img-border" />
 
---
-* Manage in NLog.config
+* Log to file
+    <img src="images/event-log-file.png" width="100%" class="img-border" />
 
 ---
 template: section
@@ -1461,7 +1463,7 @@ Events are used to sync cache and search index on every application/server
 ---
 class: scrollable
 
-# Event system - Example
+# Creating a custom event
 
 ### Step 1: Declare the event class, typed with the object we need to pass:
 ```C#
@@ -1561,14 +1563,15 @@ public class MyEventSubscriber : IDisposable
 
 * By default the queue is stored in the bus for approx 1 day
 
-* Supported: 
+* Supported:
     * Redis
     * Windows service bus on a server 
     * Azure service bus
 
-Service bus in Microsoft Azure – 150 items/sec​
-Redis in Microsoft Azure – 400 items/sec​
-Redis in Litium Cloud – 5000 items/sec​
+* Tested:
+    * Service bus in Microsoft Azure – 150 items/sec​
+    * Redis in Microsoft Azure – 400 items/sec​
+    * Redis in Litium Cloud – 5000 items/sec​
 
 ---
 template: section
@@ -1595,12 +1598,16 @@ public class ValidationExample : ValidationRuleBase<Currency>
 
 * Inheriting `ValidationRuleBase` instead of `IValidationRule` gives a typed entity
 
+* Inheriting `ValidationRuleBase` is enough to register the validation to be executed on every entity modification
+
 ---
 template: task
+name: Task: Author field
 # Author field
 
 ---
 template: task
+name: Task: Validation
 # Validation
 
 ---
@@ -1614,12 +1621,14 @@ template: section
 
 ???
 
-Covers all entities
-Litium .NET API
-Litium Admin Web API
-Event subscription
+* Covers all entities
+* Litium .NET API
+* Litium Admin Web API
+* Event subscription
 
 OpenAPI specification (previously swagger docs) to document our API, which means, you can actually auto-generate the API entities using the swag studio, or visual studio. 
+
+TODO - Add reference links to api generation tools
 
 ---
 
@@ -1741,6 +1750,7 @@ Download from https://docs.litium.com
 
 ---
 template: task
+name: Task: Web API
 
 # Web API
 
@@ -1765,6 +1775,11 @@ template: section
 
 * Litium Search is not yet avaliable in E-Commerce
 
+    * Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and frontend. 
+
+    * This will be replaced by Litium Search in Litium version 8
+
+
 .footer[Read more: https://docs.litium.com/documentation/architecture/search]
 
 ???
@@ -1773,16 +1788,10 @@ It is possible to fine tune how the indexing of a item is made, and what fields 
 
 The configuration options is not only for indexing, you also get full flexibility when searching, you can improve the importance of different fields and adjust how search result should be presented to match what the visitor expect.
 
+TODO - Add task on query with the above options for boost and presentation
+
 ---
-# Search in Litium E-Commerce
-
-* Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and frontend. 
-
-* This will be replaced by Litium Search in Litium version 8
-
-.footer[Read more: https://docs.litium.com/documentation/architecture/search]
----
-# Batching data
+# DataService - Batching data
 
 ```C#
 Litium.Data.DataService.CreateBatch
@@ -1805,7 +1814,7 @@ Litium.Data.DataService.CreateBatch
 Example, create a baseproduct and all variants in a single transaction to avoid creating incomplete products
 
 ---
-# Batching example
+# DataService - Batching example
 
 ### `Litium.Data.DataService.CreateBatch`
 
@@ -1832,7 +1841,7 @@ using (var db = _dataService.CreateBatch())
 .footer[See the full code sample on https://docs.litium.com/documentation/architecture/data-service]
 
 ---
-# Querying data
+# DataService - Querying data
 
 ```C#
 Litium.Data.DataService.CreateQuery
@@ -1847,7 +1856,7 @@ Do not use towards public site, without implementing own [caching](https://docs.
 Caching example is done in the Redis development task
 
 ---
-# Querying example
+# DataService - Querying example
 
 ### `Litium.Data.DataService.CreateQuery`
 
@@ -1879,15 +1888,16 @@ The querylanguage is custom but inspired by the structure in Elastic search
 
 ---
 template: task
+name: Task: Data service
 
 # Data service
 
 ---
 template: section
-# Accelerator frontend development
+# Accelerator front-end development
 
 ---
-# Front end code structure
+# Accelerator front-end code structure
 
 * Component based
 
@@ -2054,33 +2064,16 @@ template: section
 # Next step
 
 ---
-# Documentation
+# Resouces
 
-## https://docs.litium.com/
-
-* Downloads and Release notes
-
-* Best practices
-
-* API Reference
-
-* Architecture
-
----
-# Support
-
-### Solution related help, License or technical questions
-support@litium.com 
-
-phone: 036-210 33 30
-
-### Technical failures, bug reports
-https://docs.litium.com/support/bugs/report-a-bug
-
-### General Litium questions and discussions
-https://forum.litium.com 
-
-.footer[Read more: https://docs.litium.com/support]
+| What<br/><br/> | Where |
+|:--|:--|
+|Documentation, release notes and downloads<br/><br/>|https://docs.litium.com/<br/><br/>|
+|Solution help, License or technical questions<br/><br/>|https://docs.litium.com/support<br/><br/>|
+|Technical failures, bug reports<br/><br/>|https://docs.litium.com/support/bugs/report-a-bug<br/><br/>|
+|Litium slack<br/><br/>|https://docs.litium.com/community<br/><br/>|
+|General questions and discussions<br/><br/>|https://forum.litium.com<br/><br/>|
+|Feature ideas and requests<br/><br/>|https://ideas.litium.com<br/><br/>|
 
 ---
 # License
