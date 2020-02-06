@@ -3,7 +3,7 @@
 version: '3'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
     container_name: elasticsearch
     ports:
     - "9200:9200"
@@ -19,10 +19,10 @@ services:
     - -c
     # # The accelerator implementation of Elasticsearch require the analysis-dynamic-synonym plugin that refreshes 
     # # the list of synonyms used by Elasticsearch every minute to allow new synonyms being modified without downtime.
-    - "./bin/elasticsearch-plugin list | grep -q analysis-dynamic-synonym || ./bin/elasticsearch-plugin install -b https://github.com/Tasteful/elasticsearch-analysis-dynamic-synonym/releases/download/v7.5.1/elasticsearch-analysis-dynamic-synonym.zip; /usr/local/bin/docker-entrypoint.sh"
+    - "./bin/elasticsearch-plugin list | grep -q analysis-dynamic-synonym || ./bin/elasticsearch-plugin install -b https://github.com/Tasteful/elasticsearch-analysis-dynamic-synonym/releases/download/v7.5.2/elasticsearch-analysis-dynamic-synonym.zip; /usr/local/bin/docker-entrypoint.sh"
   kibana:
     # The Kibana image tries, by default, to connect to a host/container called elasticsearch.
-    image: docker.elastic.co/kibana/kibana:7.5.1
+    image: docker.elastic.co/kibana/kibana:7.5.2
     container_name: kibana
     ports:
     - "5601:5601"
