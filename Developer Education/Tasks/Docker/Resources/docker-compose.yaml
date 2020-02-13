@@ -17,8 +17,9 @@ services:
     entrypoint: 
     - /bin/sh
     - -c
-    # # The accelerator implementation of Elasticsearch require the analysis-dynamic-synonym plugin that refreshes 
-    # # the list of synonyms used by Elasticsearch every minute to allow new synonyms being modified without downtime.
+    # The accelerator implementation of Elasticsearch require the analysis-dynamic-synonym.
+    # The plugin refreshes the list of synonyms in Elasticsearch every minute allowing synonyms 
+    # to be added/modified in Litium backoffice and updated in Elasticsearch without downtime.
     - "./bin/elasticsearch-plugin list | grep -q analysis-dynamic-synonym || ./bin/elasticsearch-plugin install -b https://github.com/Tasteful/elasticsearch-analysis-dynamic-synonym/releases/download/v7.5.2/elasticsearch-analysis-dynamic-synonym.zip; /usr/local/bin/docker-entrypoint.sh"
   kibana:
     # The Kibana image tries, by default, to connect to a host/container called elasticsearch.

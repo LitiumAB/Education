@@ -3,6 +3,7 @@
 *.user
 *.suo
 litium*.log
+elasticsearch*.log
 License*.config
 
 bin/

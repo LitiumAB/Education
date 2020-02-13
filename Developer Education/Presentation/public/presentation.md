@@ -10,6 +10,9 @@ class: center, top, section-background
 
 template: section
 # Developer Education
+.footer[
+Use the arrow-keys to navigate the slides or click the icon in bottom-right corner to open the overview
+]
 
 ---
 
@@ -21,7 +24,9 @@ class: center, top
 
 # Development task
 
-All tasks are available at https://github.com/LitiumAB/Education/<br />in folder _Developer education/Tasks_
+All tasks are available at [github.com/LitiumAB](https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks)
+<br />(in Education/Developer Education/Tasks)
+
 
 ### Complete the task: 
 
@@ -274,8 +279,15 @@ System requirements for local development environment are avaliable on [Litium D
 
 * IIS (verify that .NET development is enabled through _“Turn windows features on/off”_)
 * SMTP Server
+* sessionState = StateServer
 * Elasticsearch
 * Redis
+
+???
+
+Change sessionState from InProc to StateServer in Web.config.
+`<sessionState mode="StateServer" stateConnectionString="tcpip=127.0.0.1:42424" />`
+Run the windows service _ASP.NET State Service_ for this to work
 
 ---
 
@@ -313,9 +325,9 @@ template: section
 
 ---
 
-# Options in Web.config
+# Web.config updates during installation
 
-* Connectionstrings for database, Elasticsearch and Redis
+* Connectionstrings for database and Elasticsearch
 
 * Files folder
 
@@ -482,7 +494,7 @@ With Litium 8 additional entities from E-commerce will be added
     * Field instances are per **Area**
 
 --
-* The field does not need to be added to a Field template be added to an entity
+* The field does not need to be added to a Field template to be added to an entity
 
     * The field template is not the container of fields
     
@@ -638,15 +650,13 @@ public abstract class ChannelService : IEntityService<Channel>,
 
 1. Update the clone and call the update method of the respective entity service
 
-Sample from `LoginServiceImpl`:
-```C#
-person = person.MakeWritableClone();
-person.LoginCredential.NewPassword = newPassword;
-using (_securityContextService.ActAsSystem())
-{
+    ```C#
+    person = person.MakeWritableClone();
+
+    person.LoginCredential.NewPassword = newPassword;
+
     _personService.Update(person);
-}
-```
+    ```
 
 ???
 
@@ -1043,6 +1053,38 @@ template: task
 name: Task: Author service
 # Author service
 
+???
+
+# Optional implementation 
+The recommended way to implement this is to set the Books-property using automapper. 
+
+It is slightly more complex and therefore not used in task.
+
+In the mapping call a custom valueresolver:
+```C#
+cfg.CreateMap<PageModel, AuthorViewModel>()
+    // ...
+    .ForMember(x => x.Books, m => m.MapFrom<BookResolver>());
+```
+Define valueresolver:
+```C#
+[UsedImplicitly]
+protected class BookResolver : IValueResolver<PageModel, AuthorViewModel, List<string>>
+{
+    private readonly IAuthorService _authorService;
+
+    public BookResolver(IAuthorService authorService)
+    {
+        _authorService = authorService;
+    }
+
+    public List<string> Resolve(PageModel source, AuthorViewModel authorViewModel, List<string> destMember, ResolutionContext context)
+    {
+        return _authorService.GetBooksByAuthor(source.SystemId);
+    }
+}
+```
+
 ---
 # Service Decorator
 
@@ -1115,7 +1157,7 @@ using(_securityContextService.ActAsSystem("MyIntegrationJob"))
 ---
 # Security Token – Old API (Ecommerce)
 
-* In the old API the token is has to be passed into every API method that requires permission enforcement
+* In the old API the token has to be passed into every API method that requires permission enforcement
 
 * Current SecurityToken can be constructor injected
 
@@ -1471,7 +1513,7 @@ public class MyEvent : EventArgs<Currency>, IMessage
 {
     public MyEvent(Currency item) : base(item)
     {
-        
+
     }
 }
 ```
@@ -1484,7 +1526,7 @@ public class MyEventPublisher
 
     public MyEventPublisher(EventBroker eventBroker)
     {
-        _eventBroker = eventBroker
+        _eventBroker = eventBroker;
     }
 
     public void SendEvent()
@@ -1506,10 +1548,11 @@ public class MyEventSubscriber : IDisposable
     public MyEventSubscriber(EventBroker eventBroker)
     {
         // Register a subscription on the EventBroker
-        eventBroker.Subscribe<MyEvent>(ev => {
+        _subscription = eventBroker.Subscribe<MyEvent>(ev =>
+        {
             // This code will execute every time MyEvent is published
             // Get the currencyobject from the event instance and act on the data
-            var currency = ev.Item
+            var currency = ev.Item;
         });
     }
 

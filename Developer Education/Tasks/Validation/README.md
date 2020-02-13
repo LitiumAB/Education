@@ -14,6 +14,9 @@ Additional documentation is avaliable on [docs](https://docs.litium.com/document
     ```
 1. Inject `Litium.Websites.PageService` and use it to get the author page instance
 1. Inject `Litium.FieldFramework.FieldTemplateService` and use it to get the page template
+    ```C#
+    _fieldTemplateService.Get<FieldTemplate>(authorPage.FieldTemplateSystemId);
+    ```
 1. Validate that the template id is **"Author"**, if it is using the wrong template then call `AddError()` of the `ValidationResult` returned from the method (set _Key=Author_ and any errormessage)
 1. A finished example is avaliable in the _Resources_-folder
 
