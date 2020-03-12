@@ -23,7 +23,7 @@ namespace Litium.Accelerator.Services
                 var bookQuery = query.Filter(filter => filter
                     .Bool(boolFilter => boolFilter
                         .Must(boolFilterMust => boolFilterMust
-                            .Field("Author", "eq", authorPageId))));
+                            .Field("AuthorField", "eq", authorPageId))));
 
                 var books = bookQuery.ToList();
                 var bookTitles = books.Select(book => book.Localizations.CurrentCulture.Name).ToList();

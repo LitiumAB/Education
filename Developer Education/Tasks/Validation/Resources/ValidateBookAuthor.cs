@@ -19,7 +19,7 @@ namespace Litium.Accelerator.ValidationRules
 
 		public override ValidationResult Validate(BaseProduct entity, ValidationMode validationMode)
 		{
-			var authorPageId = entity.Fields.GetValue<Guid>("Author");
+			var authorPageId = entity.Fields.GetValue<Guid>("AuthorField");
 
 			var result = new ValidationResult();
 			if (authorPageId == Guid.Empty)

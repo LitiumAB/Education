@@ -50,13 +50,15 @@ name: Agenda
 
 * Installation
 
-* Architecture
+* Field framework
 
 * Litium area Websites
 
 * Globalization
 
-* Dependency injection
+* Litium architecture
+
+* Development with dependency injection
 
 * Security token
 ]
@@ -64,7 +66,7 @@ name: Agenda
 .right-col[
 ## Agenda day 2
 
-* Litium areas E-Commerce, PIM, Customers and Media
+* Litium areas E-Commerce and PIM
 
 * Logging
 
@@ -72,7 +74,7 @@ name: Agenda
 
 * Validation
 
-* Web API
+* Extending Litium - Web API and Connect
 
 * Data service
 
@@ -473,7 +475,7 @@ template:section
 | PIM | Customers | Websites | Media | Globalization | 
 | :-: | :-: | :-: | :-: | :-: |
 | Product | Person | Website | Media | Market |
-| Category | Group | Page | Channel | Folder |
+| Category | Group | Page | Folder | Channel |
 | | Organization | Block |
 
 ???
@@ -829,7 +831,7 @@ TODO - Change image into draw.io
 
 * May have a website
 
-* Languags
+* Languages
 
     * Website language
 
@@ -1037,16 +1039,25 @@ public abstract class StockService
     // ...
 }
 
+
 ```
 #### Lifetime
 * **Singleton:** Clients will always receive that same instance from the container
 * **Scoped:** The same instance is used within the scope
     * The entire web request
-    * The ececution of a scheduled task
+    * The execution of a scheduled task
 * **Transient:** A new instance of the component will be created each time the service is requested from the container
 
 #### RequireServiceImplementation
 * When a implementation is required for the application to run
+
+???
+
+### Risks with DI
+
+* Classes are selected during runtime making it harder to see what code is executing
+
+* Using a scoped or transient service inside a singleton may cause issues with state being stored longer than expected
 
 ---
 template: task
@@ -1498,6 +1509,10 @@ template: section
 
 * You may modify the database (at own risk!) but this bypasses all change events
 
+* All events are avaliable in [Admin Web API](https://docs.litium.com/api-reference/admin-web-api) as [webhooks](https://docs.litium.com/documentation/architecture/events-handling/webhooks)
+
+.footer[https://docs.litium.com/documentation/architecture/events-handling]
+
 ???
 
 Events are used to sync cache and search index on every application/server
@@ -1593,6 +1608,7 @@ public class MyEventSubscriber : IDisposable
 
 * Note: Servers are updated **“Near real time”**
 
+.footer[https://docs.litium.com/documentation/architecture/service-bus]
 
 ???
 
@@ -1642,6 +1658,17 @@ public class ValidationExample : ValidationRuleBase<Currency>
 * Inheriting `ValidationRuleBase` instead of `IValidationRule` gives a typed entity
 
 * Inheriting `ValidationRuleBase` is enough to register the validation to be executed on every entity modification
+
+???
+
+The first parameter in AddError defines where the message is shown.
+One validation can add multiple messages, example
+```C#
+result.AddError("AuthorField", "A author field error message");
+result.AddError("Brand", "A brand field error message");
+result.AddError("*", "A global error message shown at the top of the edit-page");
+```
+
 
 ---
 template: task
@@ -1852,6 +1879,8 @@ Litium.Data.DataService.CreateBatch
 
         _(Example, sync 5 items at a time might be optimal and 10 is actually slower)_
 
+.footer[[Optional development task is avaliable for Data service](https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks/Data%20service)]
+
 ???
 
 Example, create a baseproduct and all variants in a single transaction to avoid creating incomplete products
@@ -1894,6 +1923,8 @@ Litium.Data.DataService.CreateQuery
 
 Do not use towards public site, without implementing own [caching](https://docs.litium.com/documentation/architecture/distributed-caching)!
 
+.footer[[Optional development task is avaliable for Data service](https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks/Data%20service)]
+
 ???
 
 Caching example is done in the Redis development task
@@ -1928,12 +1959,6 @@ using (var query = _dataService.CreateQuery<BaseProduct>(opt => opt.IncludeVaria
 ???
 
 The querylanguage is custom but inspired by the structure in Elastic search
-
----
-template: task
-name: Task: Data service
-
-# Data service
 
 ---
 template: section
