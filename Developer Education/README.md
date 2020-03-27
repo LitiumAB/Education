@@ -6,7 +6,7 @@ The scheduled classroom is avaliable at https://www.litium.se/utbildning.
 
 ## Self study - Getting started
 
-Go through the edcucation slides at https://litiumdev.azurewebsites.net/ (the slides are hosted [here on GitHub](./Presentation) so if you find anything that needs to be fixed please create an Issue or submit a pull request).
+Go through the edcucation slides at https://litiumdev-slides.svc.litiumlab.se (the slides are hosted [here on GitHub](./Presentation) so if you find anything that needs to be fixed please create an Issue or submit a pull request).
 
 Do the development tasks below when they are referenced in the slides and if you have questions please ask them in [Litium forum](https://forum.litium.com/).
 
