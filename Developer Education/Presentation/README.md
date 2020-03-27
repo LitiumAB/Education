@@ -1,6 +1,6 @@
 # Litium Developer Education Presentation 
 
-The presentation is avaliable online at https://litiumdev.azurewebsites.net/
+The presentation is avaliable online at https://litiumdev-slides.svc.litiumlab.se
 
 ## FAQ
 
@@ -38,15 +38,41 @@ The slides are created with [Remark](https://remarkjs.com/)
 
 Additional setup information is avaliable at https://expressjs.com/en/starter/generator.html
 
-If you need to run the presentation offline it needs to be set up in a local web server, for example [http-server](https://www.npmjs.com/package/http-server).
-
 ### Deployment
 
 > This section is only targeted to Litium staff deploying the documentation to public hosting.
 
-Deployment is done as described in https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-nodejs
+The site is delivered to hosting as a docker image as defined in `Dockerfile`.
 
-1. Install the [Azure App Service extension](vscode:extension/ms-azuretools.vscode-azureappservice) in VS Code
-1. Connect to the Azure app service where the documentation slides are hosted
-1. Publish the site as described in above link
+Follow the steps below, originally from https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
 
+#### Create docker image
+
+1. Possibly first remove old version of the container
+    ```console
+    docker ps -a
+    docker stop CONTAINERID
+    docker rm CONTAINERID
+    ```
+1. Build the image
+    ```console
+    docker build -t litiumdev-slides .
+    ```
+1. Run to verify the container locally, the container runs a server at port 3000 that is made accessible on http://localhost:49160
+    ```console
+    docker run -p 49160:3000 -d litiumdev-slides
+    ```
+
+#### Deploy docker image to Litium Kubernetes hosting
+
+1. Get DOMAIN/LOGIN/PWD to Litium Kubernetes
+1. Login
+    ```console
+    $ docker login -u [LOGIN] -p [PWD] [DOMAIN]
+    ```
+1. Tag the remote and push image
+    ```console
+    docker tag litiumdev-slides [DOMAIN]/public/litiumdev-slides
+    docker push [DOMAIN]/public/litiumdev-slides
+    ```
+1. Notify Litium to refresh site from latest image

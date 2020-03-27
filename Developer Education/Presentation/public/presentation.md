@@ -3,7 +3,7 @@ name: section
 class: center, top, section-background
 
 <div>
-    <img src="Images/litium_logotyp_rgb.svg" alt="Litium-logo" height="100em" />
+    <img src="images/litium_logotyp_rgb.svg" alt="Litium-logo" height="100em" />
 </div>
 
 ---
@@ -20,7 +20,7 @@ layout: true
 name: task
 class: center, top
 
-<img src="Images/devtask.svg" alt="Development task" height="200em" />
+<img src="images/devtask.svg" alt="Development task" height="200em" />
 
 # Development task
 
@@ -36,7 +36,7 @@ All tasks are available at [github.com/LitiumAB](https://github.com/LitiumAB/Edu
 
 layout: true
 name: default
-<img src="Images/litium_logotyp_rgb.svg" alt="Litium-logo" height="20"/>
+<img src="images/litium_logotyp_rgb.svg" alt="Litium-logo" height="20"/>
 
 ---
 name: Agenda
@@ -103,12 +103,12 @@ class: center
 ---
 name: Features
 
-background-image: url(Images/features.png)
+background-image: url(images/features.png)
 
 ---
 name: Architecture stack
 
-<img src="Images/architecture-01.png" alt="Architecture" width="100%" />
+<img src="images/architecture-01.png" alt="Architecture" width="100%" />
 
 ???
 
@@ -143,7 +143,7 @@ TODO - Add additional info on usage for each bullet
 ---
 # Roadmap
 
-<img src="Images/roadmap.png" alt="Roadmap" width="100%" />
+<img src="images/roadmap.png" alt="Roadmap" width="100%" />
 
 
 ---
@@ -171,7 +171,7 @@ template: section
 ---
 # Litium Accelerator
 
-<img src="Images/accelerator-model.png" width="100%" />
+<img src="images/accelerator-model.png" width="100%" />
 
 ???
 
@@ -411,7 +411,7 @@ TODO Add instructions or link on how to change allowed login group
 
 ---
 
-background-image: url(Images/backoffice-ui.png)
+background-image: url(images/backoffice-ui.png)
 
 # Administration UI
 
@@ -873,7 +873,7 @@ template: section
 name: Arcitecture
 
 
-<img src="Images/architecture-03.png" width="85%" />
+<img src="images/architecture-03.png" width="85%" />
 
 ---
 
@@ -1259,7 +1259,7 @@ Payment provider configurations has tracemode-setting to activate logging
 
 # Plugins in Ecommerce
 
-<img src="Images/ecom-plugins.png" width="70%" />
+<img src="images/ecom-plugins.png" width="70%" />
 
 ???
 
@@ -1702,7 +1702,7 @@ TODO - Add reference links to api generation tools
 
 ---
 
-background-image: url(Images/connect.png)
+background-image: url(images/connect.png)
 
 # Litium connect
 
