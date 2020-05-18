@@ -32,7 +32,13 @@ namespace Litium.Accelerator.ValidationRules
 			var pageFieldTemplate = _fieldTemplateService.Get<FieldTemplate>(authorPage.FieldTemplateSystemId);
 			var isAuthorTemplate = pageFieldTemplate.Id.Equals("Author");
 			if (!isAuthorTemplate)
-				result.AddError("Author", "Only Author-pages can be selected as author");
+			{
+				// Pass ID of a field as first parameter to display the error next to that field in backoffice-UI
+				result.AddError("AuthorField", "Only Author-pages can be selected as author");
+
+				// ...and/or pass "*" to display the validation error in the header.
+				result.AddError("*", "Author page validation failed");
+			}
 
 			return result;
 		}

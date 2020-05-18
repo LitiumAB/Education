@@ -96,7 +96,7 @@ class: center
 --
 ### Certification
 
-> A Litium Developer Certification is a quality mark that build custumer trust. 
+> A Litium Developer Certification is a quality mark that build customer trust. 
 
 > Litium Certifications also add business value to partner organizations. 
 
@@ -340,12 +340,12 @@ template: section
     * Media files
         * In a multi server environment the media files should be shared using the CommonFilesDirectory-setting
 
-    * Sessionstate, inProc vs StateServer
-        * Use StateServer in local development to verify serialization support
+* Sessionstate, inProc vs StateServer
+    * Use StateServer in local development to verify serialization support
 
-    * SMTP
+* SMTP
 
-Read more at https://docs.litium.com/documentation/get-started/web_config
+.footer[Read more at https://docs.litium.com/documentation/get-started/web_config]
 
 ---
 
@@ -1457,6 +1457,7 @@ template: section
 * Logging when users with access to customer or order area login to the system
 
     * This log has no UI
+    * Available in _Auditing_-schema in DB
 
 <img src="images/audit-log.png" width="100%" class="img-border" />
 
@@ -1694,11 +1695,7 @@ template: section
 * Covers all entities
 * Litium .NET API
 * Litium Admin Web API
-* Event subscription
-
-OpenAPI specification (previously swagger docs) to document our API, which means, you can actually auto-generate the API entities using the swag studio, or visual studio. 
-
-TODO - Add reference links to api generation tools
+* Event subscription with Webhooks
 
 ---
 
@@ -1775,7 +1772,15 @@ Guaranteed delivery = Litium tries to deliver the message a few times before giv
 .footer[Read more: https://docs.litium.com/documentation/architecture/web-api]
 
 ---
+# Swagger API documentation
 
+* Available at http://domain/litium/swagger (permission required)
+
+* Covers Accelerator Web API, Litium Connect and Admin Web API
+
+<img src="images/swagger.png" width="75%" />
+
+---
 # AddOns
 
 ## Following are some of the most frequently used AddOns
@@ -1802,7 +1807,9 @@ Starting platform to develop file based integrations towards Litium
 
 * In particular to use external CMS systems with Litium as the Ecommerce processing and PIM data engine
 
-* https://docs.litium.com/documentation/add-ons/integration/litium-headless-api
+* Self documenting with [OpenApi/Swagger](https://docs.litium.com/documentation/add-ons/integration/litium-headless-api/configure/docs)
+
+.footer[https://docs.litium.com/documentation/add-ons/integration/litium-headless-api]
 
 ---
 # Distribution – Add-Ons/Accelerator
@@ -1831,24 +1838,15 @@ template: section
 ---
 # Litium Search
 
-* Litium Accelerator uses Litium Search
+Litium Search is built on Elasticsearch with additional plugins and administration interface
 
 * One distributed search engine for all web servers
 
-* Litium Search is built on Elasticsearch with additional plugins and administration interface
+* Part of Litium Accelerator
 
 * Litium Backoffice (except E-Commerce) searches directly against the database
 
-* Accelerator is packaged with indices for pages, categories and products
-
-    * Additional indices can be added if needed
-
-* Litium Search is not yet avaliable in E-Commerce
-
-    * Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and frontend. 
-
-    * This will be replaced by Litium Search in Litium version 8
-
+    * Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and Accelerator frontend
 
 .footer[Read more: https://docs.litium.com/documentation/architecture/search]
 
@@ -1859,6 +1857,22 @@ It is possible to fine tune how the indexing of a item is made, and what fields 
 The configuration options is not only for indexing, you also get full flexibility when searching, you can improve the importance of different fields and adjust how search result should be presented to match what the visitor expect.
 
 TODO - Add task on query with the above options for boost and presentation
+
+---
+# Litium Search
+
+* Litium Accelerator includes indices for pages, categories and products
+
+* Additional indices [can be added](https://docs.litium.com/documentation/architecture/search/elasticsearch/how-to-add-a-search-index) if needed
+
+<img src="images/litium-search-indices.png" width="90%" />
+
+---
+# Litium Search
+
+* Add an manage synonyms in Litium Backoffice
+
+<img src="images/litium-search-synonyms.png" width="90%" />
 
 ---
 # DataService - Batching data
@@ -2114,18 +2128,21 @@ template: section
 ---
 # Upgrading
 
-* As with installation, upgrading is done through Visual Studio
+* As with installation, upgrading the Litium platform is done through Visual Studio nuget update
 
-* Upgrading the database is done with a SQL-script
+    * Upgrading the Litium database is done with a SQL-script
 
-    * `packages\Litium.Setup.Core\tools\UpgradeToLatest.sql`
+        * `packages\Litium.Setup.Core\tools\UpgradeToLatest.sql`
 
-    * Can be executed with Package Manager Console in Visual Studio
-        ```console
-        Update-LitiumDatabase
-        ```
+        * Can be executed with Package Manager Console in Visual Studio
+            ```console
+            Update-LitiumDatabase
+            ```
 
-    * No way back, backup before running the script
+        * No way back, backup before running the script
+
+* Upgrading Litium Accelerator is manual
+    * New release package can be used
 
 ---
 template: section
