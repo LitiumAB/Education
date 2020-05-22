@@ -39,4 +39,4 @@ We need to protect access to our API, for information read sections on _Security
 1. Decorate your controller with `[Litium.Web.WebApi.OnlyJwtAuthorization]`
 1. Try accessing your API again and note that your are now getting a **401 Unauthorized** error
 1. Create a service account in _Litium Backoffice > Control panel > System settings > Service accounts_
-1. Use postman to get a JWT token and pass the token in your API-call, instructions on how to do this can be found on docs.
+1. Use postman to get a JWT token and pass the token in your API-call, instructions on how to do this can be [found on docs](https://docs.litium.com/documentation/architecture/web-api).

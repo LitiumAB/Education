@@ -17,7 +17,8 @@ Additional documentation is avaliable on [docs](https://docs.litium.com/document
     ```C#
     _fieldTemplateService.Get<FieldTemplate>(authorPage.FieldTemplateSystemId);
     ```
-1. Validate that the template id is **"Author"**, if it is using the wrong template then call `AddError()` of the `ValidationResult` returned from the method (set _Key=Author_ and any errormessage)
+1. Validate that the template id is **"Author"**, if it is using the wrong template then call `AddError()` of the `ValidationResult` returned from the method.
+    > When calling `AddErrror` set _Key=authorfield_ and any errormessage (lowercase on _Key_ is required due to [a bug](https://docs.litium.com/support/bugs/bug_details?id=50049)).
 1. A finished example is avaliable in the _Resources_-folder
 
 ### Try it out
