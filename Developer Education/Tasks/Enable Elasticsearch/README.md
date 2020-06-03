@@ -41,7 +41,7 @@ The `Litium:Elasticsearch:Synonym:Host` key defined above is a url that will be 
 ## Test
 
 1. When the site has restarted the **Elasticsearch** menu option is avaliable in Litium backoffice, select it and rebuild all indices (the rebuild can be tracked in the _elasticsearch.log_ file in your solution-directory):
-   ![Alt text](Images/elastic-in-litium-bo.png "Elasticsearch BO")
+   ![Alt text](Images/elastic-in-litium-admin.png "Elasticsearch BO")
 1. Open your public website and verify that the search is working
 
 ### Finding problems
