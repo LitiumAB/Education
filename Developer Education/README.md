@@ -2,7 +2,7 @@
 
 The developer education can be done as a self study course or by attending scheduled or on-demand classroom training.
 
-The scheduled classroom is avaliable at https://www.litium.se/utbildning.
+The scheduled classroom training is avaliable at https://www.litium.se/utbildning.
 
 ## Self study - Getting started
 
