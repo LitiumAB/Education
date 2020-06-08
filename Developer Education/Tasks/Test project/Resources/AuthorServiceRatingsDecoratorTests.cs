@@ -1,47 +1,38 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Litium.Accelerator.Services;
+using Moq;
+using Shouldly;
 using Xunit;
 
 namespace Litium.Accelerator.Tests
 {
-	public class AuthorServiceRatingsDecoratorTests
-	{
-		[Theory]
-		[InlineData("The Odyssey", 2)]
-		[InlineData("The Hitchhiker's Guide to the Galaxy", 4)]
-		[InlineData("The Fellowship of the Ring (The Lord of the Rings, #1)", 6)]
-		public void should_append_rating_to_title(string bookTitle, int expectedRating)
-		{
-			// An easier way than creating your own mocks
-			// is to use an existing mocking library, like https://github.com/moq/moq
-			var service = new MockAuthorService(bookTitle);
-			var decorator = new AuthorServiceRatingsDecorator(service);
-			var decoratedBooks = decorator.GetBooksByAuthor(Guid.Empty);
+    /// <summary>
+    ///     Example XUnit-tests for AuthorServiceRatingsDecorator created in the Author Service Decorator task
+    ///     https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks/Author%20service%20decorator
+    ///
+    ///     Dependencies:
+    ///     https://github.com/Moq/moq4/wiki/Quickstart
+    ///     https://github.com/shouldly/shouldly
+    /// </summary>
+    public class AuthorServiceRatingsDecoratorTests
+    {
+        [Fact]
+        public void Adds_rating_to_book_name()
+        {
+            var bookTitle = "Lord of the rings";
+            
+            var parent = new Mock<IAuthorService>();
+            parent.Setup(p => p.GetBooksByAuthor(It.IsAny<Guid>()))
+                .Returns(new List<string> {bookTitle});
 
-			Assert.Equal(1, decoratedBooks.Count);
-			Assert.Equal($"{bookTitle} (Rated {expectedRating}/10)", decoratedBooks.First());
-		}
+            var decorator = new AuthorServiceRatingsDecorator(parent.Object);
 
-		private class MockAuthorService : IAuthorService
-		{
-			private readonly string _bookTitle;
+            var books = decorator.GetBooksByAuthor(Guid.Empty);
 
-			public MockAuthorService(string bookTitle)
-			{
-				_bookTitle = bookTitle;
-			}
-
-			public List<string> GetBooksByAuthor(Guid authorPageId)
-			{
-				return new List<string> {_bookTitle};
-			}
-
-			public List<Tuple<string, Guid>> GetAuthors()
-			{
-				throw new NotImplementedException();
-			}
-		}
-	}
+            books.Count.ShouldBe(1);
+            books.First().ShouldBe($"{bookTitle} [RATED 9/10]");
+        }
+    }
 }
