@@ -24,7 +24,7 @@ class: center, top
 
 # Development task
 
-All tasks are available at [github.com/LitiumAB](https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks)
+All tasks are available at [github.com/LitiumAB](https://github.com/LitiumAB/Education/tree/master/Developer%20Education)
 <br />(in Education/Developer Education/Tasks)
 
 
@@ -1195,6 +1195,23 @@ template: section
 # Area: Ecommerce
 
 ---
+# The shopping cart
+
+.left-col[
+* Cart object is kept in Session
+
+* Can be persisted
+
+    * In DB – need to be logged in
+
+    * Per machine – using cookies
+
+* Only article number and quantity is stored, other information might change, e.g. Prices
+]
+.right-col[<img src="images/ecom-cart.png" width="100%" class="img-border" />]
+.footer[Read more: https://docs.litium.com/documentation/litium-documentation/sales/shopping_cart]
+
+---
 # Create order
 
 <img src="images/ecom-create-order.png" width="90%" />
@@ -1214,21 +1231,25 @@ name: Create order - detailed
 .footer[Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
 
 ---
-# The shopping cart
+# Plugins in Ecommerce
 
-.left-col[
-* Cart object is kept in Session
+<img src="images/ecom-plugins.png" width="70%" />
 
-* Can be persisted
+???
 
-    * In DB – need to be logged in
+ECommerce plugins allow extending the ECommerce functionality and customizing its behaviour.
 
-    * Per machine – using cookies
+It is possible to have multiple implementations of plugins and create custom selectors to decide which plugin to use, see IPluginSelector link in slide for more information.
 
-* Only article number and quantity is stored, other information might change, e.g. Prices
-]
-.right-col[<img src="images/ecom-cart.png" width="100%" class="img-border" />]
-.footer[Read more: https://docs.litium.com/documentation/litium-documentation/sales/shopping_cart]
+Options to extend/replace a plugin
+
+1. Replace implementation by creating class that implements interface, LitiumStudio will automatically detect your custom implementation and will use it instead of the default implementation.
+
+2. Write your classes by extending the classes provided by the default implementation. Usually the default implementation provide virtual methods to allow this type of extention.
+
+https://docs.litium.com/documentation/developer-guides/sales/architecture-design
+https://docs.litium.com/documentation/developer-guides/sales/architecture-design/ecommercepluginarchitecture/ipluginselector-interface-and-plugin
+
 
 ---
 # Checkoutflow info
@@ -1257,26 +1278,6 @@ Payment provider configurations has tracemode-setting to activate logging
 
 ---
 
-# Plugins in Ecommerce
-
-<img src="images/ecom-plugins.png" width="70%" />
-
-???
-
-ECommerce plugins allow extending the ECommerce functionality and customizing its behaviour.
-
-It is possible to have multiple implementations of plugins and create custom selectors to decide which plugin to use, see IPluginSelector link in slide for more information.
-
-Options to extend/replace a plugin
-
-1. Replace implementation by creating class that implements interface, LitiumStudio will automatically detect your custom implementation and will use it instead of the default implementation.
-
-2. Write your classes by extending the classes provided by the default implementation. Usually the default implementation provide virtual methods to allow this type of extention.
-
-https://docs.litium.com/documentation/developer-guides/sales/architecture-design
-https://docs.litium.com/documentation/developer-guides/sales/architecture-design/ecommercepluginarchitecture/ipluginselector-interface-and-plugin
-
----
 # Pricing rules
 
 * Pricing rules defines how price of a product is determined and how the order grand total and taxes are calculated
@@ -1424,7 +1425,7 @@ TODO - Replace image with draw.io
 
     * Defined on the display template
 
-    * When variant url is used it is possible to manage how variants are grouped in listings with `IIndexDocumentMerger<Variant>`
+    * When variant url is used it is possible to manage how variants are grouped in listings
 
     * In Control _Panel > Accelerator_ the default implementation has a UI to select grouping field
 
@@ -1509,8 +1510,6 @@ template: section
     * Adjust scope when publishing event to also send it to all servers via service bus
 
 * You may modify the database (at own risk!) but this bypasses all change events
-
-* All events are avaliable in [Admin Web API](https://docs.litium.com/api-reference/admin-web-api) as [webhooks](https://docs.litium.com/documentation/architecture/events-handling/webhooks)
 
 .footer[https://docs.litium.com/documentation/architecture/events-handling]
 
@@ -1750,11 +1749,6 @@ Guaranteed delivery = Litium tries to deliver the message a few times before giv
 
 ---
 
-# Litium core APIs coverage
-
-<img src="images/core-apis.png" width="90%" />
-
----
 # Web API
 
 * Useful for
