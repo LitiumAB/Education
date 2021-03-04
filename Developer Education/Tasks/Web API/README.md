@@ -8,14 +8,9 @@ See Litium docs for a [API controller sample](https://docs.litium.com/documentat
 
 1. Create a new ViewModel that the API should return
     ```C#
-    using System.Collections.Generic;
-
-    namespace Litium.Accelerator.ViewModels.Author
+    public class AuthorApiViewModel
     {
-        public class AuthorApiViewModel
-        {
-            public List<string> Books { get; set; }
-        }
+        public List<string> Books { get; set; }
     }
     ```
 1. Create the class `Litium.Accelerator.Mvc.Controllers.Api.AuthorApiController` that inherit from `Litium.Accelerator.Mvc.Controllers.Api.ApiControllerBase`
@@ -32,7 +27,17 @@ See Litium docs for a [API controller sample](https://docs.litium.com/documentat
 
 A common problem is that test string and not a valid `Guid` is used when testing which gives a 404 when you try to call the API.
 
-## Optional extra task
+## Optional extra tasks
+
+### Swagger
+
+1. To include your new API in the Swagger documentation just decorate the controller with `[ApiCollection("site")]`. Either add it directly on the controller or inherit `ApiControllerBase` that has this decoration already.
+1. Verify that the API is documented
+   1. Navigate to `http://[domain]/litium/swagger`
+   1. Select _Accelerator Web API_ in the top drop-down list
+   1. Verify that _Author api_ is listed with your method
+
+### Secure the API
 
 We need to protect access to our API, for information read sections on _Security_ and _Authorization_ on the Docs-link above
 
