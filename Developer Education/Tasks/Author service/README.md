@@ -5,7 +5,12 @@ To retreive books by authors we need a reusable service that we can inject and u
 ## Create and register the service
 
 1. Create the interface `Litium.Accelerator.Services.IAuthorService`
-    1. The interface should have one method: `List<string> GetBooksByAuthor(Guid authorPageId)`
+    1. The interface should have one method:
+
+        ```C#
+        List<string> GetBooksByAuthor(Guid authorPageId)
+        ``` 
+        The parameter `authorPageId` will not be used in this task but is needed later in the [data service task](../Data%20service).
 
 1. Register the interface as a service according to [instruction on docs](https://docs.litium.com/documentation/architecture/dependency-injection/service-registration)
 
