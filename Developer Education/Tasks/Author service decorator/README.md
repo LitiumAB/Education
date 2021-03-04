@@ -4,7 +4,8 @@
 
 We need to add ratings to all books returned by the `AuthorService`, instead of modifying the service this can be done using a service decorator.
 
-1. Create a new class: `Litium.Accelerator.Services.AuthorServiceRatingsDecorator` the implement the `IAuthorService`
+1. Create a new class: `Litium.Accelerator.Services.AuthorServiceRatingsDecorator` that implement the `IAuthorService` interface
+
 1. Register the class as a decorator for `IAuthorService` by decorating the class with 
     ```C#
     [Litium.Runtime.DependencyInjection.ServiceDecorator(typeof(IAuthorService))]
