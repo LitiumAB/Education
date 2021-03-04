@@ -19,7 +19,7 @@ Additional documentation is avaliable on [docs](https://docs.litium.com/document
     ```
 1. Verify that the template id is **"Author"**, otherwise call the method `AddError("AuthorField", "Only Author-pages can be selected as author")` on the `ValidationResult` returned from the method. 
     
-1. A finished example is avaliable in the _Resources_-folder
+1. A finished example is avaliable in the [_Resources_-folder](Resources/ValidateBookAuthor.cs)
 
 ### Try it out
 
@@ -36,7 +36,7 @@ The customers current distribution is rather expensive so we need to set a lower
 1. Optionally make the error message language dependent:
     1. Add a website text for the error message in _Litium backoffice > Control panel > Websites_, edit the websites and add a new translation on the _Texts_-tab.
     1. Get the translation with the extension method for string found in `Litium.Studio.Extenssions`, example: `"error".AsWebSiteString()`
-1. A finished example is avaliable in the _Resources_-folder
+1. A finished example is avaliable in the [_Resources_-folder](Resources/OrderGrandTotalOverLimitValidator.cs)
 
 ### Try it out
 

@@ -8,7 +8,7 @@ It is recommended that all steps are completed before the solution is built and 
 
 ### Create definitions that will generate the template on startup
 
-1. Create the file  `\Src\Litium.Accelerator\Definitions\Blocks\AuthorBlockTemplateSetup.cs`, copy content for the file from the _Resources_-folder. 
+1. Create the file  `\Src\Litium.Accelerator\Definitions\Blocks\AuthorBlockTemplateSetup.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockTemplateSetup.cs). 
    > The block only has a Name property and a LinkToPage property, the LinkToPage will be used to select an author page that the block will display content from.
 1. Add translations for the block in `Src\Litium.Accelerator.Mvc\Site\Resources\Administration\Administration.resx`:
     |Key|Value|
@@ -18,10 +18,10 @@ It is recommended that all steps are completed before the solution is built and 
 
 ### Create the ViewModel and View that will render the block
 
-1. Create the file  `\Src\Litium.Accelerator\Builders\Block\AuthorBlockViewModelBuilder.cs`, copy content for the file from the _Resources_-folder
+1. Create the file  `\Src\Litium.Accelerator\Builders\Block\AuthorBlockViewModelBuilder.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockViewModelBuilder.cs)
     > The Author block will contain the same information as the Author page created earlier so we can re-use the AuthorViewModel instead of creating a new one
-1. Create the file `\Src\Litium.Accelerator.Mvc\Controllers\Blocks\AuthorBlockController.cs`, copy content for the file from the _Resources_-folder
-1. Create the file `\Src\Litium.Accelerator.Mvc\Views\Block\Author.cshtml`, copy content for the file from the _Resources_-folder
+1. Create the file `\Src\Litium.Accelerator.Mvc\Controllers\Blocks\AuthorBlockController.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockController.cs)
+1. Create the file `\Src\Litium.Accelerator.Mvc\Views\Block\Author.cshtml`, copy content for the file from the [_Resources_-folder](Resources/Author.cshtml)
 
 ### Register the controller
 

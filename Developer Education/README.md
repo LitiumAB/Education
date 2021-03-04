@@ -47,4 +47,4 @@ Below tasks might not be completed during classroom education but it is recommen
 
 The tasks below cover functionality which is no longer in the platform and therefore no longer covered in the developer education.
 
-1. [Lucene.Net search (removed in Litium 7.4)](./Lucene.Net%20search)
+1. [Lucene.Net search (removed in Litium 7.4)](./Tasks/Lucene.Net%20search)

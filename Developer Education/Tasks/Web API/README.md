@@ -18,7 +18,7 @@ See Litium docs for a [API controller sample](https://docs.litium.com/documentat
 1. Add the method `GetAuthor(Guid authorPageId)`
     1. Decorate it with `[Route("author")]`
 1. Inject `IAuthorService` in your controllers constructor and use it to get and return a `AuthorApiViewModel` loaded with all books for the provided id
-1. A finished `AuthorApiController`-example can be found in the Resources-folder
+1. A finished `AuthorApiController`-example can be found in the [_Resources_-folder](Resources/AuthorApiController.cs)
 
 ### Try it out
 

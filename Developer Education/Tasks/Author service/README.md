@@ -40,4 +40,4 @@ To retreive books by authors we need a reusable service that we can inject and u
 ### Try it out
 
 1. Build your solution and verify that your page and block is listing books from `AuthorService`
-1. If you get stuck a finished example of the service and `AuthorViewModelBuilder` can be found in the _Resources_-folder
+1. If you get stuck a finished example of the service and `AuthorViewModelBuilder` can be found in the [_Resources_-folder](Resources/AuthorViewModelBuilder.cs)

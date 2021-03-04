@@ -16,7 +16,7 @@
 
 1. Add the class `AuthorServiceRatingsDecoratorTests` to the test project
     1. Add a test that verifies that the decorator adds ratings to book titles according to the logic you implemented in the [Author service decorator](../Author%20service%20decorator) task
-    1. A finished example is avaliable in the _Resources_-folder
+    1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceRatingsDecoratorTests.cs)
 1. When you try to run your test after adding a reference to the _Litium.Accelerator_ project your will get the error described in the _Troubleshooting_-section on the unit test page on docs: 
     ```
     System.Exception
@@ -36,8 +36,8 @@
 
 > Tip: To enable logging in test project make sure NLog.config in the root of the test project is set to _copy to output directory_ on build, also note log file path will be relative to the **/bin** directory of the testproject.
 
-
 ## Optional extra tasks
 
-1. Write tests on everything!
+1. Write tests for the ERPPriceCalculator created in the [pricing rules task](../Pricing%20rules), test both as anonymous and logged in user, a finished example is avaliable in the [_Resources_-folder](Resources/ERPPriceCalculatorTests.cs)
+
 

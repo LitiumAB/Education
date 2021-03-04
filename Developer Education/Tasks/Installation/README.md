@@ -12,7 +12,7 @@
     1. Git repo _(Optional to log and possibly revert all changes)_
         1. Learning git is not in the scope of this training so if you are not sure about how to do this just skip
         1. Init a git repo in the folder holding your solution. In this way you will be able to to document progress and revert change ()
-        1. A `.gitignore`-file can be found in the `\Resources`-folder
+        1. A `.gitignore`-file can be found in the [_Resources_-folder](Resources/.gitignore)
 1. Setup accelerator
     1. Wait for nuget installation to complete
     1. Right-click _Litium.Accelerator.Mvc_-project and select _Set as StartUp Project_

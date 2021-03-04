@@ -8,7 +8,7 @@
 ## Setup
 
 1. Install [Docker Desktop](https://docs.docker.com/docker-for-windows/install/) and make sure it is running
-1. Download a copy of _docker-compose.yaml_ from the _Resources_-folder to your solution directory
+1. Download a copy of _docker-compose.yaml_ from the [_Resources_-folder](Resources/docker-compose.yaml) to your solution directory
 1. Open a terminal or command window in your solution directory where you placed the _docker-compose.yaml_-file and run the command below to start three containers for Elastic, Kibana and Redis
     ```console
     docker-compose up

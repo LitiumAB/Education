@@ -13,7 +13,7 @@ We need to add ratings to all books returned by the `AuthorService`, instead of 
 1. Open the [docs-site on service decorator](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator) and see how to use the original class implementation as __parent_ in your decorator
     1. Your decorator should append a rating to each book title, so _My book title_ becomes _My book title (5/10)_
     1. Implement how the rating number is fetched in any way you like (random/calculation/hard code to 5 etc.)
-    1. A finished example is avaliable in the _Resources_-folder
+    1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceRatingsDecorator.cs)
 
 ### Try it out
 

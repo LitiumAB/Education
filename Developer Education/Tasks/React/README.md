@@ -172,5 +172,5 @@ All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Clie
 
 ## Optional extra tasks
 
-1. Add a textfield and use React to instantly filter the list of books as the user types (a working example of `Author.js` with filter can be found in the Resources-folder)
+1. Add a textfield and use React to instantly filter the list of books as the user types (a working example of `Author.js` with filter can be found in the [_Resources_-folder](Resources/Author.js))
 1. Extend the ViewModel passed from the API so that it contains a link to each book

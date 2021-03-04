@@ -17,7 +17,7 @@ To do this we will be using the [Lucene.Net search engine in Litium](https://doc
     1. Create the request: `var request = new QueryRequest(CultureInfo.CurrentCulture, CmsSearchDomains.Pages);`
     1. Add a tag to find pages using the Author-template: `request.FilterTags.Add(new Tag(TagNames.TemplateId, authorPageTemplate.Id));`
     1. Use `PageService` to get a page for each search hit and add the name and id of the page to the returned result
-    1. A finished example is avaliable in the _Resources_-folder
+    1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorService.cs)
 1. Add the method `GetAuthors()` to `AuthorApiController` and make it return the result of `_authorService.GetAuthors()`
 
 ### Try it out
