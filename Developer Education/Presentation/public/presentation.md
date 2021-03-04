@@ -1729,13 +1729,14 @@ background-image: url(images/connect.png)
 
 * Deploy and scale without restarting Litium
 
-* Litium version agnostic, example
+* Litium version agnostic, example:
 
-| Litium version | ERP Hub version | Channel Hub version | 
-| :-: | :-: | :-: |
-| 7.4 | 1.0 | - |
-| 8.0 | 1.0 | 1.0 |
-| 9.0 | 2.0 | 1.0 |
+| Litium version | ERP Hub version | Channel Hub version | Payment Hub version |
+| :-: | :-: | :-: | :-: |
+| 7.4 | 1.0 | - | - |
+| 7.6 | 2.0 | - | - |
+| 7.7 | 2.0 | 1.0 | - |
+| 8.0 | 2.0 | 1.0 | 1.0 |
 
 * Integrations as applications
 ]
