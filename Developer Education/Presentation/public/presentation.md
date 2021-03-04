@@ -923,13 +923,15 @@ name: Arcitecture
 
 --
 
-### Redis in Litium
+### Redis is used in Litium for:
 
 * Distributed Cache
 
 * Concurrency
 
 * Service bus
+
+* Session
 
 ---
 
