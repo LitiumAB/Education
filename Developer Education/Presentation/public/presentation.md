@@ -879,20 +879,26 @@ name: Arcitecture
 
 # Component model
 
-* Namespaces
-    * Same namespace for domain entity and its service contract. 
-    * Example: `Variant` and `VariantService` are in the same `Litium.Products` namespace
+* Domain entities and their service contracts have the same namespace (example: `Variant` and `VariantService` are both in the `Litium.Products` namespace)
 
-* Assembly Structure, examples
-    * `Litium.Abstractions`
-    * `Litium.Web.Abstractions`
-    * `Litium.Web.Mvc.Abstractions`
-    * `Litium.Web.WebApi.Abstractions`
-    * `Litium.Web.Administration.Abstractions`
+--
 
-* Implementations
-    * `Litium.Application`
-    * `Litium.Infrastructure.MicrosoftServiceBus`
+* Litium separates contracts (interfaces and abstract classes) and implementations in different assemblies
+
+    * Contract assembly examples
+        * `Litium.Abstractions`
+        * `Litium.Web.Abstractions`
+    * Implementation assembly exammples
+        * `Litium.Application`
+        * `Litium.Infrastructure.MicrosoftServiceBus`
+
+--
+
+* Litium implementations also have a `Impl`-suffix and are decorated as fallback, example:
+    ```C#
+    [Service(FallbackService = true)]
+    public class PriceCalculatorImpl : IPriceCalculator
+    ``` 
 
 ---
 
