@@ -29,7 +29,7 @@ Redis is only avaliable in Litium version 7.3 and later.
 
 ### Verify
 
-1. After startup you can use a tool such as for example [Redily](https://www.redily.app/)(free) or [FastoRedis](https://fastoredis.com/)(paid) to connect to Redis and view, delete or edit the data stored in Redis.
+1. After startup you can use a tool such as for example [Another Redis Desktop Manager](https://github.com/qishibo/AnotherRedisDesktopManager) to connect to Redis and view, delete or edit the data stored in Redis.
 
 ### Cleanup
 
