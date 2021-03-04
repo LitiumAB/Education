@@ -40,7 +40,7 @@ With the MVC Controller and View created we can render the template on the site,
 1. Select _Websites_ in top menu and click _New page_
     1. Set your favourite authors name as name of the page
     1. _Author page_ should now be avaliable in the list of avaliable templates, select it (**if you do not see it then follow the steps below to re-generate the template**)
-    1. For _location_ select _Start page > Customer service_
+    1. For _location_ select _Home page > Customer service_
 1. Add some property values (at least set Name, Title, Introduction and Image)
 1. Click the "..."-menu in the top right corner and select _Quick publish_
 1. Go to the public site and click the _Customer Service_-link in the footer
