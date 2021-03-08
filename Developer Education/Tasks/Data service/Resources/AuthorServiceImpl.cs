@@ -7,11 +7,11 @@ using Litium.Products;
 
 namespace Litium.Accelerator.Services
 {
-    public class AuthorService : IAuthorService
+    public class AuthorServiceImpl : IAuthorService
     {
         private readonly DataService _dataService;
 
-        public AuthorService(DataService dataService)
+        public AuthorServiceImpl(DataService dataService)
         {
             _dataService = dataService;
         }

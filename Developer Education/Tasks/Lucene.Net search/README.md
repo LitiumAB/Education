@@ -11,13 +11,13 @@ We need to extend `IAuthorService` with a method to get all authors and make thi
 To do this we will be using the [Lucene.Net search engine in Litium](https://docs.litium.com/documentation/architecture/search).
 
 1. Add method `List<(Guid, string)> GetAuthors();` to `IAuthorService` to return a list of tuples with id and name of all authors
-1. Inject `Litium.Foundation.Solution` and `Litium.FieldFramework.FieldTemplateService` in `AuthorService`
+1. Inject `Litium.Foundation.Solution` and `Litium.FieldFramework.FieldTemplateService` in `AuthorServiceImpl`
 1. Get the author template using `FieldTemplateService`: `var authorPageTemplate = _fieldTemplateService.Get<FieldTemplate>(typeof(WebsiteArea), "Author");`
 1. Look at docs site on [how to build a search query and execute a search](https://docs.litium.com/documentation/architecture/search/building-a-search-query)
     1. Create the request: `var request = new QueryRequest(CultureInfo.CurrentCulture, CmsSearchDomains.Pages);`
     1. Add a tag to find pages using the Author-template: `request.FilterTags.Add(new Tag(TagNames.TemplateId, authorPageTemplate.Id));`
     1. Use `PageService` to get a page for each search hit and add the name and id of the page to the returned result
-    1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorService.cs)
+    1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceImpl.cs)
 1. Add the method `GetAuthors()` to `AuthorApiController` and make it return the result of `_authorService.GetAuthors()`
 
 ### Try it out

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Litium.Accelerator.Services
 {
-	public class AuthorService : IAuthorService
+	public class AuthorServiceImpl : IAuthorService
 	{
 		public List<string> GetBooksByAuthor(Guid authorPageId)
 		{
