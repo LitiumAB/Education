@@ -46,10 +46,10 @@ To get better performance when getting price from external sources such as ERP w
 We will be using the `DistributedMemoryCache` which stores data both in a short (2 minute) memory cache in the application and also in a distributed cache (Redis) for 24 hours.
 
 1. Make your price fetch really slow by adding `Thread.Sleep(800);` before returning price for a variant and then test the performance on a category page listing multiple products
-1. Inject `DistributedMemoryCacheService` in the constructor of `ERPPriceCalculator`
+1. Inject `DistributedMemoryCacheService` in the constructor of `ERPPriceCalculatorImpl`
 1. First try getting the value from cache before your `Thread.Sleep`:
    ```C#
-   var cacheKey = $"{nameof(ERPPriceCalculator)}:{variantSystemId}";
+   var cacheKey = $"{nameof(ERPPriceCalculatorImpl)}:{variantSystemId}";
    if (_distributedMemoryCacheService.TryGet<PriceCalculatorResult>(cacheKey, out var price))
       return price;
    ```
@@ -67,7 +67,7 @@ When multiple threads or applications might access the same data at the same tim
 
 In our price calculator we need to prevent multiple requests to ERP for the same variant. We do this by locking the variant while we fetch the price to prevent other servers or threads from calling the API for the same data.
 
-1. Inject `DistributedLockService` in the constructor of `ERPPriceCalculator`
+1. Inject `DistributedLockService` in the constructor of `ERPPriceCalculatorImpl`
 1. Wrap the code where we get price for a variant in a lock:
    ```C#
    using (_distributedLockService.AcquireLock(cacheKey, TimeSpan.FromSeconds(10)))

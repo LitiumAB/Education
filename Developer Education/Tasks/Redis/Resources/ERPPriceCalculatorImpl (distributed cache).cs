@@ -7,11 +7,11 @@ using Litium.Products.PriceCalculator;
 
 namespace Litium.Accelerator.Utilities
 {
-    public class ERPPriceCalculator : IPriceCalculator
+    public class ERPPriceCalculatorImpl : IPriceCalculator
     {
         private readonly DistributedMemoryCacheService _distributedMemoryCacheService;
 
-        public ERPPriceCalculator(DistributedMemoryCacheService distributedMemoryCacheService)
+        public ERPPriceCalculatorImpl(DistributedMemoryCacheService distributedMemoryCacheService)
         {
             _distributedMemoryCacheService = distributedMemoryCacheService;
         }
@@ -33,7 +33,7 @@ namespace Litium.Accelerator.Utilities
 
         private PriceCalculatorResult GetPriceFromErp(Guid variantSystemId)
         {
-            var cacheKey = $"{nameof(ERPPriceCalculator)}:{variantSystemId}";
+            var cacheKey = $"{nameof(ERPPriceCalculatorImpl)}:{variantSystemId}";
             if (_distributedMemoryCacheService.TryGet<PriceCalculatorResult>(cacheKey, out var price))
                 return price;
 

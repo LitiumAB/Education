@@ -8,12 +8,12 @@ using Litium.Runtime.DistributedLock;
 
 namespace Litium.Accelerator.Utilities
 {
-    public class ERPPriceCalculator : IPriceCalculator
+    public class ERPPriceCalculatorImpl : IPriceCalculator
     {
         private readonly DistributedMemoryCacheService _distributedMemoryCacheService;
         private readonly DistributedLockService _distributedLockService;
 
-        public ERPPriceCalculator(DistributedMemoryCacheService distributedMemoryCacheService, DistributedLockService distributedLockService)
+        public ERPPriceCalculatorImpl(DistributedMemoryCacheService distributedMemoryCacheService, DistributedLockService distributedLockService)
         {
             _distributedMemoryCacheService = distributedMemoryCacheService;
             _distributedLockService = distributedLockService;
@@ -36,7 +36,7 @@ namespace Litium.Accelerator.Utilities
 
         private PriceCalculatorResult GetPriceFromErp(Guid variantSystemId)
         {
-            var cacheKey = $"{nameof(ERPPriceCalculator)}:{variantSystemId}";
+            var cacheKey = $"{nameof(ERPPriceCalculatorImpl)}:{variantSystemId}";
             if (_distributedMemoryCacheService.TryGet<PriceCalculatorResult>(cacheKey, out var price))
                 return price;
 
