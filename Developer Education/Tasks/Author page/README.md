@@ -44,7 +44,7 @@ With the MVC Controller and View created we can render the template on the site,
 1. Add some property values (at least set Name, Title, Introduction and Image)
 1. Click the "..."-menu in the top right corner and select _Quick publish_
 1. Go to the public site and click the _Customer Service_-link in the footer
-1. You should now se a link to your Author page in the left menu
+1. You should now see a link to your Author page in the left menu
 
 > ### If your template is incorrect and needs to be re-generated
 > 
