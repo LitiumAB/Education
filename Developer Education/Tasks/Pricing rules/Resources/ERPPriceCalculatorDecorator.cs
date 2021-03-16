@@ -24,10 +24,11 @@ namespace Litium.Accelerator.Utilities
 
 			var result = new Dictionary<Guid, PriceCalculatorResult>();
 
-			foreach (var variantItem in itemArgs)
-                result.Add(variantItem.VariantSystemId, GetPriceFromErp(variantItem.VariantSystemId));
+			foreach (var variantItem in itemArgs) {
+                		result.Add(variantItem.VariantSystemId, GetPriceFromErp(variantItem.VariantSystemId));
+			}
 
-            return result;
+            		return result;
 		}
 
 		public ICollection<PriceList> GetPriceLists(PriceCalculatorArgs calculatorArgs)
@@ -36,12 +37,12 @@ namespace Litium.Accelerator.Utilities
 		}
 
 		private PriceCalculatorResult GetPriceFromErp(Guid variantSystemId)
-        {
-            return new PriceCalculatorResult
-            {
-                ListPrice = 100,
-                VatPercentage = (decimal) 0.25
-            };
-        }
+        	{
+            		return new PriceCalculatorResult
+            		{
+                		ListPrice = 100,
+                		VatPercentage = (decimal) 0.25
+            		};
+        	}
 	}
 }
