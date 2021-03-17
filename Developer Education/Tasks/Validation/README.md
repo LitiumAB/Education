@@ -10,7 +10,7 @@ Additional documentation is avaliable on [docs](https://docs.litium.com/document
 `Litium.Validations.ValidationRuleBase<BaseProduct>` and implement the `Validate`-method that the interitance requires and make it return a new `ValidationResult`
 1. Get the selected page-id value of the BaseProduct-entity:
     ```C#
-    var authorPageId = entity.Fields.GetValue<Guid?>("AuthorField");
+    var authorPageId = entity.Fields.GetValue<Guid>("AuthorField"); // Guid.Empty if not found
     ```
 1. Inject `Litium.Websites.PageService` and use it to get the author page instance
 1. Inject `Litium.FieldFramework.FieldTemplateService` and use it to get the page template
