@@ -888,7 +888,7 @@ name: Arcitecture
     * Contract assembly examples
         * `Litium.Abstractions`
         * `Litium.Web.Abstractions`
-    * Implementation assembly exammples
+    * Implementation assembly examples
         * `Litium.Application`
         * `Litium.Infrastructure.MicrosoftServiceBus`
 
@@ -1316,7 +1316,7 @@ https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1
 ]
 
 
-.footer[https://docs.litium.com/documentation/developer-guides/sales/working_with_state_transitions
+.footer[https://docs.litium.com/documentation/developer-guides/sales/working_with_state_transitions<br/>
 https://docs.litium.com/documentation/developer-guides/sales/architecture-design/state_transition_plugin_1]
 
 ???
