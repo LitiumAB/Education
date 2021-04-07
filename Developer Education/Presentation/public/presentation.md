@@ -2015,7 +2015,7 @@ class: scrollable
     ```HTML
     <buy-button ...
     ```
-1. In `index.js` on the client Litium identifies tags that are React-components (for example buy-button and minicart) and replace these tags with [Redux containers](https://redux.js.org/basics/usage-with-react/#presentational-and-container-components). The same [Redux store](https://redux.js.org/basics/store/) is injected in every component.
+1. In `index.js` on the client Litium identifies HTML-tags that are placeholders (for example buy-button and minicart) and replaces these tags with Redux components. The same [Redux store](https://redux.js.org/basics/store/) is injected in every component.
 
     ```JavaScript
     const bootstrapComponents = () => {
