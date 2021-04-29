@@ -816,9 +816,12 @@ template:section
 
 * **Products** are sold in a **market** through different **channels**
 
-<img src="drawiodiagrams/market-domain-model.png" width="50%" />
+--
+
+<img src="drawiodiagrams/market-domain-model.png" width="50%" style="margin-top:50px;" />
 
 ---
+
 # Channel
 
 * Has domain names
@@ -827,24 +830,15 @@ template:section
 
 * May have a website
 
-* Languages
-
-    * Website language
-
-    * Products language
+* Languages for website and products
 
 * Defined for a list of countries
 
 * Supports data modelling
 
----
-# Channel
+--
 
-<img src="images/channel-domain-model.png" width="85%" />
-
-???
-
-TODO - Replace image with draw.io
+<img src="drawiodiagrams/channel-domain-model.png" width="50%" style="position:absolute; top:150px; right:100px;" />
 
 ---
 # Country & Tax class
