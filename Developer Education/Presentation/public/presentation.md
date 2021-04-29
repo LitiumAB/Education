@@ -685,7 +685,7 @@ Makewriteableclone
 ---
 # Entity model - Relationships between entities
 
-<img src="images/countrytotaxclasslink2.png" width="50%" />
+<img src="drawiodiagrams/countrytotaxclasslink.png" width="60%" />
 
 ```C#
 var link = new CountryToTaxClassLink(taxClass.SystemId);
@@ -859,7 +859,7 @@ TODO - Replace image with draw.io
 
     * All products with the same tax class has the same VAT percentage
 
-<img src="images/countrytotaxclasslink2.png" width="85%" />
+<img src="drawiodiagrams/countrytotaxclasslink.png" width="70%" />
 
 ???
 
