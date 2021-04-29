@@ -24,7 +24,7 @@ class: center, top
 
 # Development task
 
-All tasks are available at [github.com/LitiumAB](https://github.com/LitiumAB/Education/tree/master/Developer%20Education)
+All tasks are available at [github.com/LitiumAB](https://github.com/LitiumAB/Education/tree/main/Developer%20Education)
 <br />(in Education/Developer Education/Tasks)
 
 
@@ -1896,7 +1896,7 @@ Litium.Data.DataService.CreateBatch
 
         _(Example, sync 5 items at a time might be optimal and 10 is actually slower)_
 
-.footer[[Optional development task is avaliable for Data service](https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks/Data%20service)]
+.footer[[Optional development task is avaliable for Data service](https://github.com/LitiumAB/Education/tree/main/Developer%20Education/Tasks/Data%20service)]
 
 ???
 
@@ -1940,7 +1940,7 @@ Litium.Data.DataService.CreateQuery
 
 Do not use towards public site, without implementing own [caching](https://docs.litium.com/documentation/architecture/distributed-caching)!
 
-.footer[[Optional development task is avaliable for Data service](https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks/Data%20service)]
+.footer[[Optional development task is avaliable for Data service](https://github.com/LitiumAB/Education/tree/main/Developer%20Education/Tasks/Data%20service)]
 
 ???
 
