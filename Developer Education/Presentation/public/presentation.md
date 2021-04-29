@@ -1372,32 +1372,29 @@ template: section
 ---
 # Product structure
 
-<img src="images/pim-product-1.png" width="40%" />
+.left-col[
+<img src="drawiodiagrams/pim-product-1.png" height="40%" />
+]
+
+--
+
+.right-col[
+<img src="drawiodiagrams/pim-product-2.png" height="40%" />
+]
 
 ???
 
 * The baseproduct is a container
 * The variant is the buyable entity of the product
 * Mention that price and stock is only set on the Variant
-
-TODO - Convert image to draw.io
-
----
-# Product structure
-
-<img src="images/pim-product-2.png" width="80%" />
-
-???
-
 * Articlenumber is mandatory field on both base product and variant
 * Fieldtemplates can have fields on both baseproduct and variant level
-
-TODO - Convert image to draw.io
 
 ---
 # PIM Data Model
 
-<img src="images/pim-data-model.png" width="80%" />
+<img src="drawiodiagrams/pim-data-model.png" width="70%" />
+
 
 ???
 
@@ -1409,20 +1406,14 @@ Show lists in Backoffice!
 * A list can be used and published on a website
 * A dynamic list is a static list with an event based engine that adds/removes items from the list 
 
-TODO - Replace image with draw.io
-
 ---
 # Relations between products and categories
 
-<img src="images/pim-relations.png" width="60%" />
+<img src="drawiodiagrams/pim-relations.png" width="40%" />
 
 ## Relationship types
 * Directional “Accessories”
 * Bi-directional “Similar products”
-
-???
-
-TODO - Replace image with draw.io
 
 ---
 # Display templates

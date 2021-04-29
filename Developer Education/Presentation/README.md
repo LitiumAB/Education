@@ -27,6 +27,7 @@ The slides are created with [Remark](https://remarkjs.com/)
 
 * [Remark Wiki](https://github.com/gnab/remark/wiki)
 * Remark renders HTML with [marked.js](https://github.com/markedjs/marked) wich implement [Github flavored markdown](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax).
+* Embedded diagrams are created and updated using [draw.io](https://app.diagrams.net/) - the diagrams are stored as `.png`-files but contain metadata making it possible to edit the diagram. Diagrams are stored in `\public\drawiodiagrams`
 
 ### Run the presentation on a local machine (Offline)
 
