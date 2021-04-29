@@ -769,7 +769,7 @@ template:section
 * Pages can be “active” in different channels
 * A `DraftPage` is the working copy of a Page (a page can only have a single `DraftPage`)
 
-<img src="images/websites-domain-model.png" width="70%" />
+<img src="drawiodiagrams/websites-domain-model.png" width="70%" />
 
 ???
 
