@@ -816,11 +816,7 @@ template:section
 
 * **Products** are sold in a **market** through different **channels**
 
-<img src="images/market-domain-model.png" width="85%" />
-
-???
-
-TODO - Change image into draw.io
+<img src="drawiodiagrams/market-domain-model.png" width="50%" />
 
 ---
 # Channel
