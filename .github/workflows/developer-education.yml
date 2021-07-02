@@ -1,4 +1,4 @@
-name: CI
+name: CI-Developer-Education
 
 # Run this workflow every time a commit is pushed to main or a pull request is opened against main
 on:
