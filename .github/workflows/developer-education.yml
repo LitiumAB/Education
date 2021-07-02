@@ -7,6 +7,7 @@ on:
       - main
     paths:
     - 'Developer Education/Presentation/**'
+    - '.github/workflows/developer-education.yml'
     
 #  pull_request:
 #    branches: 
