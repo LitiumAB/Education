@@ -1,6 +1,4 @@
-# Enable Elasticsearch
-
-**Elasticsearch is only avaliable in Litium version 7.4 and later**
+# Enable Litium Search
 
 > To do this task you first need to complete the tasks [Move site to IIS](../Move%20site%20to%20IIS) and [Docker](../Docker)
 

@@ -17,7 +17,7 @@
 ## Usage
 
 * **Redis** is made avaliable at http://localhost:6379, see the [Redis task](../Redis) for more information
-* **Elasticsearch** is made avaliable at http://localhost:9200, see the [Enable Elasticsearch task](../Enable%20Elasticsearch) for more information
+* **Elasticsearch** is made avaliable at http://localhost:9200, see the [Litium search task](../Litium%20search) for more information
 * **Kibana** is made avaliable at http://localhost:5601, see the [Kibana task](../Kibana) for more information
 
 ## Stop/Remove

@@ -35,7 +35,7 @@ Below tasks might not be completed during classroom education but it is recommen
 1. [Move site to IIS](./Tasks/Move%20site%20to%20IIS)
 1. [Docker](./Tasks/Docker)
 1. [Redis](./Tasks/Redis)
-1. [Enable Elasticsearch](./Tasks/Enable%20Elasticsearch)
+1. [Litium search](./Tasks/Litium%20search)
 1. [Kibana](./Tasks/Kibana)
 1. [Data service](./Tasks/Data%20service)
 1. [Integration kit](./Tasks/Integration%20kit)
