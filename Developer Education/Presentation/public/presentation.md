@@ -356,18 +356,6 @@ template: section
     You can use <mysite>.localtest.me instead of using windows hosts file
 Will not work offline
 
-* [ReAttach](https://marketplace.visualstudio.com/items?itemName=ErlandR.ReAttach) 
-    
-    Visual Studio addon that makes it easy to attach to IIS process for debugging.
-
-* [Baretail](https://www.baremetalsoft.com/baretail/) 
-
-    To keep an eye on the log
-
-* [PaperCut](https://github.com/ChangemakerStudios/Papercut)
-
-    For local email testing
-
 ---
 
 template: section

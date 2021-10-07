@@ -4,6 +4,8 @@ The developer education can be done as a self study course or by attending sched
 
 The scheduled classroom training is avaliable at https://www.litium.se/utbildning.
 
+All tasks are tested in Windows only, Litium currently do not give support or training when doing the education using a non Windows environment.
+
 ## Self study - Getting started
 
 Go through the edcucation slides at https://litiumdev-slides.svc.litiumlab.se (the slides are hosted [here on GitHub](./Presentation) so if you find anything that needs to be fixed please create an Issue or submit a pull request).
