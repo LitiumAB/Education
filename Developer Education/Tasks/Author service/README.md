@@ -24,7 +24,7 @@ To retreive books by authors we need a reusable service that we can inject and u
     public List<string> Books { get; set; }
     ```
 
-1. Inject the `IAuthorService`-interface in the constructor of `AuthorViewModelBuilder` and use it to populate the `Books`-property of `AuthorViewModel`
+1. Add a constructor to `AuthorViewModelBuilder` and inject the `IAuthorService`-interface. Use the injected interface instance to set the `Books`-property of `AuthorViewModel`
 
 1. Add a listing of the books in the author page view (_Src\Litium.Accelerator.Mvc\Views\Author\Index.cshtml_), example:
     ```HTML+Razor
