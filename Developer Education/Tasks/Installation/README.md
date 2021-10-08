@@ -68,7 +68,7 @@ Additional [installation instructions](https://docs.litium.com/documentation/lit
         1. Click **Import** (the Accelerator installation can take a couple of minutes)
     1. Remove **/litium** and everything after it from the url to browse the public Accelerator website
 
-> Note that the site will have limited functionality until [Litium search](../Litium%20search) Litium Search is configured
+> Note that the site will have limited functionality until [Litium search](../Litium%20search) is configured
 
 ## Optional extra task: User secrets
 
