@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+      - litium-7
+      - litium-8
     paths:
     - 'Developer Education/Presentation/**'
     - '.github/workflows/developer-education.yml'
@@ -18,9 +20,21 @@ jobs:
         name: Call Azure Pipeline
         runs-on: ubuntu-latest
         steps:
+        - name: Get branch name (merge)
+          if: github.event_name != 'pull_request'
+          shell: bash
+          run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+
+        - name: Get branch name (pull request)
+          if: github.event_name == 'pull_request'
+          shell: bash
+          run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
+
         - name: Azure Pipelines Action
-          uses: Azure/pipelines@v1
+          uses: alexrster/pipelines@v2
           with:
             azure-devops-project-url: '${{ secrets.AZURE_DEVOPS_URL }}/Litium.Studio'
-            azure-pipeline-name: 'Container.LitiumDevSlides'
+            azure-pipeline-name: 'Container.LitiumDevSlides CI'
             azure-devops-token: ${{ secrets.AZURE_DEVOPS_BUILD_TOKEN }}
+            azure-pipeline-variables:  '{"branch": "${{ env.BRANCH_NAME }}"}'
+
