@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+      - litium-7
+      - litium-8
     paths:
     - 'Developer Education/Presentation/**'
     - '.github/workflows/developer-education.yml'
