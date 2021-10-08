@@ -1,5 +1,7 @@
 # Create Author Page
 
+> To do this task you first need to complete the task [Installation](../Installation)
+
 In this task you will create a new page template that will be used to present information about a specific author.
 
 You will copy and modify the files of the _Article page template_ to create a new _Author page template_.
