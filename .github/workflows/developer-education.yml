@@ -31,7 +31,7 @@ jobs:
           run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
 
         - name: Azure Pipelines Action
-          uses: Azure/pipelines@v1
+          uses: alexrster/pipelines@v2
           with:
             azure-devops-project-url: '${{ secrets.AZURE_DEVOPS_URL }}/Litium.Studio'
             azure-pipeline-name: 'Container.LitiumDevSlides CI'
