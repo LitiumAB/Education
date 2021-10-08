@@ -24,3 +24,4 @@ jobs:
             azure-devops-project-url: '${{ secrets.AZURE_DEVOPS_URL }}/Litium.Studio'
             azure-pipeline-name: 'Container.LitiumDevSlides'
             azure-devops-token: ${{ secrets.AZURE_DEVOPS_BUILD_TOKEN }}
+            azure-pipeline-variables:  '{"branch": "${GITHUB_REF##*/}"}'
