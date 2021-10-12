@@ -76,6 +76,8 @@ Check that you have completed the requirements below installed before you start.
                     variable Litium__Folder__Local that configures files to be stored 
                     in app_data inside the container -->
                     <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
+                    <!-- Configure the container to use the dnsresolver-container as DNS: -->
+                    <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
                 </PropertyGroup>
                 <!-- Create the files directory if it is missing -->
                 <MakeDir Directories="$(DockerLitiumFiles)" Condition="!Exists('$(DockerLitiumFiles)')" />
@@ -123,6 +125,19 @@ We need to run our site on a custom domain for other Litium Apps to work. Make t
     //"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
     "launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}",
     ```
+
+## Add license
+
+Select one of the options below to add your License to the installation:
+
+- Add your `license.json`-file to the root of the Mvc-project
+- OR set as environment variable in the application container.
+    - Open the `license.json`-file and copy the license token value
+    - In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
+        ```PowerShell
+        ENV Litium__License="eyJhbGciOiJSUzI1N...3RXeGMjZL05w"
+        ```
+        You can find a modified `Dockerfile` in the [`_Resources_-folder](Resources/Dockerfile)
 
 ## Build and run    
 1. Right-click on the project `Litium.Accelerator.Mvc` and select **Set as startup project**
