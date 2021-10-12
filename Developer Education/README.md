@@ -20,7 +20,9 @@ Before you start with the tasks make sure that you have gone through [Litium sys
 
 Some tasks assume that a previous task has been completed (task dependencies are presented in each tasks README-file), the recommended order to do them are:
 
+1. [Docker](./Tasks/Docker)
 1. [Installation](./Tasks/Installation)
+1. [Litium search](./Tasks/Litium%20search)
 1. [Author page](./Tasks/Author%20page)
 1. [Author service](./Tasks/Author%20service)
 1. [Author service decorator](./Tasks/Author%20service%20decorator)
@@ -33,20 +35,10 @@ Some tasks assume that a previous task has been completed (task dependencies are
 
 Below tasks might not be completed during classroom education but it is recommended that these are still completed as self study to get a deeper knowledge of Litium development.
 
-1. [Move database to SQL Server](./Tasks/Move%20database%20to%20SQL%20Server)
-1. [Move site to IIS](./Tasks/Move%20site%20to%20IIS)
-1. [Docker](./Tasks/Docker)
 1. [Redis](./Tasks/Redis)
-1. [Litium search](./Tasks/Litium%20search)
 1. [Kibana](./Tasks/Kibana)
 1. [Data service](./Tasks/Data%20service)
 1. [Integration kit](./Tasks/Integration%20kit)
 1. [Test project](./Tasks/Test%20project)
 1. [Author block](./Tasks/Author%20block)
 1. [React](./Tasks/React)
-
-#### Task archive
-
-The tasks below cover functionality which is no longer in the platform and therefore no longer covered in the developer education.
-
-1. [Lucene.Net search (removed in Litium 7.4)](./Tasks/Lucene.Net%20search)

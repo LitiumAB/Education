@@ -1,24 +1,29 @@
 # Docker
 
-> To do this task you first need to complete the task [Installation](../Installation) 
+## Required preparations
 
-* Redis is only avaliable in Litium version 7.3 and later
-* Elasticsearch is only avaliable in Litium version 7.4 and later
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop) to run the containers for Litium Apps
+1. [Configure access to Litium's Docker container images](https://docs.litium.com/documentation/get-started/litium-packages)
 
 ## Setup
 
-1. Install [Docker Desktop](https://docs.docker.com/docker-for-windows/install/) and make sure it is running
-1. Download a copy of _docker-compose.yaml_ from the [_Resources_-folder](Resources/docker-compose.yaml) to your solution directory
-1. Open a terminal or command window in your solution directory where you placed the _docker-compose.yaml_-file and run the command below to start three containers for Elastic, Kibana and Redis
+1. Download a copy of _docker-compose.yaml_ from the [_Resources_-folder](Resources/docker-compose.yaml)
+1. Open a terminal or command window in the directory where you placed the _docker-compose.yaml_-file and run the command below to start the containers needed to run Litium locally
     ```console
     docker-compose up
     ```
 
-## Usage
+## Containers started
 
-* **Redis** is made avaliable at http://localhost:6379, see the [Redis task](../Redis) for more information
-* **Elasticsearch** is made avaliable at http://localhost:9200, see the [Litium search task](../Litium%20search) for more information
-* **Kibana** is made avaliable at http://localhost:5601, see the [Kibana task](../Kibana) for more information
+The following containers gets started
+
+| Container | Port | Related task
+| -- | -- | -- |
+| Dnsresolver | 53 | 
+| Elasticsearch | 9200 | [Litium search task](../Litium%20search) |
+| Kibana | 5601 | [Kibana task](../Kibana) |
+| Redis | 6379 |[Redis task](../Redis) |
+| Sqlserver | 6379 | [Installation](../Installation) |
 
 ## Stop/Remove
 
@@ -38,6 +43,7 @@ docker-compose down
 * [Elasticsearch in docker](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)
 * [Kibana in docker](https://www.elastic.co/guide/en/kibana/current/docker.html)
 * [Redis in docker](https://docs.microsoft.com/en-us/archive/blogs/uk_faculty_connection/containers-redis-running-redis-on-windows-with-docker)
+* [SQL Server in docker](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/database-server-container)
 
 ## FAQ
 
