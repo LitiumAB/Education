@@ -58,34 +58,35 @@ Check that you have completed the requirements below installed before you start.
         ```XML
             ...
 
-            <Target Name="CreateDockerArguments" BeforeTargets="ContainerBuildAndLaunch">
-                <PropertyGroup>
-                    <!-- Always do a pull to ensure that the latest image is used -->
+                <Target Name="CreateDockerArguments" BeforeTargets="ContainerBuildAndLaunch">
+                    <PropertyGroup>
+                    <!-- Always pull to ensure that the latest image is used -->
                     <DockerfileBuildArguments>--pull</DockerfileBuildArguments>
-                    <!-- Define where to find the files-directory on the host
-                    (the same dir as Accelerator.sln file) -->
+                    
+                    <!-- Define the parameters for files and folders to map on the host -->
                     <DockerLitiumFiles>$(MSBuildThisFileDirectory)../files</DockerLitiumFiles>
-                    <!-- Define where to find the litium.log file -->
                     <DockerLitiumLogfile>$(DockerLitiumFiles)/litium.log</DockerLitiumLogfile>
-                    <!-- Add volume mapping so that updates to litium.log file in the container
-                    is also written to litium.log on the host -->
-                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogfile):/app/bin/$(Configuration)/litium.log:rw</DockerfileRunArguments>
-                    <!-- Add another mapping so that data stored in app_data inside the 
-                    container is synced with the files foler on host. The Docker image 
-                    used (defined in the Dockerfile) already contains the environment 
-                    variable Litium__Folder__Local that configures files to be stored 
-                    in app_data inside the container -->
+                    <DockerLitiumElasticLogfile>$(DockerLitiumFiles)/elasticsearch.log</DockerLitiumElasticLogfile>
+                    
+                    <!-- Mappings so that files/logs inside the container is synced with files/folders foler on host
+                    The Docker image used (defined in the Dockerfile) already contains the environment variable 
+                    Litium__Folder__Local that defines files to be stored in app_data inside the container -->
                     <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
+                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogfile):/app/bin/$(Configuration)/litium.log:rw</DockerfileRunArguments>
+                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumElasticLogfile):/app/bin/$(Configuration)/elasticsearch.log:rw</DockerfileRunArguments>
+
                     <!-- Configure the container to use the dnsresolver-container as DNS: -->
                     <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
-                </PropertyGroup>
-                <!-- Create the files directory if it is missing -->
-                <MakeDir Directories="$(DockerLitiumFiles)" Condition="!Exists('$(DockerLitiumFiles)')" />
-                <!-- Create the log file if it is missing -->
-                <Touch Files="$(DockerLitiumLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumLogfile)')" />
-            </Target>
+                    </PropertyGroup>
+                    
+                    <!-- Make sure that the files/folders needed exists, otherwise volume-mapping think directory instead of file -->
+                    <MakeDir Directories="$(DockerLitiumFiles)" Condition="!Exists('$(DockerLitiumFiles)')" />
+                    <Touch Files="$(DockerLitiumLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumLogfile)')" />
+                    <Touch Files="$(DockerLitiumElasticLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumElasticLogfile)')" />
+                </Target>
 
-        </Project>
+            </Project>
+            ...
         ```
 
 ## Configure a Litium database
@@ -122,8 +123,12 @@ We need to run our site on a custom domain for other Litium Apps to work. Make t
 
 1.  Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.json` 
     ```JSON
+    // Replace with new domain:
     //"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-    "launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}",
+    "launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}"
+    // Add defined ports for the application that we can connect to later:
+    "httpPort": 5000,
+    "sslPort": 5001
     ```
 
 ## Add license

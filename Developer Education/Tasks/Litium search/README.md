@@ -1,46 +1,32 @@
 # Enable Litium Search
 
-> To do this task you first need to complete the tasks [Move site to IIS](../Move%20site%20to%20IIS) and [Docker](../Docker)
+> To do this task you first need to complete the [Installation task](../Installation).
 
 ## Configure Litium to use Elasticsearch
 
-Below steps are taken from the [Elasticsearch documentation on docs-site](https://docs.litium.com/documentation/architecture/search/elasticsearch/setup-and-configure-elasticsearch)
+Additional setup instructions can be found on [Litium Docs site](https://docs.litium.com/documentation/architecture/litiumsearch/setup-and-configure-elasticsearch)
 
-First add the Elasticsearch connectionstring to _Web.config_:
-```XML
-<connectionStrings>
-    <add name="ElasticsearchConnectionString" connectionString="http://localhost:9200" />      
+To configure Elasticsearch you need to set connectionstring, prefix and synonym host in _appsettings.json_:
+```JSON
+"Elasticsearch": {
+    "ConnectionString": "http://host.docker.internal:9200",
+    "Username": null,
+    "Password": null,
+    "Prefix": "LitiumEducation",
+    "Synonym": {
+        "Host": "http://host.docker.internal:5000"
+    }
+}
 ```
-
-With Elasticsearch in place we need to update configuration:
-
-1. Set a prefix so that multiple Litium-installations can share our Elasticsearch cluster
-1. [Disable Lucene-indexing for PIM and CMS](https://docs.litium.com/documentation/architecture/search/elasticsearch/disable-search-index-of-the-inbuilt-lucene-net)
-1. Define symbol loading
-    
-Add the following appSettings to Web.config:
-```XML
-<appSettings>
-    <!--Disable Lucene-indexing for PIM and CMS-->
-    <add key="Litium:Search:Indexing:Product" value="false" />
-    <add key="Litium:Search:Indexing:Website" value="false" />
-    <!--Set a prefix for this Litiumsite, allowing us to use the same Elasticsearch setup for multiple sites-->
-    <add key="Litium:Elasticsearch:Prefix" value="litiumeducation" />
-    <!--The local domain where search synonyms are loaded from -->
-    <add key="Litium:Elasticsearch:Synonym:Host" value="http://host.docker.internal:8050" />
-```
-
-The `Litium:Elasticsearch:Synonym:Host` key defined above is a url that will be called _by Elasticsearch from the Elasticsearch docker container_. For this to work we are using `host.docker.internal` which is a [special DNS name](https://docs.docker.com/docker-for-windows/networking/) used to call out from a container to its hosting environment. We define it to connect on port `8050` so add a binding to your website in IIS:
-
-![Alt text](Images/add-iis-binding.png "IIS Binding")
-
-> If you run multiple Litium sites on your computer then use a unique port for each website!
+- **ConnectionString** is where Litium will find Elasticsearch, in our case the Elasticsearch container started in the [Docker task](../Docker).
+- By setting a value for **Prefix** we are able to use the same ElasticSearch-container for multiple local Litium installations, just use a unique prefix for every installation.
+- The **Synonym host** is called from the elastic container over _http_. Synonyms are defined in the Litium application so call it using port 5000 that you defined in launchsettings.json in the [Installation task](../Installation).
 
 ## Test
 
 1. When the site has restarted the **Elasticsearch** menu option is avaliable in Litium backoffice, select it and rebuild all indices (the rebuild can be tracked in the _elasticsearch.log_ file in your solution-directory):
    ![Alt text](Images/elastic-in-litium-admin.png "Elasticsearch BO")
-1. Open your public website and verify that the search is working
+1. Open your public website and verify that products are listed on the site and that search is working
 
 ### Finding problems
 
