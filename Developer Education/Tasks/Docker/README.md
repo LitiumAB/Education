@@ -3,7 +3,6 @@
 ## Required preparations
 
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop) to run the containers for Litium Apps
-1. [Configure access to Litium's Docker container images](https://docs.litium.com/documentation/get-started/litium-packages)
 
 ## Setup
 

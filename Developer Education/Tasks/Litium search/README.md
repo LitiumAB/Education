@@ -18,13 +18,14 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
     }
 }
 ```
-- **ConnectionString** is where Litium will find Elasticsearch, in our case the Elasticsearch container started in the [Docker task](../Docker).
-- By setting a value for **Prefix** we are able to use the same ElasticSearch-container for multiple local Litium installations, just use a unique prefix for every installation.
-- The **Synonym host** is called from the elastic container over _http_. Synonyms are defined in the Litium application so call it using port 5000 that you defined in launchsettings.json in the [Installation task](../Installation).
+
+- **ConnectionString** is used by the Litium Application to connect to Elasticsearch, in our case to the Elasticsearch container started in the [Docker task](../Docker).
+- By setting a value for **Prefix** we can to use the same ElasticSearch-container for multiple local Litium installations, just use a unique prefix for every installation.
+- The **Synonym host** is called by the Elasticsearch container (over _http_ not _https_). Synonyms are defined in the Litium application so call it using port 5000 that you defined in launchsettings.json in the [Installation task](../Installation).
 
 ## Test
 
-1. When the site has restarted the **Elasticsearch** menu option is avaliable in Litium backoffice, select it and rebuild all indices (the rebuild can be tracked in the _elasticsearch.log_ file in your solution-directory):
+1. When the site has restarted the **Elasticsearch** menu option is available in Litium backoffice, select it and rebuild all indices (the rebuild can be tracked in the _elasticsearch.log_ file in your solution-directory):
    ![Alt text](Images/elastic-in-litium-admin.png "Elasticsearch BO")
 1. Open your public website and verify that products are listed on the site and that search is working
 

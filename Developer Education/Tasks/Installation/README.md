@@ -17,7 +17,6 @@ Check that you have completed the requirements below installed before you start.
 1. [Configure access to Litium's Docker container images](https://docs.litium.com/documentation/get-started/litium-packages) so that you can download the required images
 1. Install [Visual Studio](https://visualstudio.microsoft.com/) for the development
 1. Install [SQL Server Management Studio](https://docs.microsoft.com/sv-se/sql/ssms/download-sql-server-management-studio-ssms) to manage the database
-1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop) to run containers for Litium Apps
 
 ### Optional but recommended
 
