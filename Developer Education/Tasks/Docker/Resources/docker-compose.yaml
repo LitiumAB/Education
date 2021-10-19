@@ -31,7 +31,7 @@ services:
     # comment out the line below for additional memory allocation
     # - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     volumes:
-    - elastic_data:/usr/share/elasticsearch/data
+    - ./volumes/elasticsearch/data:/usr/share/elasticsearch/data
     entrypoint: 
     - /bin/sh
     - -c
@@ -49,6 +49,18 @@ services:
     restart: unless-stopped
     ports:
     - "5601:5601"
+
+  synonymserver:
+    # Synonym server to provide elasticsearch with synonyms.
+    image: registry.litium.cloud/apps/synonym-server:1.2.0
+    container_name: synonymserver
+    restart: unless-stopped
+    ports:
+    - "9210:80"
+    environment:
+    - DataFolder=/app_data
+    volumes:
+    - ./volumes/synonymserver/data:/app_data
 
   redis:
     image: redis:5.0.5-alpine
@@ -81,6 +93,4 @@ services:
       - /bin/sh
       - -c
       - "/opt/mssql/bin/permissions_check.sh && /opt/mssql/bin/sqlservr"
-volumes:
-  elastic_data:
-    driver: local
+

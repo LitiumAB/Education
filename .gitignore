@@ -1,3 +1,4 @@
 .vscode/settings.json
 Developer Education/.vs/
 Developer Education/Tasks/Docker/Resources/data/
+Developer Education/Tasks/Docker/Resources/volumes/
