@@ -27,7 +27,7 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
         
         >> Synonyms are added and managed in Litium Backoffice.
         >> Litium connects to the Synonym server to register the synonyms.
-        >> Elasticsearch connects to the Synonym server to retreive the synonyms on search.
+        >> Elasticsearch connects to the Synonym server to retrieve the synonyms on search.
     */
     "Synonym": {
         "Server": "http://host.docker.internal:9210"
