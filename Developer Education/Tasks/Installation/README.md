@@ -67,9 +67,11 @@ Check that you have completed the requirements below installed before you start.
                     <DockerLitiumLogfile>$(DockerLitiumFiles)/litium.log</DockerLitiumLogfile>
                     <DockerLitiumElasticLogfile>$(DockerLitiumFiles)/elasticsearch.log</DockerLitiumElasticLogfile>
                     
-                    <!-- Mappings so that files/logs inside the container is synced with files/folders foler on host
-                    The Docker image used (defined in the Dockerfile) already contains the environment variable 
-                    Litium__Folder__Local that defines files to be stored in app_data inside the container -->
+                    <!-- Mappings so that files/logs inside the container is synced with 
+                    files/folders foler on host
+                    The Docker image used (defined in the Dockerfile) already contains 
+                    the environment variable Litium__Folder__Local that defines files to 
+                    be stored in app_data inside the container -->
                     <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
                     <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogfile):/app/bin/$(Configuration)/litium.log:rw</DockerfileRunArguments>
                     <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumElasticLogfile):/app/bin/$(Configuration)/elasticsearch.log:rw</DockerfileRunArguments>
@@ -78,7 +80,9 @@ Check that you have completed the requirements below installed before you start.
                     <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
                     </PropertyGroup>
                     
-                    <!-- Make sure that the files/folders needed exists, otherwise volume-mapping think directory instead of file -->
+                    <!-- Make sure that the files/folders needed exists 
+                    (otherwise the automatic volume-mapping will create directories 
+                    instead of files) -->
                     <MakeDir Directories="$(DockerLitiumFiles)" Condition="!Exists('$(DockerLitiumFiles)')" />
                     <Touch Files="$(DockerLitiumLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumLogfile)')" />
                     <Touch Files="$(DockerLitiumElasticLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumElasticLogfile)')" />
