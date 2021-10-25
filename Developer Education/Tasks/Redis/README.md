@@ -28,6 +28,17 @@ Make the following changes in `appsettings.json` in the MVC-project:
    }
    ```
 
+Optionally you can also for local testing adjust cache-settings to limit the time items are stored in Redis (do not deploy these settings to production):
+
+```JSON
+"Cache": {
+   "Distributed": {
+      "DefaultMemorySlidingExpiration": 120,
+      "DefaultDistributedSlidingExpiration": 600
+   }
+}
+```
+
 ## Verify
 
 After startup you can use a tool such as for example [Another Redis Desktop Manager](https://github.com/qishibo/AnotherRedisDesktopManager) to connect to Redis and view, delete or edit the data stored in Redis.
