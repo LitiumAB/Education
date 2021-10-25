@@ -1,4 +1,4 @@
-# Data service
+# Data service - LITIUM 7 ONLY
 
 Until now the list of books for authors has been hard coded but with our new field we can load all books for an author from PIM.
 

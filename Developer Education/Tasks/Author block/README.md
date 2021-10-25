@@ -1,4 +1,6 @@
-# Create Author Block
+# Create Author Block - LITIUM 7 ONLY
+
+> To do this task you first need to complete the task [Author page](../Author%20page)
 
 Our client needs a block to present an authors as blocks on the startpage.
 
