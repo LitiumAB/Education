@@ -20,6 +20,7 @@ Before you start with the tasks make sure that you have gone through [Litium sys
 
 Some tasks assume that a previous task has been completed (task dependencies are presented in each tasks README-file), the recommended order to do them are:
 
+1. [Developer certificate](./Tasks/Developer%20certificate)
 1. [Docker](./Tasks/Docker)
 1. [Installation](./Tasks/Installation)
 1. [Litium search](./Tasks/Litium%20search)
