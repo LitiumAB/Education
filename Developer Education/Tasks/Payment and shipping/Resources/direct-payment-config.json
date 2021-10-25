@@ -1,0 +1,11 @@
+{
+  "DirectPay": {
+    "PaymentAccounts": [
+      {
+        "Id": "DirectPay",
+        "MerchantAccountId": null,
+        "Environment": "Test"
+      }
+    ]
+  }
+}
