@@ -28,6 +28,7 @@ Check that you have completed the requirements below installed before you start.
 
 1. Create a directory on your computer where you want to keep your site, for example `C:\Temp\LitiumEducation\`.
 1. Start a PowerShell command prompt **in your new directory**  and run the commands below:
+
     ```PowerShell
     # First install the Litium Accelerator template:
     dotnet new --install "Litium.Accelerator.Templates"
@@ -42,18 +43,22 @@ Check that you have completed the requirements below installed before you start.
 ## Add docker support to the Accelerator
 
 1. Configure Docker
+
     1. Open _Accelerator.sln_ in Visual Studio
     1. Right-click on the project `Litium.Accelerator.Mvc` and select **Add > Docker Support**
     1. In the project you now get a new file called `Dockerfile` that is specified to run the `aspnet:5.0`-image. You need to change it to use the `litium:net5`-image instead since you need some additional Litium requirements (node/Gdi-image scaling and some config):
+
         ```PowerShell
         # Replace this line at the top of the file:
         # FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
         # With this line:
         FROM registry.litium.cloud/runtime/litium:net5-latest AS base
         ```
+
         (You can find a modified `Dockerfile` in the [_Resources_-folder](Resources/Dockerfile)).
 1. Add project configurations
     1. Edit the file `\Litium.Accelerator.Mvc\Litium.Accelerator.Mvc.csproj`, right before the closing `</Project>`-tag add the `<Target>`-tag below to configure the docker build:
+
         ```XML
             ...
 
@@ -100,6 +105,7 @@ Check that you have completed the requirements below installed before you start.
     - Password: **Pass@word**
 1. [Create a new empty database](https://docs.microsoft.com/en-us/sql/relational-databases/databases/create-a-database?view=sql-server-ver15#SSMSProcedure) called **LitiumEducation**
 1. Start a powershell prompt in the folder where you have the `Accelerator.sln`-file and run the commands below to set up the database with the [Litium db-tool](https://docs.litium.com/documentation/get-started/database-management):
+
     ```PowerShell
     # Run database migrations and configure the database
     dotnet litium-db update --connection "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434"
@@ -107,13 +113,17 @@ Check that you have completed the requirements below installed before you start.
     # Create a new Litium backoffice admin user in the database with login admin/nimda
     dotnet litium-db user --connection "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434" --login admin --password nimda
     ```
+
 1. Set the connectionstring, Litium uses the standard .NET configuration system so select one of the options below to set the connection:
     - Set as environment variable in the application container. In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
-            ```PowerShell
-            ENV Litium__Data__ConnectionString="Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434"
-            ```
-            You can find a modified `Dockerfile` in the [`_Resources_-folder](Resources/Dockerfile).
+
+        ```PowerShell
+        ENV Litium__Data__ConnectionString="Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434"
+        ```
+
+        You can find a modified `Dockerfile` in the [`_Resources_-folder](Resources/Dockerfile).
     - OR set it in the `appsettings.json` file in the Mvc-project:
+
         ```JSON
         "Litium": {
             "Data": {
@@ -124,15 +134,16 @@ Check that you have completed the requirements below installed before you start.
 
 We need to run our site on a custom domain for other Litium Apps to work. Make the changes below to run your site on `bookstore.localtest.me` instead of `localhost`.
 
-1.  Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.json` 
-    ```JSON
-    // Replace with new domain:
-    //"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-    "launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}"
-    // Add defined ports for the application that we can connect to later:
-    "httpPort": 5000,
-    "sslPort": 5001
-    ```
+Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.json`
+
+```JSON
+// Replace with new domain:
+//"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+"launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}"
+// Add defined ports for the application that we can connect to later:
+"httpPort": 5000,
+"sslPort": 5001
+```
 
 ## Add license
 
@@ -140,19 +151,22 @@ Select one of the options below to add your License to the installation:
 
 - Add your `license.json`-file to the root of the Mvc-project
 - OR set as environment variable in the application container.
-    - Open the `license.json`-file and copy the license token value
-    - In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
-        ```PowerShell
-        ENV Litium__License="eyJhbGciOiJSUzI1N...3RXeGMjZL05w"
-        ```
-        You can find a modified `Dockerfile` in the [`_Resources_-folder](Resources/Dockerfile)
+  - Open the `license.json`-file and copy the license token value
+  - In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
 
-## Build and run    
+    ```PowerShell
+    ENV Litium__License="eyJhbGciOiJSUzI1N...3RXeGMjZL05w"
+    ```
+
+    You can find a modified `Dockerfile` in the [`_Resources_-folder](Resources/Dockerfile)
+
+## Build and run
+
 1. Right-click on the project `Litium.Accelerator.Mvc` and select **Set as startup project**
 1. In the Build-dropdown in the toolbar select **Docker**
     ![Alt text](Images/docker-in-build-menu.png "Docker build menu")
 1. Press `Ctrl+F5` to build and run the application in a container
-1. If all goes well the site will start on a 404-page, add **/Litium** to the url to access Litium Backoffice login, example: https://bookstore.localtest.me:12345/litium
+1. If all goes well the site will start on a 404-page, add **/Litium** to the url to access Litium Backoffice login, example: [https://bookstore.localtest.me:12345/litium](https://bookstore.localtest.me:12345/litium)
 1. Login to Litium Backoffice using the admin account created earlier **(admin/nimda)**
     1. Open _Control panel (cogwheel in top right corner) > Deployment > Accelerator_
         1. Set _Name_ to _Bookstore_
@@ -167,17 +181,23 @@ Select one of the options below to add your License to the installation:
 Using a Git-repo is always recommended during local development to be able to track and revert changes made. Git setup is not supported during classroom training for time reasons.
 
 1. Copy the `.gitignore`-file from the [_Resources_-folder](Resources/.gitignore) to your solution folder
-1. Using Command-prompt or PowerShell 
+1. Using Command-prompt or PowerShell
     1. Init a git repo in your solution-folder:
+
         ```PowerShell
         git init
         ```
+
     1. Add All files in the folder to Git
+
         ```PowerShell
         git add .
         ```
+
     1. Commit
+
         ```PowerShell
         git commit -m "Added Litium Accelerator"
         ```
+
 1. Follow [Litiums recommended  branching strategy](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator/maintain-the-litium-accelerator-solution) and setup a _Vanilla_-branch of the Accelerator for easier maintenance and upgrades.

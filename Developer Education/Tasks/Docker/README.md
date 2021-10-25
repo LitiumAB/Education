@@ -12,26 +12,29 @@
     docker-compose up
     ```
 
-## Containers started
+### Containers started
 
 The following containers gets started
 
 | Container | Port | Related task
 | -- | -- | -- |
-| Dnsresolver | 53 | 
+| Dnsresolver | 53 |
 | Elasticsearch | 9200 | [Litium search task](../Litium%20search) |
+| Synonym server | 9210 | [Litium search task](../Litium%20search) |
 | Kibana | 5601 | [Kibana task](../Kibana) |
 | Redis | 6379 |[Redis task](../Redis) |
-| Sqlserver | 6379 | [Installation](../Installation) |
+| Sql server | 6379 |[Installation](../Installation) |
 
 ## Stop/Remove
 
-Press `CTRL+C` to stop the running containers and restart again with 
+Press `CTRL+C` to stop the running containers and restart again with:
+
 ```console
 docker-compose up
 ```
 
 Or use the command below to stop and remove all containers in the compose-file:
+
 ```console
 docker-compose down
 ```
@@ -61,35 +64,47 @@ If you get an this error when you run the `docker-compose up` command then eithe
 ## Useful docker commands
 
 ### Container listing
+
 Get a list of existing containers (remove `-a` to only get running containers):
+
 ```console
 docker ps -a
 ```
 
 ### Read container logs
+
 Run the following command to get logs from the last minute (replace litium-elastic-demo with other container names if needed):
+
 ```console
 docker logs --since 1m [pid/name]
 ```
+
 Optionally use the `-f` parameter to get live updates written to the console:
+
 ```console
 docker logs -f [pid/name]
 ```
 
-Additional documentation on options for `docker logs` can be found at https://docs.docker.com/engine/reference/commandline/logs/
+Additional documentation on options for `docker logs` can be found in [docker documentation](https://docs.docker.com/engine/reference/commandline/logs/).
 
 ### Stop container
+
 Stop individual container
+
 ```console
 docker stop litium-redis-demo
 ```
+
 Or use the following command to stop all containers by combining the previous commands
+
 ```console
 docker stop $(docker ps -a -q)
-``` 
+```
 
 ### Start container
+
 Start individual containers
+
 ```console
 docker start litium-redis-demo
 ```
@@ -97,14 +112,19 @@ docker start litium-redis-demo
 ### Remove container
 
 Remove individual container:
+
 ```console
 docker rm [pid/name]
 ```
+
 Remove ALL containers:
+
 ```console
 docker rm -f $(docker ps -aq)
 ```
+
 Remove ALL stopped containers AND ALL unused resources:
+
 ```console
 docker system prune
 ```

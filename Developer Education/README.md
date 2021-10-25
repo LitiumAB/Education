@@ -2,13 +2,13 @@
 
 The developer education can be done as a self study course or by attending scheduled or on-demand classroom training.
 
-The scheduled classroom training is avaliable at https://www.litium.se/utbildning.
+The scheduled classroom training is avaliable at [litium.se](https://www.litium.se/utbildning).
 
 All tasks are tested in Windows only, Litium currently do not give support or training when doing the education using a non Windows environment.
 
 ## Self study - Getting started
 
-Go through the edcucation slides at https://litiumdev-slides.svc.litiumlab.se (the slides are hosted [here on GitHub](./Presentation) so if you find anything that needs to be fixed please create an Issue or submit a pull request).
+Go through the [edcucation slides](https://litiumdev-slides.svc.litiumlab.se) (the slides are hosted [here on GitHub](./Presentation) so if you find anything that needs to be fixed please create an Issue or submit a pull request).
 
 Do the development tasks below when they are referenced in the slides and if you have questions please ask them in [Litium forum](https://forum.litium.com/).
 
@@ -16,7 +16,7 @@ Do the development tasks below when they are referenced in the slides and if you
 
 To practice what you learn from the slides you can do these tasks to create a simple bookstore.
 
-Before you start with the tasks make sure that you have gone through [Litium system requirements](https://docs.litium.com/documentation/get-started/system-requirements). 
+Before you start with the tasks make sure that you have gone through [Litium system requirements](https://docs.litium.com/documentation/get-started/system-requirements).
 
 Some tasks assume that a previous task has been completed (task dependencies are presented in each tasks README-file), the recommended order to do them are:
 

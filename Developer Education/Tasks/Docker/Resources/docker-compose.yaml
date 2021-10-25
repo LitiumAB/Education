@@ -40,16 +40,6 @@ services:
     # to be added/modified in Litium backoffice and updated in Elasticsearch without downtime.
     - "./bin/elasticsearch-plugin list | grep -q analysis-dynamic-synonym || ./bin/elasticsearch-plugin install -b https://github.com/Tasteful/elasticsearch-analysis-dynamic-synonym/releases/download/v7.6.2/elasticsearch-analysis-dynamic-synonym.zip; /usr/local/bin/docker-entrypoint.sh"
   
-  kibana:
-    # The Kibana image tries, by default, to connect to a host/container called elasticsearch.
-    image: docker.elastic.co/kibana/kibana:7.6.2
-    container_name: kibana
-    depends_on:
-    - elasticsearch
-    restart: unless-stopped
-    ports:
-    - "5601:5601"
-
   synonymserver:
     # Synonym server to provide elasticsearch with synonyms.
     image: registry.litium.cloud/apps/synonym-server:1.2.0
@@ -61,6 +51,16 @@ services:
     - DataFolder=/app_data
     volumes:
     - ./volumes/synonymserver/data:/app_data
+
+  kibana:
+    # The Kibana image tries, by default, to connect to a host/container called elasticsearch.
+    image: docker.elastic.co/kibana/kibana:7.6.2
+    container_name: kibana
+    depends_on:
+    - elasticsearch
+    restart: unless-stopped
+    ports:
+    - "5601:5601"
 
   redis:
     image: redis:5.0.5-alpine
