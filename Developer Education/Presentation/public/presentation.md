@@ -59,8 +59,6 @@ name: Agenda
 * Litium architecture
 
 * Development with dependency injection
-
-* Security token
 ]
 --
 .right-col[
@@ -80,25 +78,17 @@ name: Agenda
 
 * Accelerator front-end development
 
-* Certification exam
 ]
 ---
 class: center
 
-# Goals
+# Goal
 
-### Knowledge
-
-> Your ambition is to make you a confident and independent developer, <br/>ready to participate in Litium projects. 
-
-> You will know how to implement most requirements, <br/>and know where to find answers when you don´t.
-
---
-### Certification
-
-> A Litium Developer Certification is a quality mark that build customer trust. 
-
-> Litium Certifications also add business value to partner organizations. 
+> The goal of this education is to make you a confident and independent  
+> developer, ready to **participate** in Litium projects.
+>
+> You will know how to setup Litium, implement most requirements,  
+> and know where to find answers when you don´t.
 
 ---
 name: Features
@@ -120,25 +110,23 @@ name: Architecture stack
 
 ---
 
-# Litium is based on standard technology
+# Litium tech stack
 
-* .NET Standard 2.0
+* [React](https://reactjs.org/) (Accelerator) and [Angular](https://angular.io/) (Litium administration UI)
 
-* [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/index) (Microsoft/Open Source)
+* Litium CDN _Powered by [Fastly](https://www.fastly.com/)_
 
-* [Newtonsoft JSON](https://www.newtonsoft.com/json) (Open Source)
+* [Microsoft .NET MVC](https://dotnet.microsoft.com/apps/aspnet/mvc)
 
-* [AutoMapper](http://automapper.org/) (Open Source)
+* [Microsoft .NET 5](https://dotnet.microsoft.com/)
 
-* [ASP.NET MVC 5](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started) (Microsoft)
+* Litium search _Powered by [Elasticsearch](https://www.elastic.co/)_
 
-* [ASP.NET WebAPI 5](https://docs.microsoft.com/en-us/aspnet/web-api/overview/) (Microsoft)
+* [Redis](https://redis.io/)
 
-* [Angular](https://angular.io/) (Google/Open Source)
+* [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server)
 
-???
-
-TODO - Add additional info on usage for each bullet
+* [Docker](https://www.docker.com/)
 
 ---
 # Roadmap
@@ -272,24 +260,18 @@ System requirements for local development environment are avaliable on [Litium D
 
 ### Required
 
+* .NET 5
 * Visual Studio 2019
-* Sql Server 2016 or later **(2016 required by Litium hosting!)**
-* .NET 4.7.2
-* [Litium NuGet feed](https://docs.litium.com/download/litium-nuget-feed) - Requires partner account on docs.litium.com
+* Microsoft SQL Server 2019
+* Configured access to Litium NuGet and Container images (_requires partner account on docs.litium.com_)
 
 ### Optional (but recommended)
 
-* IIS (verify that .NET development is enabled through _“Turn windows features on/off”_)
-* SMTP Server
-* sessionState = StateServer
+* Docker
 * Elasticsearch
 * Redis
-
-???
-
-Change sessionState from InProc to StateServer in Web.config.
-`<sessionState mode="StateServer" stateConnectionString="tcpip=127.0.0.1:42424" />`
-Run the windows service _ASP.NET State Service_ for this to work
+* Payment app
+* Shipment app
 
 ---
 
@@ -2121,6 +2103,15 @@ template: section
 ---
 template: section
 # Next step
+
+---
+# Get certified
+
+* A Litium Developer Certification is a personal quality mark that builds customer trust
+
+* Litium Developer Certifications make up one part of your organizations [partner rank](https://www.litium.com/solution-partners)
+
+* Sign up for a certification exam at [litium.com](https://www.litium.com/training-and-certification-at-litium)
 
 ---
 # Resouces
