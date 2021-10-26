@@ -32,16 +32,16 @@
 
 The following containers gets started
 
-| Container | Port | Related task
-| -- | -- | -- |
-| Dnsresolver | 53 |
+| Container | Port | Related task | Info
+| -- | -- | -- | -- |
+| Dnsresolver | 53 | | Used as DNS by other containers to let the _localtest.me_-domain reach the out of the container to the host (your computer)
 | Elasticsearch | 9200 | [Litium search task](../Litium%20search) |
-| Synonym server | 9210 | [Litium search task](../Litium%20search) |
-| Kibana | 5601 | [Kibana task](../Kibana) |
+| Synonym server | 9210 | [Litium search task](../Litium%20search) | Used by Elasticsearch to store synonyms
+| Kibana | 5601 | [Kibana task](../Kibana) | Used to browse Elasticsearch index files
 | Redis | 6379 |[Redis task](../Redis) |
 | Sql server | 6379 |[Installation](../Installation) |
-| Direct payment | 10011 | [Payment and shipping](../Payment%20and%20shipping) |
-| Direct shipment | 10021 | [Payment and shipping](../Payment%20and%20shipping) |
+| Direct payment | 10011 | [Payment and shipping](../Payment%20and%20shipping) | Litium App
+| Direct shipment | 10021 | [Payment and shipping](../Payment%20and%20shipping) | Litium App
 
 ## Stop/Remove
 
