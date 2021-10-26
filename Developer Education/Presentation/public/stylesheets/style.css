@@ -18,7 +18,7 @@ table {
   background-size: contain;
 }
 .section-background {
-  background-color: #1494f6;
+  background-color: #0099ff;
   color: white;
   background-image: url("../images/white.png");
   background-position-y: 0em;
@@ -71,7 +71,7 @@ table {
 }
 .outline-active-slide-link {
   color: white;
-  background-color: #1494f6;
+  background-color: #0099ff;
 }
 .outline-section-item {
   font-size: small;
