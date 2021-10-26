@@ -131,7 +131,7 @@ name: Architecture stack
 ---
 # Roadmap
 
-<img src="images/roadmap.png" alt="Roadmap" width="100%" />
+<img src="drawiodiagrams/roadmap.png" alt="Roadmap" width="100%" />
 
 
 ---
@@ -256,7 +256,7 @@ template: section
 
 # Installation Pre-requisites
 
-System requirements for local development environment are avaliable on [Litium Docs site](https://docs.litium.com/documentation/get-started/system-requirements) 
+System requirements for local development environment are avaliable on [Litium Docs site](https://docs.litium.com/documentation/get-started/system-requirements)
 
 ### Required
 
@@ -274,26 +274,21 @@ System requirements for local development environment are avaliable on [Litium D
 * Shipment app
 
 ---
+# litium-db tool
 
-# NuGet package for installation
+Command-line dotnet tool to work with the Litium application database
 
---
-.left-col.center[
-## Litium.Web.Setup.Complete
-<img src="images/nuget-setup-web.png" alt="Nuget web setup" width="150"/>
-]
+* New from Litium 8
 
---
-.right-col.center[
-## Litium.Setup.Complete
-<img src="images/nuget-setup.png" alt="Nuget setup" width="150"/>
-]
+* [Create admin users](https://docs.litium.com/documentation/get-started/create-admin-user-and-log-in) in database
 
-???
+* Setup new Litium application database
 
-Litium.Setup.complete is enough when web is not needed, in:
-* Integration kit Windows service 
-* Litium Testproject
+* Migrate database to new version during upgrade
+
+* Generate scripts for manual upgrade
+
+.footer[Read more at https://docs.litium.com/documentation/get-started/database-management]
 
 ---
 template: task
@@ -309,34 +304,21 @@ template: section
 
 ---
 
-# Web.config updates during installation
+# appsettings.json
 
-* Connectionstrings for database and Elasticsearch
+* Connectionstrings for database, Elasticsearch and Redis
 
 * Files folder
 
-    * Temporary files
-    
-    * Lucene.Net search index files
-    
-    * Media files
-        * In a multi server environment the media files should be shared using the CommonFilesDirectory-setting
+  * Temporary files
 
-* Sessionstate, inProc vs StateServer
-    * Use StateServer in local development to verify serialization support
+  * Media files
+
+  * Use the `Shared`-folder in multi server environment
 
 * SMTP
 
-.footer[Read more at https://docs.litium.com/documentation/get-started/web_config]
-
----
-
-# Useful tools
-
-* [localtest.me](http://readme.localtest.me/)
-    
-    You can use <mysite>.localtest.me instead of using windows hosts file
-Will not work offline
+.footer[Read more at https://docs.litium.com/documentation/get-started/configuration]
 
 ---
 
@@ -363,21 +345,21 @@ Go through the deployed storefront of Litium Accelerator and show briefly what i
 # Login to backoffice
 
 <!-- span fix so that markdown is not formatting the url as clickable link: -->
-## Login URL: http<span>://</span>mydomain/litium
+**Login URL: http<span>://</span>mydomain/litium**
 
-Login with **your windows account username and password**
+* Use Litium db-tool to generate a admin user
 
-* If you don't belong to the local administrators group in windows you need to [change systemUserGroup in Web.config](https://docs.litium.com/documentation/get-started/web_config) to specify a different group to allow login locally.
+or
 
-* If you are on a domain it should be added to the loginname, otherwise just add a leading backslash, example:
+* Login with **your windows account username and password**
 
-    * With domain: **`MYORG\first.last@myorg.com`**
+  * If you don't belong to the local administrators group in windows you need to [change systemUserGroup in Web.config](https://docs.litium.com/documentation/get-started/web_config) to specify a different group to allow login locally.
 
-    * Without domain: **`\first.last@myorg.com`**
+  * If you are on a domain it should be added to the loginname, otherwise just add a leading backslash, example:
 
-???
+      * With domain: **`MYORG\first.last@myorg.com`**
 
-TODO Add instructions or link on how to change allowed login group
+      * Without domain: **`\first.last@myorg.com`**
 
 ---
 
@@ -387,11 +369,15 @@ background-image: url(images/backoffice-ui.png)
 
 * Angular
 
-* [ASP.NET WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis)
+* Developer extension points:
 
-* [Signalr](https://docs.microsoft.com/en-us/aspnet/signalr/overview/getting-started/introduction-to-signalr)
+  * Dashboard widgets
 
-* Still webforms in <br/> E-commerce (Sales) module
+  * Entity custom fields
+
+  * Area-panels
+
+  * Pages in control panel
 
 ---
 
@@ -438,6 +424,7 @@ template:section
 # Data Modelling
 
 ---
+
 # Entities
 
 ### The following Litium entities support data modelling with the field framework
@@ -454,40 +441,37 @@ With Litium 8 additional entities from E-commerce will be added
 
 ---
 
-# Field Framework
+# Field Framework - Fields
 
-* Handles all “dynamic” fields (fields defined in the project)
-
---
 * Developers can [create their own field types](https://docs.litium.com/documentation/architecture/field-framework/creating-a-custom-field-type) 
-    
-    * Field types are per **Installation**
 
-    * Field instances are per **Area**
+* A **Field type** is available in all **Areas** of the **Installation**
 
---
-* The field does not need to be added to a Field template to be added to an entity
+* Instances of a **Field type** are created per **Area**
 
-    * The field template is not the container of fields
-    
-    * Skip adding a field to a template to make it hidden for editors
-    
-    * Consider field template as a grouping, and a way to define the display template
+  _Example: The field **City** is of type **Text** and is created in the **Customers-area**_
 
---
-* Setup is done in the `\Src\Litium.Accelerator\Definitions\`-namespace
+  _Example: The field **Brand** is also of type **Text** and is created in the **Products-area**_
 
-???
+---
 
-Non-dynamic fields are for example id, name and articlenumber
+# Field Framework - Field templates
 
-In Litium 4.X the field had to be in a fieldtemplate to be used
+* An entity (for example a Person, Product or Page) is created using a Field template
+
+* A Field template contains fields
+
+* A Field does not need to be part of the entitys Field template to be added to the entity
+
+  * The Field template is **not** the link between the Field and the entity - it only controls field visibility when editing the entity in UI
+
+  * Skip adding a field to a template to make it hidden for editors
 
 ---
 
 # Field Definition
 
-##  Defined for each Area
+## Defined per Area
 
 * `Litium.WebSites.WebSiteArea`
 * `Litium.Products.ProductArea`
@@ -720,7 +704,7 @@ template:section
 
 # Blocks
 
-* Has data modelling
+* Have data modelling
 
 * Rendered inside a BlockContainer of a page
 
@@ -817,7 +801,7 @@ template:section
 
 * The VAT percentage for each Tax class is defined on Country
 
-    * All products with the same tax class has the same VAT percentage
+    * All products with the same tax class have the same VAT percentage
 
 <img src="drawiodiagrams/countrytotaxclasslink.png" width="70%" />
 

@@ -132,7 +132,11 @@ Check that you have completed the requirements below installed before you start.
 
 ## Configure custom domain
 
-We need to run our site on a custom domain for other Litium Apps to work. Make the changes below to run your site on `bookstore.localtest.me` instead of `localhost`.
+You need to run our site on a custom domain for other Litium Apps to work. Make the changes below to run your site on `bookstore.localtest.me` instead of `localhost`.
+
+By using a `[mysite].localtest.me`-domain it is possible to use a custom domain without having to update the windows `hosts`-file. `Localtest.me` is a public domain that points to localhost, [click here to read more](http://readme.localtest.me/).
+
+
 
 Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.json`
 
