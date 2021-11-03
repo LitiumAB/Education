@@ -1400,12 +1400,14 @@ template: section
 
 * Logging of updates in PIM
 
+<img src="images/audit-log.png" width="75%" class="img-border" />
+
+--
+
 * Logging when users with access to customer or order area login to the system
 
     * This log has no UI
     * Available in _Auditing_-schema in DB
-
-<img src="images/audit-log.png" width="100%" class="img-border" />
 
 ---
 # Error handling
@@ -1426,15 +1428,12 @@ template: section
 
 * Managed in NLog.config
 
---
+* Logging to textfiles, monitor with [Baretail](https://www.baremetalsoft.com/baretail/) during development:
+    <img src="images/event-log-file.png" width="90%" class="img-border" />
 
-* Log to database, access in backoffice
-    <img src="images/event-log.png" width="100%" class="img-border" />
+* Logging to console during development
+    <img src="images/event-log-console.png" width="100%" class="img-border" />
 
---
-
-* Log to file
-    <img src="images/event-log-file.png" width="100%" class="img-border" />
 
 ---
 template: section
@@ -1650,13 +1649,6 @@ name: Litium APIs
 * Event subscription with Webhooks
 
 ---
-name: Using Litium APIs
-
-background-image: url(images/connect.png)
-
-# Litium connect
-
----
 
 # Litium connect
 
@@ -1685,24 +1677,38 @@ background-image: url(images/connect.png)
 
 * Deploy and scale without restarting Litium
 
-* Litium version agnostic, example:
-
-| Litium platform | ERP API | Channels API | Payments API |
-| :-: | :-: | :-: | :-: |
-| 7.4 | 1.0 | - | - |
-| 7.6 | 2.0 | - | - |
-| 7.7 | 2.0 | 1.0 | - |
-| 8.0 | 2.0 | 1.0 | 1.0 |
-
-
 ]
-
 
 ???
 
 Web hooks = Example, leave phonenumber to be called back in phone queue
 
 Guaranteed delivery = Litium tries to deliver the message a few times before giving up 
+
+---
+
+# Litium connect versioning
+
+Litium connect APIs have individual versioning:
+
+.table-border[
+
+| Litium platform | ERP API | Payments API | Shipments API | Channels API
+| :-: | :-: | :-: | :-: | :-: |
+| 7.4 | 1.0 | - | - | - |
+| 7.6 | 2.0 | - | - | - |
+| 7.7 | 2.0 | - | - | - |
+| 8.0 | 2.0 | 1.0 | 1.0 | - |
+| 8.X | 2.0 | 1.0 | 1.0 | 1.0 |
+
+]
+
+---
+name: Using Litium APIs
+
+background-image: url(images/connect.png)
+
+# Litium connect
 
 ---
 
@@ -1795,19 +1801,13 @@ Litium Search is built on Elasticsearch with additional plugins and administrati
 
 * Part of Litium Accelerator
 
-* Litium Backoffice (except E-Commerce) searches directly against the database
-
-    * Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and Accelerator frontend
-
-.footer[Read more: https://docs.litium.com/documentation/architecture/search]
+.footer[Read more: https://docs.litium.com/documentation/architecture/litiumsearch]
 
 ???
 
 It is possible to fine tune how the indexing of a item is made, and what fields to include​
 
 The configuration options is not only for indexing, you also get full flexibility when searching, you can improve the importance of different fields and adjust how search result should be presented to match what the visitor expect.
-
-TODO - Add task on query with the above options for boost and presentation
 
 ---
 # Litium Search
@@ -1816,14 +1816,14 @@ TODO - Add task on query with the above options for boost and presentation
 
 * Additional indices [can be added](https://docs.litium.com/documentation/architecture/search/elasticsearch/how-to-add-a-search-index) if needed
 
-<img src="images/litium-search-indices.png" width="90%" />
+<img src="images/litium-search-indices.png" width="90%" class="img-border" />
 
 ---
 # Litium Search
 
 * Add an manage synonyms in Litium Backoffice
 
-<img src="images/litium-search-synonyms.png" width="90%" />
+<img src="images/litium-search-synonyms.png" width="90%" class="img-border" />
 
 ---
 # DataService - Batching data
@@ -1834,7 +1834,7 @@ Litium.Data.DataService.CreateBatch
 
 ### Create, Delete and Update multiple domain objects in a single transaction
 
-* If one operation fails, the whole batch is rolled back. 
+* If one operation fails, the whole batch is rolled back.
 
 * All entities in a single batch are logged together in logging for auditing
 
@@ -2125,7 +2125,9 @@ template: section
 
 * A license file is required to access Litium from a machine other than localhost
 
-    * The initial installation uses a demo license which only allows requests from the local computer.
+  * The initial installation uses a demo license which only allows requests from the local computer.
+
+  * **NEW!** From version 8.1 the installation will accept remote requests without a license file but with a limitation on requests/minute.
 
 * The license must cover all environments (test/prod/stage) that customers have access to
 
