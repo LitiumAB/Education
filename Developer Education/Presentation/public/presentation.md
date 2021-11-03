@@ -133,6 +133,14 @@ name: Architecture stack
 
 <img src="drawiodiagrams/roadmap.png" alt="Roadmap" width="100%" />
 
+--
+### 8.X Coming functionality
+
+- Litium 8 Upgrade script
+- Returns API and refunds
+- Discount codes (voucher codes)
+- New campaign sales reports
+- Additional discount types
 
 ---
 
@@ -814,58 +822,52 @@ template: section
 # Architecture
 
 ---
-name: Arcitecture
+# Component model - Implementations
 
+* Abstractions (interfaces/abstract classes) are separated from  **implementations** in different assemblies
 
-<img src="images/architecture-03.png" width="85%" />
-
----
-
-# Component model
-
-* Domain entities and their service contracts have the same namespace (example: `Variant` and `VariantService` are both in the `Litium.Products` namespace)
-
---
-
-* Litium separates contracts (interfaces and abstract classes) and implementations in different assemblies
-
-    * Contract assembly examples
-        * `Litium.Abstractions`
-        * `Litium.Web.Abstractions`
+    * Abstraction assembly examples
+        * Litium.**Abstractions**
+        * Litium.Web.**Abstractions**
     * Implementation assembly examples
-        * `Litium.Application`
-        * `Litium.Infrastructure.MicrosoftServiceBus`
+        * Litium.**Application**
+        * Litium.**Infrastructure**.MicrosoftServiceBus
 
 --
 
-* Litium implementations also have a `Impl`-suffix and are decorated as fallback, example:
+* All Litium default **implementations** have a `Impl`-suffix and have the fallback-attribute, example:
     ```C#
     [Service(FallbackService = true)]
     public class PriceCalculatorImpl : IPriceCalculator
-    ``` 
+    ```
 
 ---
 
-# Service model
+# Component model - Abstractions
 
-* Litium contracts (Services)
-    * Artifacts that have “methods” or “operations”
+Abstractions are contracts that define functionality:
+
+--
 
 * Interfaces
     * Implement an interface to extend the functionality
     * Or change default functionality by extending default implementation using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
     * Example: IPriceCalculator
 
+--
+
 * Abstract Classes
-    * Declare service definitions that implementation projects are **not expected to change** 
-    * Example: BaseProductService
+    * Implementation projects are **not expected to change** abstract classes
+    * Example: Litium use _Services_ for most functionality and to access and work with entities (BaseProductService, VariantService etc.).
+
+--
+
+### Only target **abstractions** during development for better testability
 
 ---
 # Redis
 
 > _"An open source, in-memory data structure store, used as a database, cache and message broker"_
-
---
 
 ### Redis is used in Litium for:
 
@@ -875,7 +877,7 @@ name: Arcitecture
 
 * Service bus
 
-* Session
+* Session information
 
 ---
 
@@ -1628,7 +1630,15 @@ template: section
 # Extending Litium
 
 ---
-# Litium core APIs
+name: Litium APIs
+
+# Litium APIs
+
+<img src="drawiodiagrams/litium-apis.png" width="70%" />
+
+
+---
+# Using Litium APIs
 
 <img src="images/core-apis-2.png" width="100%" />
 
@@ -1640,6 +1650,7 @@ template: section
 * Event subscription with Webhooks
 
 ---
+name: Using Litium APIs
 
 background-image: url(images/connect.png)
 
