@@ -17,6 +17,37 @@ Use the arrow-keys to navigate the slides or click the icon in bottom-right corn
 ---
 
 layout: true
+name: acceleratorproject
+
+<img src="images/litium_logotyp_rgb.svg" alt="Litium-logo" height="20"/>
+
+# Accelerator solution structure
+
+.left-col[
+### Projects
+
+1. `Litium.Accelerator`
+
+1. `Litium.Accelerator.Administration.Extensions`
+
+1. `Litium.Accelerator.Elasticsearch`
+
+1. `Litium.Accelerator.FieldTypes`
+
+1. `Litium.Accelerator.Mvc`
+
+1. _`Litium.Accelerator.Email` - "hidden" in solution folder_
+]
+
+.right-col[
+    {{content}}
+]
+
+.footer[Read more at https://docs.litium.com/documentation/litium-accelerators/develop/accelerator-architecture/accelerator-mvc]
+
+---
+
+layout: true
 name: task
 class: center, top
 
@@ -50,15 +81,15 @@ name: Agenda
 
 * Installation
 
+* Demo Accelerator frontend and Litium Backoffice
+
 * Field framework
 
 * Litium area Websites
 
 * Globalization
 
-* Litium architecture
-
-* Development with dependency injection
+* Architecture and development
 ]
 --
 .right-col[
@@ -72,12 +103,15 @@ name: Agenda
 
 * Validation
 
-* Extending Litium - Web API and Connect
+* Litium APIs
 
-* Data service
+* Add-Ons
+
+* Litium Search
 
 * Accelerator front-end development
 
+* Next step
 ]
 ---
 class: center
@@ -167,7 +201,9 @@ template: section
 ---
 # Litium Accelerator
 
-<img src="images/accelerator-model.png" width="100%" />
+<img src="drawiodiagrams/accelerator-model.png" width="70%" />
+
+.footer[Read more at https://docs.litium.com/documentation/litium-accelerators/develop/accelerator-architecture]
 
 ???
 
@@ -175,69 +211,81 @@ BLL Allows the same business logic to be used in both Web API and in MVC Views
 
 ---
 
-# Accelerator technical choices
-
---
-
-* Design - less is more
-
---
-
-* Zurb Foundation
-    * …for Sites
-    * …for E-mails
-
---
-* Style
-    * Component based
-    * SASS 
-    * _Block, Element, Modifier_ methodology (BEM)
-
---
-* JavaScript
-    * Component based
-    * React
-    * Webpack
-
-???
-
-BEM 
-* provides a modular structure to your CSS project. 
-* Naming scheme to avoid conflicts with other CSS names
-* provides a relationship between CSS and HTML
-
-https://medium.com/@dannyhuang_75970/what-is-bem-and-why-you-should-use-it-in-your-project-ab37c6d10b79
+template: acceleratorproject
 
 ---
-name: Accelerator MVC & React
 
-.left-col[
-# MVC
+template: acceleratorproject
 
-## For most views and all routing
-```
-Litium.Accelerator.Mvc/Controllers
+### 1. Litium.Accelerator
 
-Litium.Accelerator.Mvc/Views
+- BLL - Contains all business logic of the accelerator, separated from the UI and Web API, example:
 
-Litium.Accelerator/ViewModels
-```
+   - ViewModels and ViewModelBuilders
+   - Definitions
+   - Services
+   - Validations
 
-]
---
-.right-col[
-# React + Redux
-
-## For dynamic views
-
-* Compiled with WebPack
-
-* Resources in folder: `Litium.Accelerator.Mvc/Client`
-
-* Web API endpoints in folder: `Litium.Accelerator.Mvc/Controllers/Api`
-]
+- Talks to the Litium API (installed via NuGet)
 
 ---
+
+template: acceleratorproject
+
+### 2. Litium.Accelerator.Administration.Extensions
+
+- Extend Litium backoffice UI
+
+- [Create custom settings pages](https://docs.litium.com/documentation/architecture/back-office_1/creating-custom-setting-page)
+
+---
+
+template: acceleratorproject
+
+### 3. Litium.Accelerator.Elasticsearch
+
+- Contains the Elasticsearch implementation
+
+- Modify what data is stored in the index
+
+- Modify how queries are executed against the index data
+
+---
+
+template: acceleratorproject
+
+### 4. Litium.Accelerator.FieldTypes
+
+- Custom field types for Litiums entity field framework
+
+---
+
+template: acceleratorproject
+
+### 5. Litium.Accelerator.Mvc
+
+- MVC _Controllers_ and _Razor Views_
+
+- Web API controllers for the Accelerator React UI
+
+- `/Definitions`-folder to manage connections between Field Templates and the controller to use for rendering
+
+- `/Client`-folder containing all client styles and JavaScript
+
+- Configuration and package reference files
+
+---
+
+template: acceleratorproject
+
+### 6. Litium.Accelerator.Email
+
+- [Client side project to manage e-mail templates](https://docs.litium.com/documentation/litium-accelerators/develop/front-end-accelerator/accelerator-email) (Order confirmation e-mail)
+
+- [Zurb Foundation for Emails](https://get.foundation/emails/docs/) used for styling
+
+---
+
 template: section
 
 # Installation
@@ -246,19 +294,24 @@ template: section
 
 # Installation
 
---
+.footer[Read more at https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator]
 
-## Installation of Litium is done through Visual Studio
-
-* With or without accelerator
-
---
-
-## Litium is distributed through a private NuGet-feed
+## Litium patform is only distributed through a private NuGet-feed
 
 * The NuGet-feed is accessed using your [Litium Docs](http://docs.litium.com) user account
 
-* All packages that start with Litium.* are distributed as individual nuget packages
+--
+
+## Litium Accelerator is distributed as a .NET template package
+
+```PowerShell
+# Install the Accelerator template package
+dotnet new --install "Litium.Accelerator.Templates"
+
+# Install Accelerator using the template package
+# (also downloads the Litium platform dependencies from NuGet)
+dotnet new litmvcacc
+```
 
 ---
 
@@ -544,10 +597,6 @@ new FieldDefinition<BlockArea>(BlockFieldNameConstants.Link,
 }
 ```
 
-???
-
-TODO - Replace image with draw.io
-
 ---
 # Multi field
 
@@ -575,10 +624,6 @@ new FieldDefinition<BlockArea>(BlockFieldNameConstants.Banners,
 }
 ```
 ]
-
-???
-
-TODO - replace image with draw.io
 
 ---
 
@@ -733,12 +778,6 @@ template:section
 
 <img src="drawiodiagrams/websites-domain-model.png" width="70%" />
 
-???
-
-TODO - Convert image to draw.io
-
-TODO - Info om WebsiteTextContainer
-
 ---
 template: task
 name: Task: Author page
@@ -812,10 +851,6 @@ template:section
     * All products with the same tax class have the same VAT percentage
 
 <img src="drawiodiagrams/countrytotaxclasslink.png" width="70%" />
-
-???
-
-TODO - Replace image with draw.io
 
 ---
 template: section
@@ -1172,10 +1207,6 @@ template: section
 
 .footer[Image from https://docs.litium.com/documentation/litium-documentation/sales/checkout_flow<br/>
 Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
-
-???
-
-TODO - Replace image with draw.io
 
 ---
 name: Create order - detailed
@@ -1626,7 +1657,7 @@ name: Task: Validation
 
 ---
 template: section
-# Extending Litium
+# Litium APIs
 
 ---
 name: Litium APIs
@@ -1704,7 +1735,7 @@ Litium connect APIs have individual versioning:
 ]
 
 ---
-name: Using Litium APIs
+name: Litium Connect APIs
 
 background-image: url(images/connect.png)
 
@@ -1738,55 +1769,101 @@ background-image: url(images/connect.png)
 <img src="images/swagger.png" width="75%" />
 
 ---
-# AddOns
-
-## Following are some of the most frequently used AddOns
-
---
-
-### Product Media Mapper 
-To connect images and files to products automatically
-
---
-
-### Payment providers 
-Klarna, Dibs, PayEx, Adyen, PayPal, Nets, Handelsbanken Ecster, Skrill
-
---
-
-### Integration kit
-Starting platform to develop file based integrations towards Litium
-
----
-# Headless API AddOn
-
-* Platform to build use Litium E-Commerce via Web API 
-
-* In particular to use external CMS systems with Litium as the Ecommerce processing and PIM data engine
-
-* Self documenting with [OpenApi/Swagger](https://docs.litium.com/documentation/add-ons/integration/litium-headless-api/configure/docs)
-
-.footer[https://docs.litium.com/documentation/add-ons/integration/litium-headless-api]
-
----
-# Distribution – Add-Ons/Accelerator
-
-### Compiled Add-Ons (e.g. payment provider addOns)
-
-Install via NuGet packages
-
-### Accelerator and source code Add-Ons (e.g. Integration Kit)
-
-Download from https://docs.litium.com 
-
---
-### The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
-
----
 template: task
 name: Task: Web API
 
 # Web API
+
+---
+template: section
+# Add-Ons
+
+---
+
+# Frequently used Add-Ons
+
+.footer[Read more at https://docs.litium.com/add-ons]
+
+* **Product Media Mapper**
+
+    * Automatically connect images and files to products on upload
+
+--
+
+* **Payment providers**
+
+    * Klarna, Dibs, PayEx, Adyen, PayPal, Nets, Handelsbanken Ecster, Skrill
+
+--
+
+* **Integration kit**
+
+    * Starting platform to develop file based integrations towards Litium
+
+--
+
+*  **Headless API**
+
+    * Starter kit to use Litium E-Commerce using Web API
+
+    * Self documenting with [OpenApi/Swagger](https://docs.litium.com/documentation/add-ons/integration/litium-headless-api/configure/docs)
+
+---
+# Distribution – Add-Ons (and Accelerator)
+
+* As **compiled Add-Ons** (e.g. Product Media Mapper)
+
+    * Install via NuGet packages
+
+    * Run as part of the Litium application
+
+--
+
+* As **source code Add-Ons**  (e.g. Accelerator and Integration kit)
+
+    * Download from https://docs.litium.com 
+
+    * Usually run as part of the Litium application
+
+--
+
+* As **Litium Apps**  (e.g. payment and shipment providers)
+
+    * Read more at https://docs.litium.com/documentation/litium-apps
+
+    * Run as separate application
+
+---
+
+# Add-On Gotchas
+
+*  The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
+
+--
+
+* All Add-Ons are not initially available for new Litium versions, check in advance
+
+
+---
+template: section
+# Apps
+
+---
+# Litium Apps
+
+* Run Litium Add-Ons as standalone applications
+
+* Apps Creates their own [Litium Service Accounts](https://docs.litium.com/documentation/architecture/web-api/security) on install
+
+    * Account key is sent to that app to store (cannot be resolved after create)
+
+* Installed per customer project
+
+* Payment and Shipment run as Apps from Litium 8
+
+* A Demo App is [available on GitHub](https://github.com/LitiumAB/Samples/tree/main/Samples/Litium%20App%20demo)
+
+.footer[Read more at https://docs.litium.com/documentation/litium-apps]
 
 ---
 template: section
@@ -1930,111 +2007,21 @@ template: section
 # Accelerator front-end development
 
 ---
-# Accelerator front-end code structure
+# Accelerator front-end tech stack
 
-* Component based
+* [Foundation Zurb](https://get.foundation/) - The responsive front-end framework
 
-* ES6
+* [SASS](https://sass-lang.com/) - A CSS preprocessor
 
-* React + Redux
+* [BEM (Block, Element, Modifier)](http://getbem.com/introduction/) - A naming methodology for CSS
 
-* [BEM](http://getbem.com/introduction/) (Block, Element, Modifier methodology) for CSS
+* [React](https://reactjs.org/) with [Redux](https://redux.js.org/) - To build the JavaScript components
 
-    * Modular: Styling independent of elements type and nesting
+* [Webpack](https://webpack.js.org/) - To build and bundle the frontend styles and scripts
 
-    * Encourage reusing blocks
-
-    * Avoids multilevel nesting and minimal CSS selectors
-
-* Foundation Zurb
-
-* Foundation Email
-
----
-class: scrollable
-
-# React components - Rendering the Buy button
-
-1. Buy button is added on the server in the MVC view `_VariantItem.cshtml`:
-    ```Razor
-    @Html.BuyButton(model => model.ProductItem, isBuyButton: true) 
-    ```
-    The HTML-helper used from `ProductItemViewModelHtmlExtensions` renders a HTML-tag:
-    ```HTML
-    <buy-button ...
-    ```
-1. In `index.js` on the client Litium identifies HTML-tags that are placeholders (for example buy-button and minicart) and replaces these tags with Redux components. The same [Redux store](https://redux.js.org/basics/store/) is injected in every component.
-
-    ```JavaScript
-    const bootstrapComponents = () => {
-        if (document.getElementById('miniCart')) {
-            ReactDOM.render(
-                <Provider store={store}>
-                    <MiniCartContainer />
-                </Provider>,
-                document.getElementById('miniCart')
-            );
-        }
-        ...
-    ```
-1. In `BuyButton.container.js` the button is rendered, the click-event of the button triggers the add event of `Cart.action.js`:
-    ```JavaScript
-    import { add as addToCart } from '../Actions/Cart.action';
-    ```
-    
-    ```JavaScript
-    render() {
-        return (
-            <span ref={this.buttonRef}>
-                <BuyButton {...this.props} 
-                    onClick={(articleNumber, quantityFieldId) => this.props.addToCart(
-                        this.buttonRef.current, articleNumber, quantityFieldId)} />
-            </span>
-        );
-    }
-    ```
-
-.small[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
-
-<br/>
-<br/>
-<br/>
-
----
-class: scrollable
-
-# React components - Clicking the Buy button
-
-1. When a buybutton is clicked the `Add()`-method in `Cart.action.js` trigger a POST to the server:
-    ```JavaScript
-    return post('/api/cart/add', { articleNumber, quantity: parseInt(quantity) })
-        .then(response => response.json())
-        .then(cart => {
-            dispatch(receive(cart));
-    ```
-1. After returning from the server controller `Litium.Accelerator.Mvc.Controllers.Api.CartController.Add()` the `receive`-action is triggered
-
-1. In `Cart.reducer.js` the `CART_RECEIVE`-action updates state with fresh cart data from the server
-    ```JavaScript
-    switch (action.type) {
-        case CART_RECEIVE:
-        case CART_SHOW_INFO:
-            return {
-                ...state,
-                ...action.payload,
-            };
-        default:
-            return state;
-    }
-    ```
-    `action.payload` contains the cart passed in `dispatch(receive(cart))`
-
-1. All components that share state gets updated, for example the MiniCart-component
-
-.small[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
-
-<br/>
-<br/>
+.footer[
+Read more at https://docs.litium.com/documentation/litium-accelerators/develop/accelerator-architecture
+]
 
 ---
 class: scrollable
@@ -2079,21 +2066,23 @@ template: section
 ---
 # Upgrading
 
-* As with installation, upgrading the Litium platform is done through Visual Studio nuget update
+A Litium Solution is upgraded in 3 parts:
 
-    * Upgrading the Litium database is done with a SQL-script
+1. The Litium platform is upgraded using NuGet update
 
-        * `packages\Litium.Setup.Core\tools\UpgradeToLatest.sql`
+1. The database is upgraded using the [Litium db-tool](https://docs.litium.com/documentation/get-started/database-management)
 
-        * Can be executed with Package Manager Console in Visual Studio
-            ```console
-            Update-LitiumDatabase
-            ```
+    * Use directly with a database connection or use it to generate a upgrade script.
 
-        * No way back, backup before running the script
+    * No way back, backup before running the upgrade
 
-* Upgrading Litium Accelerator is manual
+1. Upgrading Litium Accelerator is manual
+
     * New release package can be used
+
+--
+
+### Litium 8 Upgrade will be available from Litium version 8.1
 
 ---
 template: section
