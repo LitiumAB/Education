@@ -90,6 +90,8 @@ name: Agenda
 * Globalization
 
 * Architecture and development
+
+* Authentication and Authorization
 ]
 --
 .right-col[
@@ -1110,6 +1112,74 @@ protected class BookResolver : IValueResolver<PageModel, AuthorViewModel, List<s
 template: task
 name: Task: Author service decorator
 # Author service decorator
+
+---
+template: section
+# Authentication and Authorization
+
+---
+
+# SecurityContextService
+
+* Check login status
+
+* Get currently logged in person from Customer area
+
+* Alter permission context for code execution
+
+--
+
+```C#
+
+var currentUserIsLoggedIn = _securityContextService.GetIdentityUserSystemId().HasValue;
+
+if(currentUserIsLoggedIn) 
+{
+    var personSystemId = _securityContextService.GetIdentityUserSystemId();
+    var currentlyLoggedInPerson = _personService.Get(personSystemId.Value);
+}
+
+```
+
+---
+
+# Current user and SecurityContextService
+
+* Context of current user is always in all method calls, if no user is logged in code is executed as _Everyone_.
+
+* Use `SecurityContextService` to alter current user for method calls:
+
+    ```C#
+
+    // Temporarily elevate permissions
+    using (_securityContextService.ActAsSystem("My custom integration task"))
+    {
+        // Do stuff here that the current user cannot normally do
+    }
+
+    // Temporarily remove permissions (execute code as anonymous user even if logged in)
+    using (_securityContextService.ActAsEveryone())
+    {
+        // Do stuff here that the need to be done without custom permissions
+    }
+
+    ```
+
+---
+
+# Impersonation with SecurityContextService
+
+Use `SecurityContextService` to execute code as a specific user:
+
+```C#
+if (person != null && !string.IsNullOrEmpty(person.LoginCredential.Username))
+{
+    var claimsIdentity = _securityContextService.CreateClaimsIdentity(null, person.SystemId);
+    using (_securityContextService.ActAs(claimsIdentity))
+    {
+        // Do stuff here as any provided person
+    }
+}```
 
 ---
 template: section
