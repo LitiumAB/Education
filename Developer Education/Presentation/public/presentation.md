@@ -91,13 +91,13 @@ name: Agenda
 
 * Architecture and development
 
-* Authentication and Authorization
+* SecurityContextService
 ]
 --
 .right-col[
 ## Agenda day 2
 
-* Litium areas E-Commerce and PIM
+* Litium areas Sales and PIM
 
 * Logging
 
@@ -1115,7 +1115,7 @@ name: Task: Author service decorator
 
 ---
 template: section
-# Authentication and Authorization
+# SecurityContextService
 
 ---
 
@@ -1183,7 +1183,72 @@ if (person != null && !string.IsNullOrEmpty(person.LoginCredential.Username))
 
 ---
 template: section
-# PIM
+# Area: Sales
+
+---
+# Cart
+
+* Use `CartContextSessionService` to interact with the current cart or use `CartService` to access a cart saved in database
+
+* The cart contains the order information **before an order is placed**
+
+* To place an order just initialize a payment from the `CartContext.SelectPaymentOptionAsync`
+
+    * The order does not get created until the payment app notifies that there is at least one guaranteed payment for the given cart, minimizing the number of waste orders in the database
+
+* Cart is session independent for headless support (since Litium 8)
+
+
+---
+
+# SalesOrder
+
+.footer[Read more https://docs.litium.com/documentation/areas/sales/sales-data-modelling]
+
+.left-col[
+* A _SalesOrder_ contains orderrows with items and the information required to fulfill the order such as addresses and customer information. It may contain multiple _payments_ and multiple _shipments_
+
+* Transactions events on a payment such as Authorize, Capture or Refund. Transactions are connected to _OrderRows_ on the _SalesOrder_
+
+* Use the `OrderOverviewService` to get the **`OrderOverview`** or **`PaymentOverview`** with all _payments_, _shipments_ and returns connected to a _SalesOrder_.
+]
+
+.right-col[
+<img src="drawiodiagrams/sales-data-model.png" height="30%" />
+]
+
+---
+
+# Discounts
+
+* Regular _OrderRows_ with `OrderRowType=Discount` and negative price
+
+* A discount may be connected to a specific OrderRow, for example a Product, Fee or Shipping row
+
+* One product-row may have multiple discount-rows
+
+---
+# SalesOrder states
+
+.center[
+<img src="drawiodiagrams/sales-order-states.png" height="100%" />
+]
+
+.footer[
+Read more at https://docs.litium.com/documentation/areas/sales/order-placement/state-transitions
+]
+
+* States cannot be modified (since Litium 8)
+
+* Order is **Completed** when all deliveries are made, and payments for those deliveries are resolved
+
+* Add `StateTransitionValidationRules` to define conditions an order need to meet to move between states
+
+* To act on order state change just register for the relevant event in [Litiums event system](https://docs.litium.com/documentation/architecture/events-handling/dot-net-events), for example the `SalesOrderConfirmed`-event
+
+---
+template: section
+# Area: PIM
 ## Product Information Management
 
 ---
