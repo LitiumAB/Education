@@ -1,0 +1,24 @@
+{
+  "ShippingConfig": {
+    "ShippingOptions": [
+      {
+        "Id": "standardPackage",
+        "MerchantAccountId": "",
+        "DeliveryCountries": null,
+        "DeliveryTimeInDays": 0,
+        "ShippingMethod": "NormalPost",
+        "IntegrationType": "DeliveryCheckout",
+        "FeeType": "Calculated"
+      },
+      {
+        "Id": "expressPackage",
+        "MerchantAccountId": "",
+        "DeliveryCountries": null,
+        "DeliveryTimeInDays": 0,
+        "ShippingMethod": "NormalPost",
+        "IntegrationType": "DeliveryCheckout",
+        "FeeType": "Calculated"
+      }
+    ]
+  }
+}

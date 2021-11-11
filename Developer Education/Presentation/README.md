@@ -6,20 +6,18 @@ The presentation is avaliable online at https://litiumdev-slides.svc.litiumlab.s
 
 ### Running the presentation
 
-The following shortcuts are avaliable when running the presentation. All of these shortcuts can also be seen during a presentation by pressing H or ?
-```
-* h or ?: Toggle the help window
-* j: Jump to next slide
-* k: Jump to previous slide
-* b: Toggle blackout mode
-* m: Toggle mirrored mode.
-* c: Create a clone presentation on a new window
-* p: Toggle PresenterMode
-* f: Toggle Fullscreen
-* t: Reset presentation timer
-* <number> + <Return>: Jump to slide <number>
-```
-From: https://github.com/gnab/remark/wiki/Keyboard-shortcuts
+The following shortcuts from [remark wiki](https://github.com/gnab/remark/wiki/Keyboard-shortcuts) are avaliable when running the presentation.
+
+* `h` or `?` : Toggle the help window with all shortcuts
+* `j` : Jump to next slide
+* `k` : Jump to previous slide
+* `b` : Toggle blackout mode
+* `m` : Toggle mirrored mode.
+* `c` : Create a clone presentation on a new window
+* `p` : Toggle PresenterMode
+* `f` : Toggle Fullscreen
+* `t` : Reset presentation timer
+* `<number>` + `<Return>` : Jump to slide `<number>`
 
 ### Working with the presentation
 
@@ -50,16 +48,21 @@ Follow the steps below, originally from https://nodejs.org/en/docs/guides/nodejs
 #### Create docker image
 
 1. Possibly first remove old version of the container
+
     ```console
     docker ps -a
     docker stop CONTAINERID
     docker rm CONTAINERID
     ```
+
 1. Build the image
+
     ```console
     docker build -t litiumdev-slides .
     ```
+
 1. Run to verify the container locally, the container runs a server at port 3000 that is made accessible on http://localhost:49160
+
     ```console
     docker run -p 49160:3000 -d litiumdev-slides
     ```
@@ -68,12 +71,16 @@ Follow the steps below, originally from https://nodejs.org/en/docs/guides/nodejs
 
 1. Get DOMAIN/LOGIN/PWD to Litium Kubernetes
 1. Login
+
     ```console
-    $ docker login -u [LOGIN] -p [PWD] [DOMAIN]
+    docker login -u [LOGIN] -p [PWD] [DOMAIN]
     ```
+
 1. Tag the remote and push image
+
     ```console
     docker tag litiumdev-slides [DOMAIN]/public/litiumdev-slides
     docker push [DOMAIN]/public/litiumdev-slides
     ```
+
 1. Notify Litium to refresh site from latest image

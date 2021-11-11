@@ -1,4 +1,4 @@
-# Integration kit
+# Integration kit - LITIUM 7 ONLY
 
 > To do this task you first need to complete the task [Installation](../Installation)
 

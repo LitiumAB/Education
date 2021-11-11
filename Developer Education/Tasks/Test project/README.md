@@ -1,4 +1,4 @@
-# Test project
+# Test project - LITIUM 7 ONLY
 
 > To do this task you first need to complete the task [Move database to SQL Server](../Move%20database%20to%20SQL%20Server)
 

@@ -1,48 +1,51 @@
 using System;
 using System.Collections.Generic;
-using Litium.Foundation.Security;
+using System.Linq;
 using Litium.Products;
 using Litium.Products.PriceCalculator;
 using Litium.Runtime.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 
 namespace Litium.Accelerator.Utilities
 {
-	[ServiceDecorator(typeof(IPriceCalculator))]
-	public class ERPPriceCalculatorDecorator : IPriceCalculator
-	{
-		private readonly IPriceCalculator _parent;
+    [ServiceDecorator(typeof(IPriceCalculator))]
+    public class ERPPriceCalculatorDecorator : IPriceCalculator
+    {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IPriceCalculator _parent;
 
-		public ERPPriceCalculatorDecorator(IPriceCalculator parent)
-		{
-			_parent = parent;
-		}
+        public ERPPriceCalculatorDecorator(IPriceCalculator parent, IHttpContextAccessor httpContextAccessor)
+        {
+            _parent = parent;
+            _httpContextAccessor = httpContextAccessor;
+        }
 
-		public IDictionary<Guid, PriceCalculatorResult> GetListPrices(PriceCalculatorArgs calculatorArgs, params PriceCalculatorItemArgs[] itemArgs)
-		{
-			if (SecurityToken.CurrentSecurityToken.IsAnonymousUser)
-				return _parent.GetListPrices(calculatorArgs, itemArgs);
+        public IDictionary<Guid, PriceCalculatorResult> GetListPrices(PriceCalculatorArgs calculatorArgs, params PriceCalculatorItemArgs[] itemArgs)
+        {
+            var isAuthenticated = _httpContextAccessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
+            if (!isAuthenticated)
+                return _parent.GetListPrices(calculatorArgs, itemArgs);
 
-			var result = new Dictionary<Guid, PriceCalculatorResult>();
+            return itemArgs
+                .ToDictionary(
+                    variantItem => variantItem.VariantSystemId,
+                    variantItem => GetPriceFromErp(variantItem.VariantSystemId)
+                );
+        }
 
-			foreach (var variantItem in itemArgs) {
-                		result.Add(variantItem.VariantSystemId, GetPriceFromErp(variantItem.VariantSystemId));
-			}
+        public ICollection<ProductPriceList> GetPriceLists(PriceCalculatorArgs calculatorArgs)
+        {
+            return _parent.GetPriceLists(calculatorArgs);
+        }
 
-            		return result;
-		}
-
-		public ICollection<PriceList> GetPriceLists(PriceCalculatorArgs calculatorArgs)
-		{
-			return _parent.GetPriceLists(calculatorArgs);
-		}
-
-		private PriceCalculatorResult GetPriceFromErp(Guid variantSystemId)
-        	{
-            		return new PriceCalculatorResult
-            		{
-                		ListPrice = 100,
-                		VatPercentage = (decimal) 0.25
-            		};
-        	}
-	}
+        private PriceCalculatorResult GetPriceFromErp(Guid variantSystemId)
+        {
+            return new PriceCalculatorResult
+            {
+                PriceExcludingVat = 100,
+                PriceIncludesVat = false,
+                VatRate = (decimal)0.25
+            };
+        }
+    }
 }

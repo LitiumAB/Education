@@ -1,10 +1,28 @@
-# Docker compose below sets up the containers needed by Litium:
+# Docker compose below sets up the containers needed to run Litium locally:
 
 version: '3'
 services:
+
+  dnsresolver:
+    # https://github.com/cytopia/docker-bind
+    image: cytopia/bind
+    container_name: dnsresolver
+    ports:
+    - "53:53/tcp"
+    - "53:53/udp"
+    environment: 
+    - WILDCARD_DNS=localtest.me=host.docker.internal
+    - DNS_FORWARDER=192.168.65.5
+    dns: 192.168.65.5
+    restart: unless-stopped
+ 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
     container_name: elasticsearch
+    depends_on:
+    - dnsresolver
+    dns: 192.168.65.2
+    restart: unless-stopped
     ports:
     - "9200:9200"
     environment:
@@ -13,25 +31,129 @@ services:
     # comment out the line below for additional memory allocation
     # - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     volumes:
-    - elastic_data:/usr/share/elasticsearch/data
+    - ./volumes/elasticsearch/data:/usr/share/elasticsearch/data
     entrypoint: 
     - /bin/sh
     - -c
     # The accelerator implementation of Elasticsearch require the analysis-dynamic-synonym.
     # The plugin refreshes the list of synonyms in Elasticsearch every minute allowing synonyms 
     # to be added/modified in Litium backoffice and updated in Elasticsearch without downtime.
-    - "./bin/elasticsearch-plugin list | grep -q analysis-dynamic-synonym || ./bin/elasticsearch-plugin install -b https://github.com/Tasteful/elasticsearch-analysis-dynamic-synonym/releases/download/v7.5.2/elasticsearch-analysis-dynamic-synonym.zip; /usr/local/bin/docker-entrypoint.sh"
+    - "./bin/elasticsearch-plugin list | grep -q analysis-dynamic-synonym || ./bin/elasticsearch-plugin install -b https://github.com/Tasteful/elasticsearch-analysis-dynamic-synonym/releases/download/v7.6.2/elasticsearch-analysis-dynamic-synonym.zip; /usr/local/bin/docker-entrypoint.sh"
+  
+  synonymserver:
+    # Synonym server to provide elasticsearch with synonyms.
+    image: registry.litium.cloud/apps/synonym-server:1.2.0
+    container_name: synonymserver
+    restart: unless-stopped
+    ports:
+    - "9210:80"
+    environment:
+    - DataFolder=/app_data
+    volumes:
+    - ./volumes/synonymserver/data:/app_data
+
   kibana:
     # The Kibana image tries, by default, to connect to a host/container called elasticsearch.
-    image: docker.elastic.co/kibana/kibana:7.5.2
+    image: docker.elastic.co/kibana/kibana:7.6.2
     container_name: kibana
+    depends_on:
+    - elasticsearch
+    restart: unless-stopped
     ports:
     - "5601:5601"
+
   redis:
     image: redis:5.0.5-alpine
     container_name: redis
+    restart: unless-stopped
     ports:
     - "6379:6379"
-volumes:
-  elastic_data:
-    driver: local
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    restart: unless-stopped
+    ports:
+      # Make the SQL Container available on port 5434 to not conflict with a previously installed local SQL instance.
+      # If you do not have SQL Server installed you can use 1433:1433 as mapping and skip port number in connectionstrings.
+      - "5434:1433"
+    volumes:
+      # Map [local directory:container directory] - this is so that db/log files are
+      # stored on the "host" (your local computer, outside of container) and thereby 
+      # persisted when container restarts.
+      # by starting local path with "." it gets relative to current folder, meaning that the database
+      # files will be on your computer in the same directory as you have this docker-compose.yaml file
+      - ./data/mssql/data:/var/opt/mssql/data
+      - ./data/mssql/log:/var/opt/mssql/log
+    entrypoint: 
+      # Due to an issue with the sqlserver image, permissions to db-files may be lost on container restart
+      # by using the specific permissions_check entrypoint we assert that permissions are set on every restart
+      - /bin/sh
+      - -c
+      - "/opt/mssql/bin/permissions_check.sh && /opt/mssql/bin/sqlservr"
+
+  direct-payment:
+    image: registry.litium.cloud/apps/direct-payment:latest
+    dns: 
+    - 192.168.65.2
+    restart: unless-stopped
+    ports:
+    - "10010:80"
+    - "10011:443"
+    environment:
+    # Enable HTTPS binding
+    - ASPNETCORE_URLS=https://+;http://+
+    - ASPNETCORE_HTTPS_PORT=10011
+    # Configuration for HTTPS inside the container, exported dotnet dev-certs with corresponding password
+    - ASPNETCORE_Kestrel__Certificates__Default__Password=SuperSecretPassword
+    - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
+    # Folder for the configuraiton, this is volume-mapped
+    - CONFIG_PATH=/app_config
+    # Folder where logfiles should be placed, this is volume-mapped
+    - APP_LOG_PATH=/logs
+    # Don't validate certificates
+    - AppConfiguration__ValidateCertificate=false
+    # Url to this app
+    - AppMetadata__AppUrl=https://host.docker.internal:10011
+    # Url to the litium installation
+    - LitiumApi__ApiUrl=https://bookstore.localtest.me:5001
+    volumes:
+    - ./data/direct-payment/config:/app_config
+    - ./data/direct-payment/data:/app_data
+    - ./data/direct-payment/logs:/logs
+    - ./data/direct-payment/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+    - ./data/https:/https:ro
+
+  direct-shipment:
+    image: registry.litium.cloud/apps/direct-shipment:latest
+    dns: 
+    - 192.168.65.2
+    restart: unless-stopped
+    ports:
+    - "10020:80"
+    - "10021:443"
+    environment:
+    # Enable HTTPS binding
+    - ASPNETCORE_URLS=https://+;http://+
+    - ASPNETCORE_HTTPS_PORT=10021
+    # Configuration for HTTPS inside the container, exported dotnet dev-certs with corresponding password
+    - ASPNETCORE_Kestrel__Certificates__Default__Password=SuperSecretPassword
+    - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/localhost.pfx
+    # Folder for the configuraiton, this is volume-mapped
+    - CONFIG_PATH=/app_config
+    # Folder where logfiles should be placed, this is volume-mapped
+    - APP_LOG_PATH=/logs
+    # Don't validate certificates
+    - AppConfiguration__ValidateCertificate=false
+    # Url to this app
+    - AppMetadata__AppUrl=https://host.docker.internal:10021
+    # Url to the litium installation
+    - LitiumApi__ApiUrl=https://bookstore.localtest.me:5001
+    volumes:
+    - ./data/direct-shipment/config:/app_config
+    - ./data/direct-shipment/data:/app_data
+    - ./data/direct-shipment/logs:/logs
+    - ./data/direct-shipment/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
+    - ./data/https:/https:ro

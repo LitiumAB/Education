@@ -1,5 +1,7 @@
 # Author service
 
+> To do this task you first need to complete the task [Author page](../Author%20page)
+
 To retreive books by authors we need a reusable service that we can inject and use in several places.
 
 ## Create and register the service
@@ -24,7 +26,7 @@ To retreive books by authors we need a reusable service that we can inject and u
     public List<string> Books { get; set; }
     ```
 
-1. Inject the `IAuthorService`-interface in the constructor of `AuthorViewModelBuilder` and use it to populate the `Books`-property of `AuthorViewModel`
+1. Add a constructor to `AuthorViewModelBuilder` and inject the `IAuthorService`-interface. Use the injected interface instance to set the `Books`-property of `AuthorViewModel`
 
 1. Add a listing of the books in the author page view (_Src\Litium.Accelerator.Mvc\Views\Author\Index.cshtml_), example:
     ```HTML+Razor
@@ -39,5 +41,5 @@ To retreive books by authors we need a reusable service that we can inject and u
 
 ### Try it out
 
-1. Build your solution and verify that your page and block is listing books from `AuthorServiceImpl`
+1. Build your solution and verify that your page is listing books from `AuthorServiceImpl`
 1. If you get stuck a finished example of the service and `AuthorViewModelBuilder` can be found in the [_Resources_-folder](Resources/AuthorViewModelBuilder.cs)

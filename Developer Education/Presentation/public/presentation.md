@@ -17,6 +17,37 @@ Use the arrow-keys to navigate the slides or click the icon in bottom-right corn
 ---
 
 layout: true
+name: acceleratorproject
+
+<img src="images/litium_logotyp_rgb.svg" alt="Litium-logo" height="20"/>
+
+# Accelerator solution structure
+
+.left-col[
+### Projects
+
+1. `Litium.Accelerator`
+
+1. `Litium.Accelerator.Administration.Extensions`
+
+1. `Litium.Accelerator.Elasticsearch`
+
+1. `Litium.Accelerator.FieldTypes`
+
+1. `Litium.Accelerator.Mvc`
+
+1. _`Litium.Accelerator.Email` - "hidden" in solution folder_
+]
+
+.right-col[
+    {{content}}
+]
+
+.footer[Read more at https://docs.litium.com/documentation/litium-accelerators/develop/accelerator-architecture/accelerator-mvc]
+
+---
+
+layout: true
 name: task
 class: center, top
 
@@ -50,23 +81,23 @@ name: Agenda
 
 * Installation
 
+* Demo Accelerator frontend and Litium Backoffice
+
 * Field framework
 
 * Litium area Websites
 
 * Globalization
 
-* Litium architecture
+* Architecture and development
 
-* Development with dependency injection
-
-* Security token
+* SecurityContextService
 ]
 --
 .right-col[
 ## Agenda day 2
 
-* Litium areas E-Commerce and PIM
+* Litium areas Sales and PIM
 
 * Logging
 
@@ -74,31 +105,26 @@ name: Agenda
 
 * Validation
 
-* Extending Litium - Web API and Connect
+* Litium APIs
 
-* Data service
+* Add-Ons
+
+* Litium Search
 
 * Accelerator front-end development
 
-* Certification exam
+* Next step
 ]
 ---
 class: center
 
-# Goals
+# Goal
 
-### Knowledge
-
-> Your ambition is to make you a confident and independent developer, <br/>ready to participate in Litium projects. 
-
-> You will know how to implement most requirements, <br/>and know where to find answers when you don´t.
-
---
-### Certification
-
-> A Litium Developer Certification is a quality mark that build customer trust. 
-
-> Litium Certifications also add business value to partner organizations. 
+> The goal of this education is to make you a confident and independent  
+> developer, ready to **participate** in Litium projects.
+>
+> You will know how to setup Litium, implement most requirements,  
+> and know where to find answers when you don´t.
 
 ---
 name: Features
@@ -120,31 +146,37 @@ name: Architecture stack
 
 ---
 
-# Litium is based on standard technology
+# Litium tech stack
 
-* .NET Standard 2.0
+* [React](https://reactjs.org/) (Accelerator) and [Angular](https://angular.io/) (Litium administration UI)
 
-* [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/index) (Microsoft/Open Source)
+* Litium CDN _Powered by [Fastly](https://www.fastly.com/)_
 
-* [Newtonsoft JSON](https://www.newtonsoft.com/json) (Open Source)
+* [Microsoft .NET MVC](https://dotnet.microsoft.com/apps/aspnet/mvc)
 
-* [AutoMapper](http://automapper.org/) (Open Source)
+* [Microsoft .NET 5](https://dotnet.microsoft.com/)
 
-* [ASP.NET MVC 5](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started) (Microsoft)
+* Litium search _Powered by [Elasticsearch](https://www.elastic.co/)_
 
-* [ASP.NET WebAPI 5](https://docs.microsoft.com/en-us/aspnet/web-api/overview/) (Microsoft)
+* [Redis](https://redis.io/)
 
-* [Angular](https://angular.io/) (Google/Open Source)
+* [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server)
 
-???
-
-TODO - Add additional info on usage for each bullet
+* [Docker](https://www.docker.com/)
 
 ---
 # Roadmap
 
-<img src="images/roadmap.png" alt="Roadmap" width="100%" />
+<img src="drawiodiagrams/roadmap.png" alt="Roadmap" width="100%" />
 
+--
+### 8.X Coming functionality
+
+- Litium 8 Upgrade script
+- Returns API and refunds
+- Discount codes (voucher codes)
+- New campaign sales reports
+- Additional discount types
 
 ---
 
@@ -171,7 +203,9 @@ template: section
 ---
 # Litium Accelerator
 
-<img src="images/accelerator-model.png" width="100%" />
+<img src="drawiodiagrams/accelerator-model.png" width="70%" />
+
+.footer[Read more at https://docs.litium.com/documentation/litium-accelerators/develop/accelerator-architecture]
 
 ???
 
@@ -179,69 +213,81 @@ BLL Allows the same business logic to be used in both Web API and in MVC Views
 
 ---
 
-# Accelerator technical choices
-
---
-
-* Design - less is more
-
---
-
-* Zurb Foundation
-    * …for Sites
-    * …for E-mails
-
---
-* Style
-    * Component based
-    * SASS 
-    * _Block, Element, Modifier_ methodology (BEM)
-
---
-* JavaScript
-    * Component based
-    * React
-    * Webpack
-
-???
-
-BEM 
-* provides a modular structure to your CSS project. 
-* Naming scheme to avoid conflicts with other CSS names
-* provides a relationship between CSS and HTML
-
-https://medium.com/@dannyhuang_75970/what-is-bem-and-why-you-should-use-it-in-your-project-ab37c6d10b79
+template: acceleratorproject
 
 ---
-name: Accelerator MVC & React
 
-.left-col[
-# MVC
+template: acceleratorproject
 
-## For most views and all routing
-```
-Litium.Accelerator.Mvc/Controllers
+### 1. Litium.Accelerator
 
-Litium.Accelerator.Mvc/Views
+- BLL - Contains all business logic of the accelerator, separated from the UI and Web API, example:
 
-Litium.Accelerator/ViewModels
-```
+   - ViewModels and ViewModelBuilders
+   - Definitions
+   - Services
+   - Validations
 
-]
---
-.right-col[
-# React + Redux
-
-## For dynamic views
-
-* Compiled with WebPack
-
-* Resources in folder: `Litium.Accelerator.Mvc/Client`
-
-* Web API endpoints in folder: `Litium.Accelerator.Mvc/Controllers/Api`
-]
+- Talks to the Litium API (installed via NuGet)
 
 ---
+
+template: acceleratorproject
+
+### 2. Litium.Accelerator.Administration.Extensions
+
+- Extend Litium backoffice UI
+
+- [Create custom settings pages](https://docs.litium.com/documentation/architecture/back-office_1/creating-custom-setting-page)
+
+---
+
+template: acceleratorproject
+
+### 3. Litium.Accelerator.Elasticsearch
+
+- Contains the Elasticsearch implementation
+
+- Modify what data is stored in the index
+
+- Modify how queries are executed against the index data
+
+---
+
+template: acceleratorproject
+
+### 4. Litium.Accelerator.FieldTypes
+
+- Custom field types for Litiums entity field framework
+
+---
+
+template: acceleratorproject
+
+### 5. Litium.Accelerator.Mvc
+
+- MVC _Controllers_ and _Razor Views_
+
+- Web API controllers for the Accelerator React UI
+
+- `/Definitions`-folder to manage connections between Field Templates and the controller to use for rendering
+
+- `/Client`-folder containing all client styles and JavaScript
+
+- Configuration and package reference files
+
+---
+
+template: acceleratorproject
+
+### 6. Litium.Accelerator.Email
+
+- [Client side project to manage e-mail templates](https://docs.litium.com/documentation/litium-accelerators/develop/front-end-accelerator/accelerator-email) (Order confirmation e-mail)
+
+- [Zurb Foundation for Emails](https://get.foundation/emails/docs/) used for styling
+
+---
+
 template: section
 
 # Installation
@@ -250,68 +296,62 @@ template: section
 
 # Installation
 
---
+.footer[Read more at https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator]
 
-## Installation of Litium is done through Visual Studio
-
-* With or without accelerator
-
---
-
-## Litium is distributed through a private NuGet-feed
+## Litium patform is only distributed through a private NuGet-feed
 
 * The NuGet-feed is accessed using your [Litium Docs](http://docs.litium.com) user account
 
-* All packages that start with Litium.* are distributed as individual nuget packages
+--
+
+## Litium Accelerator is distributed as a .NET template package
+
+```PowerShell
+# Install the Accelerator template package
+dotnet new --install "Litium.Accelerator.Templates"
+
+# Install Accelerator using the template package
+# (also downloads the Litium platform dependencies from NuGet)
+dotnet new litmvcacc
+```
 
 ---
 
 # Installation Pre-requisites
 
-System requirements for local development environment are avaliable on [Litium Docs site](https://docs.litium.com/documentation/get-started/system-requirements) 
+System requirements for local development environment are avaliable on [Litium Docs site](https://docs.litium.com/documentation/get-started/system-requirements)
 
 ### Required
 
+* .NET 5
 * Visual Studio 2019
-* Sql Server 2016 or later **(2016 required by Litium hosting!)**
-* .NET 4.7.2
-* [Litium NuGet feed](https://docs.litium.com/download/litium-nuget-feed) - Requires partner account on docs.litium.com
+* Microsoft SQL Server 2019
+* Configured access to Litium NuGet and Container images (_requires partner account on docs.litium.com_)
 
 ### Optional (but recommended)
 
-* IIS (verify that .NET development is enabled through _“Turn windows features on/off”_)
-* SMTP Server
-* sessionState = StateServer
+* Docker
 * Elasticsearch
 * Redis
-
-???
-
-Change sessionState from InProc to StateServer in Web.config.
-`<sessionState mode="StateServer" stateConnectionString="tcpip=127.0.0.1:42424" />`
-Run the windows service _ASP.NET State Service_ for this to work
+* Payment app
+* Shipment app
 
 ---
+# litium-db tool
 
-# NuGet package for installation
+Command-line dotnet tool to work with the Litium application database
 
---
-.left-col.center[
-## Litium.Web.Setup.Complete
-<img src="images/nuget-setup-web.png" alt="Nuget web setup" width="150"/>
-]
+* New from Litium 8
 
---
-.right-col.center[
-## Litium.Setup.Complete
-<img src="images/nuget-setup.png" alt="Nuget setup" width="150"/>
-]
+* [Create admin users](https://docs.litium.com/documentation/get-started/create-admin-user-and-log-in) in database
 
-???
+* Setup new Litium application database
 
-Litium.Setup.complete is enough when web is not needed, in:
-* Integration kit Windows service 
-* Litium Testproject
+* Migrate database to new version during upgrade
+
+* Generate scripts for manual upgrade
+
+.footer[Read more at https://docs.litium.com/documentation/get-started/database-management]
 
 ---
 template: task
@@ -327,46 +367,21 @@ template: section
 
 ---
 
-# Web.config updates during installation
+# appsettings.json
 
-* Connectionstrings for database and Elasticsearch
+* Connectionstrings for database, Elasticsearch and Redis
 
 * Files folder
 
-    * Temporary files
-    
-    * Lucene.Net search index files
-    
-    * Media files
-        * In a multi server environment the media files should be shared using the CommonFilesDirectory-setting
+  * Temporary files
 
-* Sessionstate, inProc vs StateServer
-    * Use StateServer in local development to verify serialization support
+  * Media files
+
+  * Use the `Shared`-folder in multi server environment
 
 * SMTP
 
-.footer[Read more at https://docs.litium.com/documentation/get-started/web_config]
-
----
-
-# Useful tools
-
-* [localtest.me](http://readme.localtest.me/)
-    
-    You can use <mysite>.localtest.me instead of using windows hosts file
-Will not work offline
-
-* [ReAttach](https://marketplace.visualstudio.com/items?itemName=ErlandR.ReAttach) 
-    
-    Visual Studio addon that makes it easy to attach to IIS process for debugging.
-
-* [Baretail](https://www.baremetalsoft.com/baretail/) 
-
-    To keep an eye on the log
-
-* [PaperCut](https://github.com/ChangemakerStudios/Papercut)
-
-    For local email testing
+.footer[Read more at https://docs.litium.com/documentation/get-started/configuration]
 
 ---
 
@@ -393,21 +408,21 @@ Go through the deployed storefront of Litium Accelerator and show briefly what i
 # Login to backoffice
 
 <!-- span fix so that markdown is not formatting the url as clickable link: -->
-## Login URL: http<span>://</span>mydomain/litium
+**Login URL: http<span>://</span>mydomain/litium**
 
-Login with **your windows account username and password**
+* Use Litium db-tool to generate a admin user
 
-* If you don't belong to the local administrators group in windows you need to [change systemUserGroup in Web.config](https://docs.litium.com/documentation/get-started/web_config) to specify a different group to allow login locally.
+or
 
-* If you are on a domain it should be added to the loginname, otherwise just add a leading backslash, example:
+* Login with **your windows account username and password**
 
-    * With domain: **`MYORG\first.last@myorg.com`**
+  * If you don't belong to the local administrators group in windows you need to [change systemUserGroup in Web.config](https://docs.litium.com/documentation/get-started/web_config) to specify a different group to allow login locally.
 
-    * Without domain: **`\first.last@myorg.com`**
+  * If you are on a domain it should be added to the loginname, otherwise just add a leading backslash, example:
 
-???
+      * With domain: **`MYORG\first.last@myorg.com`**
 
-TODO Add instructions or link on how to change allowed login group
+      * Without domain: **`\first.last@myorg.com`**
 
 ---
 
@@ -417,11 +432,15 @@ background-image: url(images/backoffice-ui.png)
 
 * Angular
 
-* [ASP.NET WebAPI](https://dotnet.microsoft.com/apps/aspnet/apis)
+* Developer extension points:
 
-* [Signalr](https://docs.microsoft.com/en-us/aspnet/signalr/overview/getting-started/introduction-to-signalr)
+  * Dashboard widgets
 
-* Still webforms in <br/> E-commerce (Sales) module
+  * Entity custom fields
+
+  * Area-panels
+
+  * Pages in control panel
 
 ---
 
@@ -468,6 +487,7 @@ template:section
 # Data Modelling
 
 ---
+
 # Entities
 
 ### The following Litium entities support data modelling with the field framework
@@ -484,40 +504,37 @@ With Litium 8 additional entities from E-commerce will be added
 
 ---
 
-# Field Framework
+# Field Framework - Fields
 
-* Handles all “dynamic” fields (fields defined in the project)
-
---
 * Developers can [create their own field types](https://docs.litium.com/documentation/architecture/field-framework/creating-a-custom-field-type) 
-    
-    * Field types are per **Installation**
 
-    * Field instances are per **Area**
+* A **Field type** is available in all **Areas** of the **Installation**
 
---
-* The field does not need to be added to a Field template to be added to an entity
+* Instances of a **Field type** are created per **Area**
 
-    * The field template is not the container of fields
-    
-    * Skip adding a field to a template to make it hidden for editors
-    
-    * Consider field template as a grouping, and a way to define the display template
+  _Example: The field **City** is of type **Text** and is created in the **Customers-area**_
 
---
-* Setup is done in the `\Src\Litium.Accelerator\Definitions\`-namespace
+  _Example: The field **Brand** is also of type **Text** and is created in the **Products-area**_
 
-???
+---
 
-Non-dynamic fields are for example id, name and articlenumber
+# Field Framework - Field templates
 
-In Litium 4.X the field had to be in a fieldtemplate to be used
+* An entity (for example a Person, Product or Page) is created using a Field template
+
+* A Field template contains fields
+
+* A Field does not need to be part of the entitys Field template to be added to the entity
+
+  * The Field template is **not** the link between the Field and the entity - it only controls field visibility when editing the entity in UI
+
+  * Skip adding a field to a template to make it hidden for editors
 
 ---
 
 # Field Definition
 
-##  Defined for each Area
+## Defined per Area
 
 * `Litium.WebSites.WebSiteArea`
 * `Litium.Products.ProductArea`
@@ -582,10 +599,6 @@ new FieldDefinition<BlockArea>(BlockFieldNameConstants.Link,
 }
 ```
 
-???
-
-TODO - Replace image with draw.io
-
 ---
 # Multi field
 
@@ -613,10 +626,6 @@ new FieldDefinition<BlockArea>(BlockFieldNameConstants.Banners,
 }
 ```
 ]
-
-???
-
-TODO - replace image with draw.io
 
 ---
 
@@ -750,7 +759,7 @@ template:section
 
 # Blocks
 
-* Has data modelling
+* Have data modelling
 
 * Rendered inside a BlockContainer of a page
 
@@ -770,12 +779,6 @@ template:section
 * A `DraftPage` is the working copy of a Page (a page can only have a single `DraftPage`)
 
 <img src="drawiodiagrams/websites-domain-model.png" width="70%" />
-
-???
-
-TODO - Convert image to draw.io
-
-TODO - Info om WebsiteTextContainer
 
 ---
 template: task
@@ -847,71 +850,61 @@ template:section
 
 * The VAT percentage for each Tax class is defined on Country
 
-    * All products with the same tax class has the same VAT percentage
+    * All products with the same tax class have the same VAT percentage
 
 <img src="drawiodiagrams/countrytotaxclasslink.png" width="70%" />
-
-???
-
-TODO - Replace image with draw.io
 
 ---
 template: section
 # Architecture
 
 ---
-name: Arcitecture
+# Component model - Implementations
 
+* Abstractions (interfaces/abstract classes) are separated from  **implementations** in different assemblies
 
-<img src="images/architecture-03.png" width="85%" />
-
----
-
-# Component model
-
-* Domain entities and their service contracts have the same namespace (example: `Variant` and `VariantService` are both in the `Litium.Products` namespace)
-
---
-
-* Litium separates contracts (interfaces and abstract classes) and implementations in different assemblies
-
-    * Contract assembly examples
-        * `Litium.Abstractions`
-        * `Litium.Web.Abstractions`
+    * Abstraction assembly examples
+        * Litium.**Abstractions**
+        * Litium.Web.**Abstractions**
     * Implementation assembly examples
-        * `Litium.Application`
-        * `Litium.Infrastructure.MicrosoftServiceBus`
+        * Litium.**Application**
+        * Litium.**Infrastructure**.MicrosoftServiceBus
 
 --
 
-* Litium implementations also have a `Impl`-suffix and are decorated as fallback, example:
+* All Litium default **implementations** have a `Impl`-suffix and have the fallback-attribute, example:
     ```C#
     [Service(FallbackService = true)]
     public class PriceCalculatorImpl : IPriceCalculator
-    ``` 
+    ```
 
 ---
 
-# Service model
+# Component model - Abstractions
 
-* Litium contracts (Services)
-    * Artifacts that have “methods” or “operations”
+Abstractions are contracts that define functionality:
+
+--
 
 * Interfaces
     * Implement an interface to extend the functionality
     * Or change default functionality by extending default implementation using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
     * Example: IPriceCalculator
 
+--
+
 * Abstract Classes
-    * Declare service definitions that implementation projects are **not expected to change** 
-    * Example: BaseProductService
+    * Implementation projects are **not expected to change** abstract classes
+    * Example: Litium use _Services_ for most functionality and to access and work with entities (BaseProductService, VariantService etc.).
+
+--
+
+### Only target **abstractions** during development for better testability
 
 ---
 # Redis
 
 > _"An open source, in-memory data structure store, used as a database, cache and message broker"_
-
---
 
 ### Redis is used in Litium for:
 
@@ -921,7 +914,7 @@ name: Arcitecture
 
 * Service bus
 
-* Session
+* Session information
 
 ---
 
@@ -1122,241 +1115,140 @@ name: Task: Author service decorator
 
 ---
 template: section
-# Security token
+# SecurityContextService
 
 ---
-# Security token
 
-* In Litium, permissions are enforced by using “SecurityToken” object
+# SecurityContextService
 
-    * `SecurityToken.CurrentSecurityToken` contains the security token for the logged in user
+* Check login status
 
-* Current token is automatically “applied” in the “code execution context”
+* Get currently logged in person from Customer area
 
-    * Code is always executed using the currently logged in users permissions
-
-    * If not logged in this is anonymous permission
-
----
-# Security token
-
-If we want to create objects in a integration job the running context will lack permissions to modify data:
-```C#
-category = category.MakeWritableClone();
-
-var categoryToChannelLink = new CategoryToChannelLink(channelId);
-category.ChannelLinks.Add(categoryToChannelLink);
-
-_categoryService.Update(category);
-```
+* Alter permission context for code execution
 
 --
-If the current user does not have permission a `Litium.Security.AuthorizationException` is thrown when `Update()` is called
 
---
-To solve this we can temporarily impersonate the SystemUser:
 ```C#
-// Pass optional parameter to ActAsSystem to show a more informative name in audit log:
-using(_securityContextService.ActAsSystem("MyIntegrationJob"))
+
+var currentUserIsLoggedIn = _securityContextService.GetIdentityUserSystemId().HasValue;
+
+if(currentUserIsLoggedIn) 
 {
-    _categoryService.Update(category);
+    var personSystemId = _securityContextService.GetIdentityUserSystemId();
+    var currentlyLoggedInPerson = _personService.Get(personSystemId.Value);
 }
+
 ```
 
 ---
-# Security Token – Old API (Ecommerce)
 
-* In the old API the token has to be passed into every API method that requires permission enforcement
+# Current user and SecurityContextService
 
-* Current SecurityToken can be constructor injected
+* Context of current user is always in all method calls, if no user is logged in code is executed as _Everyone_.
 
-* Can also be taken from the static SecurityToken.CurrentSecurityToken
- 
-Example from `Src\Litium.Accelerator\Services\CheckoutServiceImpl.cs`:
+* Use `SecurityContextService` to alter current user for method calls:
+
+    ```C#
+
+    // Temporarily elevate permissions
+    using (_securityContextService.ActAsSystem("My custom integration task"))
+    {
+        // Do stuff here that the current user cannot normally do
+    }
+
+    // Temporarily remove permissions (execute code as anonymous user even if logged in)
+    using (_securityContextService.ActAsEveryone())
+    {
+        // Do stuff here that the need to be done without custom permissions
+    }
+
+    ```
+
+---
+
+# Impersonation with SecurityContextService
+
+Use `SecurityContextService` to execute code as a specific user:
+
 ```C#
-public override void ChangeDeliveryMethod(Guid deliveryMethodId)
+if (person != null && !string.IsNullOrEmpty(person.LoginCredential.Username))
 {
-    var currentOrderCarrier = _requestModelAccessor.RequestModel.Cart.OrderCarrier;
-    _moduleECommerce.CheckoutFlow.AddDelivery(
-        currentOrderCarrier, 
-        deliveryMethodId, 
-        new AddressCarrier(), 
-        SecurityToken.CurrentSecurityToken);
-    _moduleECommerce.Orders.CalculateOrderTotals(
-        currentOrderCarrier, 
-        SecurityToken.CurrentSecurityToken);
-}
-```
+    var claimsIdentity = _securityContextService.CreateClaimsIdentity(null, person.SystemId);
+    using (_securityContextService.ActAs(claimsIdentity))
+    {
+        // Do stuff here as any provided person
+    }
+}```
 
 ---
 template: section
-# Area: Ecommerce
+# Area: Sales
 
 ---
-# The shopping cart
+# Cart
+
+* Use `CartContextSessionService` to interact with the current cart or use `CartService` to access a cart saved in database
+
+* The cart contains the order information **before an order is placed**
+
+* To place an order just initialize a payment from the `CartContext.SelectPaymentOptionAsync`
+
+    * The order does not get created until the payment app notifies that there is at least one guaranteed payment for the given cart, minimizing the number of waste orders in the database
+
+* Cart is session independent for headless support (since Litium 8)
+
+
+---
+
+# SalesOrder
+
+.footer[Read more https://docs.litium.com/documentation/areas/sales/sales-data-modelling]
 
 .left-col[
-* Cart object is kept in Session
+* A _SalesOrder_ contains orderrows with items and the information required to fulfill the order such as addresses and customer information. It may contain multiple _payments_ and multiple _shipments_
 
-* Can be persisted
+* Transactions events on a payment such as Authorize, Capture or Refund. Transactions are connected to _OrderRows_ on the _SalesOrder_
 
-    * In DB – need to be logged in
-
-    * Per machine – using cookies
-
-* Only article number and quantity is stored, other information might change, e.g. Prices
+* Use the `OrderOverviewService` to get the **`OrderOverview`** or **`PaymentOverview`** with all _payments_, _shipments_ and returns connected to a _SalesOrder_.
 ]
-.right-col[<img src="images/ecom-cart.png" width="100%" class="img-border" />]
-.footer[Read more: https://docs.litium.com/documentation/litium-documentation/sales/shopping_cart]
 
----
-# Create order
-
-<img src="images/ecom-create-order.png" width="90%" />
-
-.footer[Image from https://docs.litium.com/documentation/litium-documentation/sales/checkout_flow<br/>
-Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
-
-???
-
-TODO - Replace image with draw.io
-
----
-name: Create order - detailed
-
-<img src="images/ecom-create-order-detail.png" width="70%" />
-
-.footer[Read more: https://docs.litium.com/documentation/litium-documentation/sales/how-to-place-an-order]
-
----
-# Plugins in Ecommerce
-
-<img src="images/ecom-plugins.png" width="70%" />
-
-???
-
-ECommerce plugins allow extending the ECommerce functionality and customizing its behaviour.
-
-It is possible to have multiple implementations of plugins and create custom selectors to decide which plugin to use, see IPluginSelector link in slide for more information.
-
-Options to extend/replace a plugin
-
-1. Replace implementation by creating class that implements interface, LitiumStudio will automatically detect your custom implementation and will use it instead of the default implementation.
-
-2. Write your classes by extending the classes provided by the default implementation. Usually the default implementation provide virtual methods to allow this type of extention.
-
-https://docs.litium.com/documentation/developer-guides/sales/architecture-design
-https://docs.litium.com/documentation/developer-guides/sales/architecture-design/ecommercepluginarchitecture/ipluginselector-interface-and-plugin
-
-
----
-# Checkoutflow info
-
-* Checkout flow is the process of buying the items in the shopping cart
-
-* CheckoutFlowInfo Keeps additional information required during checkout that is not saved in the Order
-
-* Example: Used to pass CancelUrl and ReturnUrl payment providers
-
----
-# Payment providers - collect payment
-
-<img src="images/ecom-payment-provider.png" width="70%" />
-
-```XML
-<pluginSettingx traceMode="true">
-```
-
-.footer[https://docs.litium.com/documentation/developer-guides/sales/payment-providers<br/>
-https://docs.litium.com/documentation/add-ons/payments/overview]
-
-???
-
-Payment provider configurations has tracemode-setting to activate logging
-
----
-
-# Pricing rules
-
-* Pricing rules defines how price of a product is determined and how the order grand total and taxes are calculated
-
-* The pricing rules plugin use info from order price fields to do calculations
-
-* Plugins can be replaced by custom code
-
-<img src="images/ecom-pricing-rules.png" width="100%" />
-
-.footer[https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1<br/>
-https://docs.litium.com/documentation/litium-documentation/sales/pricing_rules_1/changing-pricing-rules]
-
----
-# State transitions
-
-.left-col[
-<img src="images/ecom-order-states.png" height="65%" />    
-]
 .right-col[
-* OrderState, DeliveryState and Paymentstate flows execute together
-
-* PaymentState inside Litium, not possible to modify
-
-* States can only be changed according to predefined conditions
-
-* The implementation project can add/remove/modify states and the various conditions and transitions among them
+<img src="drawiodiagrams/sales-data-model.png" height="30%" />
 ]
-
-
-.footer[https://docs.litium.com/documentation/developer-guides/sales/working_with_state_transitions<br/>
-https://docs.litium.com/documentation/developer-guides/sales/architecture-design/state_transition_plugin_1]
-
-???
-
-States
-* Set conditions that need to be fulfilled to enter or exit a state 
-    * Show OrderStateBuilder.TransitionsFromInitState 287 Init to Cancelled
-    * Show DeliveryStateBuilder (95) from Init to Processing: You cannot start delivery if order is not confirmed
-* Entry-/Exit actions
-    * OrderStateBuilder (34), status confirmed 
-    * States should not be changed in entry-/exit actions!!
-* Related states, such as payment pushing order forward, is setup in StateTransitionBuilder
-
-
-Demo in backoffice:
-* Place order
-* Show Order/Delivery/Payment in BO
-* Change deliverystate in backoffice from Init to Processing
-    * Order will go from confirmed into processing
-* Change deliverystatus from processing to delivered
-    * Order will go to completed
-    * Payment will go to paid
-
-* Show how this is set up in code
-    * Show code in StateTransitionBuilder
 
 ---
-# State transitions – In Accelerator
 
-.left-col[
-<img src="images/ecom-order-states-accelerator.png" width="80%" />    
-]
-.right-col[
-All the transitions are done automatically based on Delivery state and Payment state transitions
-]
+# Discounts
 
-.footer[https://docs.litium.com/documentation/litium-accelerators/develop/state-transitions/order-states-in-accelerators]
+* Regular _OrderRows_ with `OrderRowType=Discount` and negative price
+
+* A discount may be connected to a specific OrderRow, for example a Product, Fee or Shipping row
+
+* One product-row may have multiple discount-rows
 
 ---
-# Campaigns
+# SalesOrder states
 
-* A campaign has a single action and zero to many conditions
-    * All campaign conditions need to be met for the action to be applied
-* It is possible to develop both custom campaign actions & custom campaign conditions
+.center[
+<img src="drawiodiagrams/sales-order-states.png" height="100%" />
+]
 
-.footer[https://docs.litium.com/documentation/developer-guides/sales/campaigns]
+.footer[
+Read more at https://docs.litium.com/documentation/areas/sales/order-placement/state-transitions
+]
+
+* States cannot be modified (since Litium 8)
+
+* Order is **Completed** when all deliveries are made, and payments for those deliveries are resolved
+
+* Add `StateTransitionValidationRules` to define conditions an order need to meet to move between states
+
+* To act on order state change just register for the relevant event in [Litiums event system](https://docs.litium.com/documentation/architecture/events-handling/dot-net-events), for example the `SalesOrderConfirmed`-event
 
 ---
 template: section
-# PIM
+# Area: PIM
 ## Product Information Management
 
 ---
@@ -1444,12 +1336,14 @@ template: section
 
 * Logging of updates in PIM
 
+<img src="images/audit-log.png" width="75%" class="img-border" />
+
+--
+
 * Logging when users with access to customer or order area login to the system
 
     * This log has no UI
     * Available in _Auditing_-schema in DB
-
-<img src="images/audit-log.png" width="100%" class="img-border" />
 
 ---
 # Error handling
@@ -1470,15 +1364,12 @@ template: section
 
 * Managed in NLog.config
 
---
+* Logging to textfiles, monitor with [Baretail](https://www.baremetalsoft.com/baretail/) during development:
+    <img src="images/event-log-file.png" width="90%" class="img-border" />
 
-* Log to database, access in backoffice
-    <img src="images/event-log.png" width="100%" class="img-border" />
+* Logging to console during development
+    <img src="images/event-log-console.png" width="100%" class="img-border" />
 
---
-
-* Log to file
-    <img src="images/event-log-file.png" width="100%" class="img-border" />
 
 ---
 template: section
@@ -1671,10 +1562,18 @@ name: Task: Validation
 
 ---
 template: section
-# Extending Litium
+# Litium APIs
 
 ---
-# Litium core APIs
+name: Litium APIs
+
+# Litium APIs
+
+<img src="drawiodiagrams/litium-apis.png" width="70%" />
+
+
+---
+# Using Litium APIs
 
 <img src="images/core-apis-2.png" width="100%" />
 
@@ -1684,12 +1583,6 @@ template: section
 * Litium .NET API
 * Litium Admin Web API
 * Event subscription with Webhooks
-
----
-
-background-image: url(images/connect.png)
-
-# Litium connect
 
 ---
 
@@ -1720,24 +1613,38 @@ background-image: url(images/connect.png)
 
 * Deploy and scale without restarting Litium
 
-* Litium version agnostic, example:
-
-| Litium platform | ERP API | Channels API | Payments API |
-| :-: | :-: | :-: | :-: |
-| 7.4 | 1.0 | - | - |
-| 7.6 | 2.0 | - | - |
-| 7.7 | 2.0 | 1.0 | - |
-| 8.0 | 2.0 | 1.0 | 1.0 |
-
-
 ]
-
 
 ???
 
 Web hooks = Example, leave phonenumber to be called back in phone queue
 
 Guaranteed delivery = Litium tries to deliver the message a few times before giving up 
+
+---
+
+# Litium connect versioning
+
+Litium connect APIs have individual versioning:
+
+.table-border[
+
+| Litium platform | ERP API | Payments API | Shipments API | Channels API
+| :-: | :-: | :-: | :-: | :-: |
+| 7.4 | 1.0 | - | - | - |
+| 7.6 | 2.0 | - | - | - |
+| 7.7 | 2.0 | - | - | - |
+| 8.0 | 2.0 | 1.0 | 1.0 | - |
+| 8.X | 2.0 | 1.0 | 1.0 | 1.0 |
+
+]
+
+---
+name: Litium Connect APIs
+
+background-image: url(images/connect.png)
+
+# Litium connect
 
 ---
 
@@ -1767,55 +1674,101 @@ Guaranteed delivery = Litium tries to deliver the message a few times before giv
 <img src="images/swagger.png" width="75%" />
 
 ---
-# AddOns
-
-## Following are some of the most frequently used AddOns
-
---
-
-### Product Media Mapper 
-To connect images and files to products automatically
-
---
-
-### Payment providers 
-Klarna, Dibs, PayEx, Adyen, PayPal, Nets, Handelsbanken Ecster, Skrill
-
---
-
-### Integration kit
-Starting platform to develop file based integrations towards Litium
-
----
-# Headless API AddOn
-
-* Platform to build use Litium E-Commerce via Web API 
-
-* In particular to use external CMS systems with Litium as the Ecommerce processing and PIM data engine
-
-* Self documenting with [OpenApi/Swagger](https://docs.litium.com/documentation/add-ons/integration/litium-headless-api/configure/docs)
-
-.footer[https://docs.litium.com/documentation/add-ons/integration/litium-headless-api]
-
----
-# Distribution – Add-Ons/Accelerator
-
-### Compiled Add-Ons (e.g. payment provider addOns)
-
-Install via NuGet packages
-
-### Accelerator and source code Add-Ons (e.g. Integration Kit)
-
-Download from https://docs.litium.com 
-
---
-### The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
-
----
 template: task
 name: Task: Web API
 
 # Web API
+
+---
+template: section
+# Add-Ons
+
+---
+
+# Frequently used Add-Ons
+
+.footer[Read more at https://docs.litium.com/add-ons]
+
+* **Product Media Mapper**
+
+    * Automatically connect images and files to products on upload
+
+--
+
+* **Payment providers**
+
+    * Klarna, Dibs, PayEx, Adyen, PayPal, Nets, Handelsbanken Ecster, Skrill
+
+--
+
+* **Integration kit**
+
+    * Starting platform to develop file based integrations towards Litium
+
+--
+
+*  **Headless API**
+
+    * Starter kit to use Litium E-Commerce using Web API
+
+    * Self documenting with [OpenApi/Swagger](https://docs.litium.com/documentation/add-ons/integration/litium-headless-api/configure/docs)
+
+---
+# Distribution – Add-Ons (and Accelerator)
+
+* As **compiled Add-Ons** (e.g. Product Media Mapper)
+
+    * Install via NuGet packages
+
+    * Run as part of the Litium application
+
+--
+
+* As **source code Add-Ons**  (e.g. Accelerator and Integration kit)
+
+    * Download from https://docs.litium.com 
+
+    * Usually run as part of the Litium application
+
+--
+
+* As **Litium Apps**  (e.g. payment and shipment providers)
+
+    * Read more at https://docs.litium.com/documentation/litium-apps
+
+    * Run as separate application
+
+---
+
+# Add-On Gotchas
+
+*  The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
+
+--
+
+* All Add-Ons are not initially available for new Litium versions, check in advance
+
+
+---
+template: section
+# Apps
+
+---
+# Litium Apps
+
+* Run Litium Add-Ons as standalone applications
+
+* Apps Creates their own [Litium Service Accounts](https://docs.litium.com/documentation/architecture/web-api/security) on install
+
+    * Account key is sent to that app to store (cannot be resolved after create)
+
+* Installed per customer project
+
+* Payment and Shipment run as Apps from Litium 8
+
+* A Demo App is [available on GitHub](https://github.com/LitiumAB/Samples/tree/main/Samples/Litium%20App%20demo)
+
+.footer[Read more at https://docs.litium.com/documentation/litium-apps]
 
 ---
 template: section
@@ -1830,19 +1783,13 @@ Litium Search is built on Elasticsearch with additional plugins and administrati
 
 * Part of Litium Accelerator
 
-* Litium Backoffice (except E-Commerce) searches directly against the database
-
-    * Litium E-Commerce is using the Lucene.NET search enginge both in backoffice and Accelerator frontend
-
-.footer[Read more: https://docs.litium.com/documentation/architecture/search]
+.footer[Read more: https://docs.litium.com/documentation/architecture/litiumsearch]
 
 ???
 
 It is possible to fine tune how the indexing of a item is made, and what fields to include​
 
 The configuration options is not only for indexing, you also get full flexibility when searching, you can improve the importance of different fields and adjust how search result should be presented to match what the visitor expect.
-
-TODO - Add task on query with the above options for boost and presentation
 
 ---
 # Litium Search
@@ -1851,14 +1798,14 @@ TODO - Add task on query with the above options for boost and presentation
 
 * Additional indices [can be added](https://docs.litium.com/documentation/architecture/search/elasticsearch/how-to-add-a-search-index) if needed
 
-<img src="images/litium-search-indices.png" width="90%" />
+<img src="images/litium-search-indices.png" width="90%" class="img-border" />
 
 ---
 # Litium Search
 
 * Add an manage synonyms in Litium Backoffice
 
-<img src="images/litium-search-synonyms.png" width="90%" />
+<img src="images/litium-search-synonyms.png" width="90%" class="img-border" />
 
 ---
 # DataService - Batching data
@@ -1869,7 +1816,7 @@ Litium.Data.DataService.CreateBatch
 
 ### Create, Delete and Update multiple domain objects in a single transaction
 
-* If one operation fails, the whole batch is rolled back. 
+* If one operation fails, the whole batch is rolled back.
 
 * All entities in a single batch are logged together in logging for auditing
 
@@ -1965,111 +1912,21 @@ template: section
 # Accelerator front-end development
 
 ---
-# Accelerator front-end code structure
+# Accelerator front-end tech stack
 
-* Component based
+* [Foundation Zurb](https://get.foundation/) - The responsive front-end framework
 
-* ES6
+* [SASS](https://sass-lang.com/) - A CSS preprocessor
 
-* React + Redux
+* [BEM (Block, Element, Modifier)](http://getbem.com/introduction/) - A naming methodology for CSS
 
-* [BEM](http://getbem.com/introduction/) (Block, Element, Modifier methodology) for CSS
+* [React](https://reactjs.org/) with [Redux](https://redux.js.org/) - To build the JavaScript components
 
-    * Modular: Styling independent of elements type and nesting
+* [Webpack](https://webpack.js.org/) - To build and bundle the frontend styles and scripts
 
-    * Encourage reusing blocks
-
-    * Avoids multilevel nesting and minimal CSS selectors
-
-* Foundation Zurb
-
-* Foundation Email
-
----
-class: scrollable
-
-# React components - Rendering the Buy button
-
-1. Buy button is added on the server in the MVC view `_VariantItem.cshtml`:
-    ```Razor
-    @Html.BuyButton(model => model.ProductItem, isBuyButton: true) 
-    ```
-    The HTML-helper used from `ProductItemViewModelHtmlExtensions` renders a HTML-tag:
-    ```HTML
-    <buy-button ...
-    ```
-1. In `index.js` on the client Litium identifies HTML-tags that are placeholders (for example buy-button and minicart) and replaces these tags with Redux components. The same [Redux store](https://redux.js.org/basics/store/) is injected in every component.
-
-    ```JavaScript
-    const bootstrapComponents = () => {
-        if (document.getElementById('miniCart')) {
-            ReactDOM.render(
-                <Provider store={store}>
-                    <MiniCartContainer />
-                </Provider>,
-                document.getElementById('miniCart')
-            );
-        }
-        ...
-    ```
-1. In `BuyButton.container.js` the button is rendered, the click-event of the button triggers the add event of `Cart.action.js`:
-    ```JavaScript
-    import { add as addToCart } from '../Actions/Cart.action';
-    ```
-    
-    ```JavaScript
-    render() {
-        return (
-            <span ref={this.buttonRef}>
-                <BuyButton {...this.props} 
-                    onClick={(articleNumber, quantityFieldId) => this.props.addToCart(
-                        this.buttonRef.current, articleNumber, quantityFieldId)} />
-            </span>
-        );
-    }
-    ```
-
-.small[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
-
-<br/>
-<br/>
-<br/>
-
----
-class: scrollable
-
-# React components - Clicking the Buy button
-
-1. When a buybutton is clicked the `Add()`-method in `Cart.action.js` trigger a POST to the server:
-    ```JavaScript
-    return post('/api/cart/add', { articleNumber, quantity: parseInt(quantity) })
-        .then(response => response.json())
-        .then(cart => {
-            dispatch(receive(cart));
-    ```
-1. After returning from the server controller `Litium.Accelerator.Mvc.Controllers.Api.CartController.Add()` the `receive`-action is triggered
-
-1. In `Cart.reducer.js` the `CART_RECEIVE`-action updates state with fresh cart data from the server
-    ```JavaScript
-    switch (action.type) {
-        case CART_RECEIVE:
-        case CART_SHOW_INFO:
-            return {
-                ...state,
-                ...action.payload,
-            };
-        default:
-            return state;
-    }
-    ```
-    `action.payload` contains the cart passed in `dispatch(receive(cart))`
-
-1. All components that share state gets updated, for example the MiniCart-component
-
-.small[Read more: https://docs.litium.com/documentation/litium-accelerators/develop/buy-button]
-
-<br/>
-<br/>
+.footer[
+Read more at https://docs.litium.com/documentation/litium-accelerators/develop/accelerator-architecture
+]
 
 ---
 class: scrollable
@@ -2114,25 +1971,36 @@ template: section
 ---
 # Upgrading
 
-* As with installation, upgrading the Litium platform is done through Visual Studio nuget update
+A Litium Solution is upgraded in 3 parts:
 
-    * Upgrading the Litium database is done with a SQL-script
+1. The Litium platform is upgraded using NuGet update
 
-        * `packages\Litium.Setup.Core\tools\UpgradeToLatest.sql`
+1. The database is upgraded using the [Litium db-tool](https://docs.litium.com/documentation/get-started/database-management)
 
-        * Can be executed with Package Manager Console in Visual Studio
-            ```console
-            Update-LitiumDatabase
-            ```
+    * Use directly with a database connection or use it to generate a upgrade script.
 
-        * No way back, backup before running the script
+    * No way back, backup before running the upgrade
 
-* Upgrading Litium Accelerator is manual
+1. Upgrading Litium Accelerator is manual
+
     * New release package can be used
+
+--
+
+### Litium 8 Upgrade will be available from Litium version 8.1
 
 ---
 template: section
 # Next step
+
+---
+# Get certified
+
+* A Litium Developer Certification is a personal quality mark that builds customer trust
+
+* Litium Developer Certifications make up one part of your organizations [partner rank](https://www.litium.com/solution-partners)
+
+* Sign up for a certification exam at [litium.com](https://www.litium.com/training-and-certification-at-litium)
 
 ---
 # Resouces
@@ -2151,7 +2019,9 @@ template: section
 
 * A license file is required to access Litium from a machine other than localhost
 
-    * The initial installation uses a demo license which only allows requests from the local computer.
+  * The initial installation uses a demo license which only allows requests from the local computer.
+
+  * **NEW!** From version 8.1 the installation will accept remote requests without a license file but with a limitation on requests/minute.
 
 * The license must cover all environments (test/prod/stage) that customers have access to
 
