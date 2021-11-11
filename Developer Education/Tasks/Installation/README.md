@@ -170,6 +170,7 @@ Select one of the options below to add your License to the installation:
 1. In the Build-dropdown in the toolbar select **Docker**
     ![Alt text](Images/docker-in-build-menu.png "Docker build menu")
 1. Press `Ctrl+F5` to build and run the application in a container
+    1. If you have Visual Studio 2022 installed and get the error: `The line number specified for #line directive is missing or invalid` on build then see [this forum post](https://forum.litium.com/t/getting-line-number-error-after-installing-visual-studio-2022/2302/2) for a solution.
 1. If all goes well the site will start on a 404-page, add **/Litium** to the url to access Litium Backoffice login, example: [https://bookstore.localtest.me:12345/litium](https://bookstore.localtest.me:12345/litium)
 1. Login to Litium Backoffice using the admin account created earlier **(admin/nimda)**
     1. Open _Control panel (cogwheel in top right corner) > Deployment > Accelerator_
