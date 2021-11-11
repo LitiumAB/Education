@@ -6,7 +6,7 @@ EXPOSE 80
 EXPOSE 443
 
 # Uncomment the line below to set database connection string as environment-variable:
-# ENV Litium__Data__ConnectionString="Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434"
+# ENV Litium__Data__ConnectionString="Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=host.docker.internal,5434"
 
 # If you have a license-key to Litium you can add it below to set it as an environment-variable:
 # ENV Litium__License=""

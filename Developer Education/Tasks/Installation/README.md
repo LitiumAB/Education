@@ -46,6 +46,7 @@ Check that you have completed the requirements below installed before you start.
 
     1. Open _Accelerator.sln_ in Visual Studio
     1. Right-click on the project `Litium.Accelerator.Mvc` and select **Add > Docker Support**
+        1. If prompted select _Target OS: Linux_
     1. In the project you now get a new file called `Dockerfile` that is specified to run the `aspnet:5.0`-image. You need to change it to use the `litium:net5`-image instead since you need some additional Litium requirements (node/Gdi-image scaling and some config):
 
         ```PowerShell
@@ -62,39 +63,38 @@ Check that you have completed the requirements below installed before you start.
         ```XML
             ...
 
-                <Target Name="CreateDockerArguments" BeforeTargets="ContainerBuildAndLaunch">
-                    <PropertyGroup>
-                    <!-- Always pull to ensure that the latest image is used -->
-                    <DockerfileBuildArguments>--pull</DockerfileBuildArguments>
-                    
-                    <!-- Define the parameters for files and folders to map on the host -->
-                    <DockerLitiumFiles>$(MSBuildThisFileDirectory)../files</DockerLitiumFiles>
-                    <DockerLitiumLogfile>$(DockerLitiumFiles)/litium.log</DockerLitiumLogfile>
-                    <DockerLitiumElasticLogfile>$(DockerLitiumFiles)/elasticsearch.log</DockerLitiumElasticLogfile>
-                    
-                    <!-- Mappings so that files/logs inside the container is synced with 
-                    files/folders foler on host
-                    The Docker image used (defined in the Dockerfile) already contains 
-                    the environment variable Litium__Folder__Local that defines files to 
-                    be stored in app_data inside the container -->
-                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
-                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogfile):/app/bin/$(Configuration)/litium.log:rw</DockerfileRunArguments>
-                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumElasticLogfile):/app/bin/$(Configuration)/elasticsearch.log:rw</DockerfileRunArguments>
+            <Target Name="CreateDockerArguments" BeforeTargets="ContainerBuildAndLaunch">
+                <PropertyGroup>
+                <!-- Always pull to ensure that the latest image is used -->
+                <DockerfileBuildArguments>--pull</DockerfileBuildArguments>
+                
+                <!-- Define the parameters for files and folders to map on the host -->
+                <DockerLitiumFiles>$(MSBuildThisFileDirectory)../files</DockerLitiumFiles>
+                <DockerLitiumLogfile>$(DockerLitiumFiles)/litium.log</DockerLitiumLogfile>
+                <DockerLitiumElasticLogfile>$(DockerLitiumFiles)/elasticsearch.log</DockerLitiumElasticLogfile>
+                
+                <!-- Mappings so that files/logs inside the container is synced with 
+                files/folders foler on host
+                The Docker image used (defined in the Dockerfile) already contains 
+                the environment variable Litium__Folder__Local that defines files to 
+                be stored in app_data inside the container -->
+                <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
+                <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogfile):/app/bin/$(Configuration)/litium.log:rw</DockerfileRunArguments>
+                <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumElasticLogfile):/app/bin/$(Configuration)/elasticsearch.log:rw</DockerfileRunArguments>
 
-                    <!-- Configure the container to use the dnsresolver-container as DNS: -->
-                    <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
-                    </PropertyGroup>
-                    
-                    <!-- Make sure that the files/folders needed exists 
-                    (otherwise the automatic volume-mapping will create directories 
-                    instead of files) -->
-                    <MakeDir Directories="$(DockerLitiumFiles)" Condition="!Exists('$(DockerLitiumFiles)')" />
-                    <Touch Files="$(DockerLitiumLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumLogfile)')" />
-                    <Touch Files="$(DockerLitiumElasticLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumElasticLogfile)')" />
-                </Target>
+                <!-- Configure the container to use the dnsresolver-container as DNS: -->
+                <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
+                </PropertyGroup>
+                
+                <!-- Make sure that the files/folders needed exists 
+                (otherwise the automatic volume-mapping will create directories 
+                instead of files) -->
+                <MakeDir Directories="$(DockerLitiumFiles)" Condition="!Exists('$(DockerLitiumFiles)')" />
+                <Touch Files="$(DockerLitiumLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumLogfile)')" />
+                <Touch Files="$(DockerLitiumElasticLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumElasticLogfile)')" />
+            </Target>
 
-            </Project>
-            ...
+        </Project>
         ```
 
 ## Configure a Litium database
@@ -118,7 +118,7 @@ Check that you have completed the requirements below installed before you start.
     - Set as environment variable in the application container. In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
 
         ```PowerShell
-        ENV Litium__Data__ConnectionString="Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434"
+        ENV Litium__Data__ConnectionString="Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=host.docker.internal,5434"
         ```
 
         You can find a modified `Dockerfile` in the [`_Resources_-folder](Resources/Dockerfile).
@@ -127,7 +127,7 @@ Check that you have completed the requirements below installed before you start.
         ```JSON
         "Litium": {
             "Data": {
-                "ConnectionString": "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434"
+                "ConnectionString": "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=host.docker.internal,5434"
         ```
 
 ## Configure custom domain
@@ -162,7 +162,7 @@ Select one of the options below to add your License to the installation:
     ENV Litium__License="eyJhbGciOiJSUzI1N...3RXeGMjZL05w"
     ```
 
-    You can find a modified `Dockerfile` in the [`_Resources_-folder](Resources/Dockerfile)
+    You can find a modified `Dockerfile` in the [_Resources_-folder](Resources/Dockerfile)
 
 ## Build and run
 
