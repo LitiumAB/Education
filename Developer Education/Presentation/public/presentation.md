@@ -127,7 +127,7 @@ class: center
 > and know where to find answers when you don´t.
 
 ---
-# Features
+# Litium areas and features
 
 <img src="drawiodiagrams/features.png" />
 
@@ -181,17 +181,17 @@ template: section
 
 * A packaged technical solution
 
-    * Cart, My pages, Up sell/cross sell, Checkout, Search and filtering, Landing pages
+    * Includes core e-commerce functionality: Cart, My pages, Up/Cross sell, Checkout, Search/Filtering, Landing pages
 
-    * Speed up starting new projects
+    * Get started with new projects faster
 
-    * No need to build from scratch
+    * Projects can add value, not boilerplate
 
-    * Base for common functionality to start development
+* Delivered as source code
 
-* Delivered as source code. 
+    * Modify or remove included functionality
 
-* Start with current code snapshot and once customized the accelerator will be part of the solution. 
+* Start with current code snapshot and once customized the accelerator will be part of the solution
 
 ---
 # Litium Accelerator
@@ -348,6 +348,18 @@ Command-line dotnet tool to work with the Litium application database
 
 ---
 template: task
+name: Task: Developer certificate
+
+# Developer certificate
+
+---
+template: task
+name: Task: Docker
+
+# Docker
+
+---
+template: task
 name: Task: Installation
 
 # Installation
@@ -409,7 +421,7 @@ or
 
 * Login with **your windows account username and password**
 
-  * If you don't belong to the local administrators group in windows you need to [change systemUserGroup in Web.config](https://docs.litium.com/documentation/get-started/web_config) to specify a different group to allow login locally.
+  * If you don't belong to the local administrators group in windows you need to [change `WindowsCredentialGroup` in appsettings.json](https://docs.litium.com/documentation/get-started/configuration) to specify a different group to allow login locally.
 
   * If you are on a domain it should be added to the loginname, otherwise just add a leading backslash, example:
 
@@ -505,9 +517,13 @@ With Litium 8 additional entities from E-commerce will be added
 
 * Instances of a **Field type** are created per **Area**
 
+--
+
+.box[
   _Example: The field **City** is of type **Text** and is created in the **Customers-area**_
 
   _Example: The field **Brand** is also of type **Text** and is created in the **Products-area**_
+]
 
 ---
 
@@ -549,12 +565,12 @@ new FieldDefinition<CustomerArea>("SocialSecurityNumber", SystemFieldTypeConstan
 ---
 # Field template
 
-* _Fields_ are added _field groups_
+1. _Fields_ are added to _field groups_
 
-* _Field groups_ are then added to _field templates_
+1. _Field groups_ are added to _field templates_
 
 ```C#
-new PersonFieldTemplate("B2CPersonTemplate")
+new PersonFieldTemplate("MyPersonTemplate")
 {
     FieldGroups = new []
     {
@@ -567,7 +583,6 @@ new PersonFieldTemplate("B2CPersonTemplate")
                 SystemFieldDefinitionConstants.FirstName,
                 SystemFieldDefinitionConstants.LastName,
                 SystemFieldDefinitionConstants.Email,
-                SystemFieldDefinitionConstants.Phone,
                 "SocialSecurityNumber"
             }
         }
@@ -605,15 +620,15 @@ new FieldDefinition<BlockArea>(BlockFieldNameConstants.Link,
 
 .full-col[
 ```C#
-new FieldDefinition<BlockArea>(BlockFieldNameConstants.Banners, 
+new FieldDefinition<BlockArea>(FieldConstants.Slide, 
     SystemFieldTypeConstants.MultiField)
 {
     Option = new MultiFieldOption { 
         IsArray = true, 
         Fields = new List<string>() { 
-            BlockFieldNameConstants.BlockImagePointer, 
-            BlockFieldNameConstants.LinkText,
-            BlockFieldNameConstants.LinkToPage
+            FieldNameConstants.ImagePointer, 
+            FieldNameConstants.LinkText,
+            FieldNameConstants.LinkToPage
         } 
     }
 }
@@ -626,7 +641,7 @@ new FieldDefinition<BlockArea>(BlockFieldNameConstants.Banners,
 
 * Each entity has its own “entity service”
 
-* Use the service to get, create, update and delete entities
+* Use the service to get, create, update or delete entities
 
 ```C#
 public abstract class ChannelService : IEntityService<Channel>, 
@@ -672,17 +687,17 @@ Makewriteableclone
 ---
 # Entity model - Relationships between entities
 
-* Domain models relationships
+Domain model relationships:
 
-    * “parent entity” – “child entity” (example baseproduct – variant, a variant cannot exist without a baseproduct)
+- **entity – entity** when both entities can exist independently
 
-    * “entity” – “entity”
+- **parent entity – child entity** when a child cannot exist without its parent _(example baseproduct – variant)_
 
-* A parent entity has “Links” to child entities
+- Connected with _Link_-objects
 
-    * The link has the SystemId of the child entity
+    - The link has the SystemIds of both entities
 
-    * The link may have additional information related to the relationship
+    - The link may have additional information related to the relationship
 
 ---
 # Entity model - Relationships between entities
@@ -722,7 +737,9 @@ A convention-based object-object mapper.
 
 > "Mapping code is boring. Testing mapping code is even more boring. AutoMapper provides simple configuration of types, as well as simple testing of mappings."
 
+.footer[
 http://docs.automapper.org/en/stable/Getting-started.html
+]
 
 ---
 
@@ -741,12 +758,22 @@ cfg.CreateMap<PageModel, ArticleViewModel>()
 var articleViewModel = pageModel.MapTo<ArticleViewModel>();
 ```
 
-### Learn more
+.footer[
 http://docs.automapper.org/
+]
 
 ---
 template:section
 # Area: Websites
+
+---
+
+# Websites domain model
+
+* Pages can be “active” in different channels
+* A `DraftPage` is the working copy of a Page (a page can only have a single `DraftPage`)
+
+<img src="drawiodiagrams/websites-domain-model.png" width="70%" />
 
 ---
 
@@ -764,14 +791,6 @@ template:section
 
     * **Global:** the block has a reference to a single global instance that can be used on multiple pages
     
----
-
-# Websites domain model
-
-* Pages can be “active” in different channels
-* A `DraftPage` is the working copy of a Page (a page can only have a single `DraftPage`)
-
-<img src="drawiodiagrams/websites-domain-model.png" width="70%" />
 
 ---
 template: task
@@ -824,11 +843,11 @@ template:section
 
 * Belongs to a market
 
-* May have a website
+* **May** have a website
 
-* Languages for website and products
+* Sets website and PIM language
 
-* Defined for a list of countries
+* Can have multiple countries
 
 * Supports data modelling
 
@@ -839,11 +858,11 @@ template:section
 ---
 # Country & Tax class
 
-* Products are defined with a Tax class
+* Products have a _Tax class_
 
-* The VAT percentage for each Tax class is defined on Country
+* VAT percentage for _Tax class_ is defined per Country
 
-    * All products with the same tax class have the same VAT percentage
+* All products with the same tax class have the same VAT percentage
 
 <img src="drawiodiagrams/countrytotaxclasslink.png" width="70%" />
 
@@ -854,14 +873,17 @@ template: section
 ---
 # Component model - Implementations
 
-* Abstractions (interfaces/abstract classes) are separated from  **implementations** in different assemblies
+* **Abstractions** (interfaces/abstract classes) are separated from  **implementations** in different assemblies
 
-    * Abstraction assembly examples
-        * Litium.**Abstractions**
-        * Litium.Web.**Abstractions**
-    * Implementation assembly examples
-        * Litium.**Application**
-        * Litium.**Infrastructure**.MicrosoftServiceBus
+    * **Abstraction** assembly examples:
+
+        * `Litium.Abstractions`
+        * `Litium.Web.Abstractions`
+    
+    * **Implementation** assembly examples:
+
+        * `Litium.Application`
+        * `Litium.Infrastructure.MicrosoftServiceBus`
 
 --
 
@@ -880,19 +902,23 @@ Abstractions are contracts that define functionality:
 --
 
 * Interfaces
-    * Implement an interface to extend the functionality
-    * Or change default functionality by extending default implementation using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
-    * Example: IPriceCalculator
+    * Implement an interface to replace functionality
+
+    * Or extend/change default functionality by using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
+    
+    * Example: `IPriceCalculator`
 
 --
 
 * Abstract Classes
+
     * Implementation projects are **not expected to change** abstract classes
+
     * Example: Service-classes are used for most functionality and to access and work with entities (BaseProductService, VariantService etc.).
 
 --
 
-### Only target **abstractions** during development for better testability
+### Only reference **abstractions** during development for better testability
 
 ---
 # Redis
@@ -901,9 +927,9 @@ Abstractions are contracts that define functionality:
 
 ### Redis is used in Litium for:
 
-* Distributed Cache
+* Distributed cache
 
-* Concurrency
+* Distributed lock
 
 * Service bus
 
@@ -921,7 +947,7 @@ Cache outside the Litium application
 
 * Reduces database usage
 
-.footer[An optional development task for distributed cache is avaliable]
+.footer[An optional development task for distributed cache is avaliable in the [Redis-task](https://github.com/LitiumAB/Education/tree/main/Developer%20Education/Tasks/Redis#1-distributed-cache)]
 
 ???
 
@@ -931,30 +957,20 @@ Improvements in application startup from 3 minutes to 30 seconds
 
 ---
 
-# Concurrency
+# Distributed lock
 
-* Pessimistic locking – prevent edits when an entity is being edited
-* Optimistic locking – allow edit but check before save if the item has been edited since it was read
+Use a _distributed lock_ to prevent other applications and threads from accessing a section of code that should not have multiple simultaneous executions.
 
---
+The code inside the lock will only run on one server (i.e. one application instance), all other instances will either wait or timeout.
 
-## Concurrency in Litium
+```C#
+using (_distributedLockService.AcquireLock(key, TimeSpan.FromSeconds(10)))
+{
+    // Tip: the Redis-task has a subtask for working with distributed lock
+}
+```
 
-* Optimistic concurrency is available **only in Ecommerce area**
-
-* No other areas have concurrency checks!
-
-* It is possible to enforce pessimistic concurrency with DistributedLock:
-    ```C#
-    using (_distributedLockService.AcquireLock(key, TimeSpan.FromSeconds(10)))
-    {
-        // Work with the locked entity
-        
-        // Tip: the Redis-task has a subtask for working with distributed lock
-    }
-    ```
-
-.footer[An optional development task for distributed lock is avaliable]
+.footer[An optional development task for distributed lock is avaliable in the [Redis-task](https://github.com/LitiumAB/Education/tree/main/Developer%20Education/Tasks/Redis#2-distributed-lock)]
 
 ???
 
@@ -986,37 +1002,37 @@ From https://en.wikipedia.org/wiki/Dependency_injection
 # Using dependency injection in Litium
 
 ```C#
-public class Needy
+public class Waiter
 {
-    public Needy(IIceCream iceCream) // I just want any icecream
+    public Waiter(IDessert dessert)
     {
-        iceCream.Serve();
+        dessert.Serve();
     }
 }
 
-// This decorator handles the entire dependency injection registration
-[Service(ServiceType = typeof(IIceCream))]
-public interface IIceCream
+// This attribute handles the entire dependency injection registration
+[Service(ServiceType = typeof(IDessert))]
+public interface IDessert
 {
     void Serve();
 }
 
-// This implementation gets sent to Needy when needed 
-public class ChocolateIceCream : IIceCream
+public class IceCream : IDessert
 {
     public void Serve()
     {
-        // Serve some chocolate icecream
+        // Serve some ice cream
     }
 }
 ```
+
 [Read more on Litium Docs](https://docs.litium.com/documentation/architecture/dependency-injection/service-registration)
 
 ---
 # Dependency injection lifetime
 
 ```C#
-[Service(ServiceType = typeof(IIceCream), Lifetime = DependencyLifetime.Singleton)]
+[Service(ServiceType = typeof(IDessert), Lifetime = DependencyLifetime.Singleton)]
 [RequireServiceImplementation]
 public abstract class StockService
 {
@@ -1181,7 +1197,7 @@ template: section
 ---
 # Cart
 
-* Use `CartContextSessionService` to interact with the current cart or use `CartService` to access a cart saved in database
+* Use `CartContextSessionService` to interact with the current cart or use `CartService` to access a cart saved in database.
 
 * The cart contains the order information **before an order is placed**
 
@@ -1347,10 +1363,6 @@ template: section
 * Never `catch` without logging the exception
 
 ## Constructor inject `ILogger<Type>`
-* In static classes (like extension methods) use `typeof(MyClass).Log()`
-
-* Avoid using `this.Log()` extension method (harder to test)
-
 
 ---
 # Event log
@@ -1959,7 +1971,7 @@ To give the stateless Web API controllers access to the current Litium state (cu
 
 ---
 template: section
-# Upgrading
+# Upgrade and License
 
 ---
 # Upgrading
@@ -1980,7 +1992,20 @@ A Litium Solution is upgraded in 3 parts:
 
 --
 
-### Litium 8 Upgrade will be available from Litium version 8.1
+### Litium 8 Upgrade support is planned for Litium version 8.2
+
+---
+# License
+
+* A license file is required to access Litium from a machine other than localhost
+
+  * The initial installation uses a demo license which only allows requests from the local computer.
+
+  * **NEW!** From version 8.1 the installation will accept remote requests without a license file but with a limitation on requests/minute.
+
+* The license must cover all environments (test/prod/stage) that customers have access to
+
+* Request a License file from https://docs.litium.com/support/request-license
 
 ---
 template: section
@@ -2006,19 +2031,6 @@ template: section
 |Litium slack<br/><br/>|https://docs.litium.com/community<br/><br/>|
 |General questions and discussions<br/><br/>|https://forum.litium.com<br/><br/>|
 |Feature ideas and requests<br/><br/>|https://ideas.litium.com<br/><br/>|
-
----
-# License
-
-* A license file is required to access Litium from a machine other than localhost
-
-  * The initial installation uses a demo license which only allows requests from the local computer.
-
-  * **NEW!** From version 8.1 the installation will accept remote requests without a license file but with a limitation on requests/minute.
-
-* The license must cover all environments (test/prod/stage) that customers have access to
-
-* Request a License file from https://docs.litium.com/support/request-license
 
 ---
 template: section

@@ -35,6 +35,11 @@ table {
   height: 100%;
   padding-top: 18%;
 }
+.box {
+  border: #0099ff solid 1px;
+  padding: 15px;
+}
+
 .full-col {
   width: 100%;
   float: left;
