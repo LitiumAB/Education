@@ -127,22 +127,13 @@ class: center
 > and know where to find answers when you don´t.
 
 ---
-name: Features
+# Features
 
-background-image: url(images/features.png)
-
----
-name: Architecture stack
-
-<img src="images/architecture-01.png" alt="Architecture" width="100%" />
+<img src="drawiodiagrams/features.png" />
 
 ???
 
-* Product Information System
-
-* Order Management System
-
-* Content Management System
+background-image: url(images/features.png)
 
 ---
 
@@ -189,6 +180,8 @@ template: section
 # What is Litium Accelerator?
 
 * A packaged technical solution
+
+    * Cart, My pages, Up sell/cross sell, Checkout, Search and filtering, Landing pages
 
     * Speed up starting new projects
 
