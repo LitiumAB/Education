@@ -888,7 +888,7 @@ Abstractions are contracts that define functionality:
 
 * Abstract Classes
     * Implementation projects are **not expected to change** abstract classes
-    * Example: Litium use _Services_ for most functionality and to access and work with entities (BaseProductService, VariantService etc.).
+    * Example: Service-classes are used for most functionality and to access and work with entities (BaseProductService, VariantService etc.).
 
 --
 
