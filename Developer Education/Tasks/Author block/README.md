@@ -12,7 +12,7 @@ It is recommended that all steps are completed before the solution is built and 
 
 1. Create the file  `\Src\Litium.Accelerator\Definitions\Blocks\AuthorBlockTemplateSetup.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockTemplateSetup.cs). 
    > The block only has a Name property and a LinkToPage property, the LinkToPage will be used to select an author page that the block will display content from.
-1. Add translations for the block in `Src\Litium.Accelerator.Mvc\Site\Resources\Administration\Administration.resx`:
+1. Add translations for the block in `\Src\Litium.Accelerator.Administration.Extensions\Resources\Administration.resx`:
     |Key|Value|
     |--|--|
     |`fieldtemplate.blockarea.author.name`|Author block|

@@ -24,7 +24,7 @@ The template is what defines which fields that are avaliable when a Author page 
 1. Add _Author_ to `Litium.Accelerator.Constants.PageTemplateNameConstants`
 1. Copy `\Src\Litium.Accelerator\Definitions\Pages\ArticlePageTemplateSetup.cs` to `AuthorPageTemplateSetup.cs` in the same folder
     1. Search and replace all occurances of _Article_ in the file with _Author_
-1. Add a translation in `Src\Litium.Accelerator.Mvc\Site\Resources\Administration\Administration.resx`, use **key=**`fieldtemplate.websitearea.Author.name` and **value=**`Author page`
+1. Add a translation in `\Src\Litium.Accelerator.Administration.Extensions\Resources\Administration.resx`, use **key=**`fieldtemplate.websitearea.Author.name` and **value=**`Author page`
 
 ## 3. Add MVC files needed to render the page
 
