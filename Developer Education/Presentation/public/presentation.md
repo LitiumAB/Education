@@ -875,23 +875,22 @@ template: section
 
 * **Abstractions** (interfaces/abstract classes) are separated from  **implementations** in different assemblies
 
-    * **Abstraction** assembly examples:
-
-        * `Litium.Abstractions`
-        * `Litium.Web.Abstractions`
-    
-    * **Implementation** assembly examples:
-
-        * `Litium.Application`
-        * `Litium.Infrastructure.MicrosoftServiceBus`
-
 --
 
-* All Litium default **implementations** have a `Impl`-suffix and have the fallback-attribute, example:
+* All default **implementations** have a `Impl`-suffix and the `fallback`-attribute:
     ```C#
     [Service(FallbackService = true)]
+    [RequireServiceImplementation]
     public class PriceCalculatorImpl : IPriceCalculator
     ```
+--
+
+    * `Litium.Products.PriceCalculator.IPriceCalculator` is located in the `Litium.Abstractions` assembly
+--
+
+    * `Litium.Application.Products.PriceCalculatorImpl` located in the `Litium.Application` assembly.
+--
+* `RequireServiceImplementation`-attribute will prevent adding a reference to the _Abstraction_ without _Implementation_
 
 ---
 
@@ -1033,7 +1032,6 @@ public class IceCream : IDessert
 
 ```C#
 [Service(ServiceType = typeof(IDessert), Lifetime = DependencyLifetime.Singleton)]
-[RequireServiceImplementation]
 public abstract class StockService
 {
     // ...
@@ -1041,15 +1039,16 @@ public abstract class StockService
 
 
 ```
-#### Lifetime
-* **Singleton:** Clients will always receive that same instance from the container
-* **Scoped:** The same instance is used within the scope
-    * The entire web request
-    * The execution of a scheduled task
-* **Transient:** A new instance of the component will be created each time the service is requested from the container
 
-#### RequireServiceImplementation
-* When a implementation is required for the application to run
+* **Singleton:** Clients will always receive that same instance from the container
+
+* **Scoped:** The same instance is used within the scope
+
+    * The entire web request
+
+    * The execution of a scheduled task
+
+* **Transient:** A new instance of the component will be created each time the service is requested from the container
 
 ???
 
