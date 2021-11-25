@@ -38,6 +38,6 @@
 
 ## Optional extra tasks
 
-1. Write tests for `ERPPriceCalculatorImpl` created in the [pricing rules task](../Pricing%20rules), test both as anonymous and logged in user, a finished example is avaliable in the [_Resources_-folder](Resources/ERPPriceCalculatorImplTests.cs)
+1. Write tests for `ErpPriceCalculatorDecorator` created in the [pricing rules task](../Pricing%20rules), test both as anonymous and logged in user, a finished example is avaliable in the [_Resources_-folder](Resources/ErpPriceCalculatorDecoratorTests.cs)
 
 

@@ -4,25 +4,25 @@ using System.Linq;
 using Litium.Products;
 using Litium.Products.PriceCalculator;
 using Litium.Runtime.DependencyInjection;
-using Microsoft.AspNetCore.Http;
+using Litium.Security;
 
 namespace Litium.Accelerator.Utilities
 {
     [ServiceDecorator(typeof(IPriceCalculator))]
-    public class ERPPriceCalculatorDecorator : IPriceCalculator
+    public class ErpPriceCalculatorDecorator : IPriceCalculator
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPriceCalculator _parent;
+        private readonly SecurityContextService _securityContextService;
 
-        public ERPPriceCalculatorDecorator(IPriceCalculator parent, IHttpContextAccessor httpContextAccessor)
+        public ErpPriceCalculatorDecorator(IPriceCalculator parent, SecurityContextService securityContextService)
         {
             _parent = parent;
-            _httpContextAccessor = httpContextAccessor;
+            _securityContextService = securityContextService;
         }
 
         public IDictionary<Guid, PriceCalculatorResult> GetListPrices(PriceCalculatorArgs calculatorArgs, params PriceCalculatorItemArgs[] itemArgs)
         {
-            var isAuthenticated = _httpContextAccessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
+            var isAuthenticated = _securityContextService.GetIdentityUserSystemId().HasValue;
             if (!isAuthenticated)
                 return _parent.GetListPrices(calculatorArgs, itemArgs);
 

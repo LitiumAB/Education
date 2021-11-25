@@ -19,9 +19,9 @@ namespace Litium.Accelerator.Tests
     ///     https://github.com/Moq/moq4/wiki/Quickstart
     ///     https://github.com/shouldly/shouldly
     /// </summary>
-    public class ERPPriceCalculatorImplTests : LitiumApplicationTestBase
+    public class ErpPriceCalculatorDecoratorTests : LitiumApplicationTestBase
     {
-        private ERPPriceCalculatorImpl GetCalculator(Guid variantId)
+        private ErpPriceCalculatorDecorator GetCalculator(Guid variantId)
         {
             var parent = new Mock<IPriceCalculator>();
             parent.Setup(p => p.GetListPrices(It.IsAny<PriceCalculatorArgs>(), It.IsAny<PriceCalculatorItemArgs>()))
@@ -32,8 +32,8 @@ namespace Litium.Accelerator.Tests
                         new PriceCalculatorResult {ListPrice = 999, ListPriceWithVat = 999, VatPercentage = 0}
                     }
                 });
-            var logger = new Mock<ILogger<ERPPriceCalculatorImpl>>();
-            return new ERPPriceCalculatorImpl(parent.Object, logger.Object);
+            var logger = new Mock<ILogger<ErpPriceCalculatorDecorator>>();
+            return new ErpPriceCalculatorDecorator(parent.Object, logger.Object);
         }
 
         [Fact]

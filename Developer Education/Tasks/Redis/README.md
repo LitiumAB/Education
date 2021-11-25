@@ -49,7 +49,7 @@ Note that the data is stored encrypted and not human readable.
 
 > To do the additional tasks you first need to complete the task [Pricing rules](../Pricing%20rules)
 
-A finished example implementing both distributed cache and distributed lock is avaliable in the [_Resources_-folder](Resources/ERPPriceCalculatorImpl.cs)
+A finished example implementing both distributed cache and distributed lock is avaliable in the [_Resources_-folder](Resources/ErpPriceCalculatorDecorator.cs)
 
 ### 1. Distributed cache
 
@@ -62,7 +62,7 @@ We will be using the `DistributedMemoryCache` which stores data both in a short 
 1. First try getting the value from cache before your `Thread.Sleep`:
 
    ```C#
-   var cacheKey = $"{nameof(ERPPriceCalculatorImpl)}:{variantSystemId}";
+   var cacheKey = $"{nameof(ErpPriceCalculatorDecorator)}:{variantSystemId}";
    if (_distributedMemoryCacheService.TryGet<PriceCalculatorResult>(cacheKey, out var price))
       return price;
    ```
