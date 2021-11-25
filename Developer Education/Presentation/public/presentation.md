@@ -291,7 +291,7 @@ template: section
 
 .footer[Read more at https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator]
 
-## Litium patform is only distributed through a private NuGet-feed
+## Litium platform is only distributed through a private NuGet-feed
 
 * The NuGet-feed is accessed using your [Litium Docs](http://docs.litium.com) user account
 
