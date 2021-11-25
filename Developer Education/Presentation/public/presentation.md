@@ -362,6 +362,12 @@ name: Task: Installation
 # Installation
 
 ---
+template: task
+name: Task: Litium search
+
+# Litium search
+
+---
 
 template: section
 
