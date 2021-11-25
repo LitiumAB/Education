@@ -20,7 +20,6 @@ Check that you have completed the requirements below installed before you start.
 ### Optional but recommended
 
 1. Install [Baretail](https://www.baremetalsoft.com/baretail/) to monitor the Litium logfile during development
-1. Install [PaperCut](https://github.com/ChangemakerStudios/Papercut) for local email testing
 1. Install [Git](https://git-scm.com/) to make life easier
 
 ## Install the Accelerator
