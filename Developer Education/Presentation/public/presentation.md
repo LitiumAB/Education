@@ -310,24 +310,21 @@ dotnet new litmvcacc
 
 ---
 
-# Installation Pre-requisites
+# Installation prerequisites
 
 System requirements for local development environment are avaliable on [Litium Docs site](https://docs.litium.com/documentation/get-started/system-requirements)
 
-### Required
-
-* .NET 5
-* Visual Studio 2019
-* Microsoft SQL Server 2019
-* Configured access to Litium NuGet and Container images (_requires partner account on docs.litium.com_)
-
-### Optional (but recommended)
-
-* Docker
-* Elasticsearch
-* Redis
-* Payment app
-* Shipment app
+| Requirement | Details |
+| :-- | :-- |
+| .NET 5 | |
+| Visual Studio | 2019 or later |
+| Docker | |
+| Elasticsearch | |
+| Microsoft SQL Server 2019 | Local or container |
+| Litium NuGet and Container access | Setup access, requires partner account on docs.litium.com | |
+| Payment app | Required to place order in checkout |
+| Shipment app | Required to place order in checkout |
+| Redis | Not required to run but recommended |
 
 ---
 # litium-db tool
