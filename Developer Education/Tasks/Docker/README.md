@@ -2,9 +2,13 @@
 
 > To do this task you first need to complete the [Developer certificate task](../Developer%20certificate)
 
-## Required preparations
+## Preparations
+
+Check that you have completed the requirements below installed before you start.
 
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop) to run the containers for Litium Apps
+
+1. [Configure access to Litium's Docker container images](https://docs.litium.com/documentation/get-started/litium-packages) so that you can download the required images
 
 ## Setup
 
