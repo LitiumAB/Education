@@ -173,7 +173,7 @@ Select one of the options below to add your License to the installation:
 1. Login to Litium Backoffice using the admin account created earlier **(admin/nimda)**
     1. Open _Control panel (cogwheel in top right corner) > Deployment > Accelerator_
         1. Set _Name_ to _Bookstore_
-        1. Set _Domain name_ to _localhost_
+        1. Set _Domain name_ to _bookstore.localtest.me_
         1. Click **Import** (the Accelerator installation can take a couple of minutes)
     1. Remove **/litium** and everything after it from the url to browse the public Accelerator website
 
