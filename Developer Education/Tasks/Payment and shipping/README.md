@@ -4,6 +4,15 @@ From Litium version 8 all payment and shipping providers are set up as separate 
 
 To be able to place orders in your site you will need to configure a payment provider and a shipping provider.
 
+**A heads up before you start:**
+
+Litium apps are single install only, when you have installed your app once that apps install-link will not work again. If needed just follow the steps below to clear the app for re-installation:
+
+1. Stop the container of the app you want to clear
+1. Open the folder where you kepp the `docker-compose.yaml` file from the docker-task
+1. In the `/data`-subfolder of that folder you will find a `direct-payment` and a `direct-shipment` folder, delete the one you want to clear
+1. Start the container again and the install link will work
+
 ## Prepare
 
 Download `direct-payment-config.json` and `direct-shipment-config.json` from the [_Resources_-folder](Resources) to your computer.
