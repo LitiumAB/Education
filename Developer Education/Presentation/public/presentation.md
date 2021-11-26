@@ -413,30 +413,13 @@ Go through the deployed storefront of Litium Accelerator and show briefly what i
 
 ---
 
-# Login to backoffice
-
-<!-- span fix so that markdown is not formatting the url as clickable link: -->
-**Login URL: http<span>://</span>mydomain/litium**
-
-* Use Litium db-tool to generate a admin user
-
-or
-
-* Login with **your windows account username and password**
-
-  * If you don't belong to the local administrators group in windows you need to [change `WindowsCredentialGroup` in appsettings.json](https://docs.litium.com/documentation/get-started/configuration) to specify a different group to allow login locally.
-
-  * If you are on a domain it should be added to the loginname, otherwise just add a leading backslash, example:
-
-      * With domain: **`MYORG\first.last@myorg.com`**
-
-      * Without domain: **`\first.last@myorg.com`**
-
----
-
 background-image: url(images/backoffice-ui.png)
 
-# Administration UI
+# Litium Backoffice
+
+**Login URL: http<span>://</span>mydomain/litium**
+
+* Use Litium db-tool to generate admin users
 
 * Angular
 
