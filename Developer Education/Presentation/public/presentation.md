@@ -1185,12 +1185,19 @@ Use `SecurityContextService` to execute code as a specific user:
 ```C#
 if (person != null && !string.IsNullOrEmpty(person.LoginCredential.Username))
 {
-    var claimsIdentity = _securityContextService.CreateClaimsIdentity(null, person.SystemId);
+    var claimsIdentity = _securityContextService.CreateClaimsIdentity(
+                    person.LoginCredential.Username, person.SystemId);
+
     using (_securityContextService.ActAs(claimsIdentity))
     {
         // Do stuff here as any provided person
     }
-}```
+}
+```
+
+???
+
+The value passed as username will be used as name claim in the identity.
 
 ---
 template: section
