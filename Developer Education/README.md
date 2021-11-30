@@ -42,5 +42,5 @@ Below tasks might not be completed during classroom education but it is recommen
 1. ~~[Data service](./Tasks/Data%20service)~~ Task is not yet available in Litium 8
 1. ~~[Integration kit](./Tasks/Integration%20kit)~~ Addon is not yet available in Litium 8
 1. ~~[Test project](./Tasks/Test%20project)~~ Addon is not yet available in Litium 8
-1. ~~[Author block](./Tasks/Author%20block)~~ Task is not yet available in Litium 8
+1. [Author block](./Tasks/Author%20block)
 1. ~~[React](./Tasks/React)~~ Task is not yet available in Litium 8

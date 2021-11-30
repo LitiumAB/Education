@@ -769,6 +769,8 @@ template:section
 
 * Rendered inside a BlockContainer of a page
 
+* Rendered as [view components](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-components)
+
 * Allow editors to easily change the page structure without developer involvement
 
 * A Block can be Global or Local
