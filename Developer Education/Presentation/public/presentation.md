@@ -2215,11 +2215,7 @@ A Litium Solution is upgraded in 3 parts:
 ---
 # License
 
-* A license file is required to access Litium from a machine other than localhost
-
-  * The initial installation uses a demo license which only allows requests from the local computer.
-
-  * **NEW!** From version 8.1 the installation will accept remote requests without a license file but with a limitation on requests/minute.
+* Without a License file Litium will limit number of requests per minute when running the site from a machine other than localhost
 
 * The license must cover all environments (test/prod/stage) that customers have access to
 
