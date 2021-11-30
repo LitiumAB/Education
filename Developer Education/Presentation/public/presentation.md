@@ -1592,9 +1592,9 @@ template: section
 
     * Adjust scope when publishing event to also send it to all servers via service bus
 
-* All events can be subscribed to from outside Litium using [Webhooks](https://docs.litium.com/documentation/architecture/events-handling/webhooks)
-
 * You may modify the database (at own risk!) but this bypasses all change events
+
+* Most events can be subscribed to from outside Litium using [Webhooks](https://docs.litium.com/documentation/architecture/events-handling/webhooks) - Use Get Filters in Litium Swagger for Webhooks to get a list of supported events
 
 .footer[https://docs.litium.com/documentation/architecture/events-handling]
 
