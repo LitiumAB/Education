@@ -43,7 +43,7 @@ name: acceleratorproject
     {{content}}
 ]
 
-.footer[Read more at https://docs.litium.com/documentation/litium-accelerators/develop/accelerator-architecture/accelerator-mvc]
+.footer[Read more https://docs.litium.com/documentation/litium-accelerators/develop/accelerator-architecture/accelerator-mvc]
 
 ---
 
@@ -1592,6 +1592,8 @@ template: section
 
     * Adjust scope when publishing event to also send it to all servers via service bus
 
+* All events can be subscribed to from outside Litium using [Webhooks](https://docs.litium.com/documentation/architecture/events-handling/webhooks)
+
 * You may modify the database (at own risk!) but this bypasses all change events
 
 .footer[https://docs.litium.com/documentation/architecture/events-handling]
@@ -1607,6 +1609,8 @@ class: scrollable
 
 ### Step 1: Declare the event class, typed with the object we need to pass:
 ```C#
+// IMessage interface is required for the class
+// to be sent as a Litium event
 public class MyEvent : EventArgs<Currency>, IMessage
 {
     public MyEvent(Currency item) : base(item)
@@ -1636,32 +1640,48 @@ public class MyEventPublisher
 
 ### Step 3: Subscribe to the event and act when it occurs:
 ```C#
-// The autostart decorator on the creates an instance so that our subscription
-// gets registered when the application starts
-[Litium.Runtime.Autostart]
-public class MyEventSubscriber : IDisposable
+// The autostart attribute triggers the class on startup so that our subscription gets registered
+[Autostart]
+public class MyEventSubscriber : IAsyncAutostart
 {
+    private readonly IApplicationLifetime _applicationLifetime;
+    private readonly EventBroker _eventBroker;
     private readonly ISubscription<MyEvent> _subscription;
 
-    public MyEventSubscriber(EventBroker eventBroker)
+    public MyEventSubscriber(EventBroker eventBroker,
+        IApplicationLifetime applicationLifetime)
+    {
+        _eventBroker = eventBroker;
+        _applicationLifetime = applicationLifetime;
+    }
+
+    public ValueTask StartAsync(CancellationToken cancellationToken)
     {
         // Register a subscription on the EventBroker
-        _subscription = eventBroker.Subscribe<MyEvent>(ev =>
+        var subscription = _eventBroker.Subscribe<MyEvent>(ev =>
         {
             // This code will execute every time MyEvent is published
             // Get the currencyobject from the event instance and act on the data
             var currency = ev.Item;
         });
-    }
 
-    public void Dispose()
-    {
-        // Remove the event from the event broker
-        _subscription.Dispose();
+        _applicationLifetime.ApplicationStopping.Register(() =>
+        {
+            // application is about to shutdown, unregister the event listener
+            subscription.Dispose();
+        });
+
+        return ValueTask.CompletedTask;
     }
 }
 ```
-<br/>
+
+.small[
+Read more<br />
+https://docs.litium.com/documentation/architecture/events-handling/dot-net-events<br />
+https://docs.litium.com/documentation/architecture/application-lifecycle
+]
+
 <br/>
 <br/>
 
