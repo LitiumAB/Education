@@ -16,7 +16,8 @@ Do the development tasks below when they are referenced in the slides and if you
 
 To practice what you learn from the slides you can do these tasks to create a simple bookstore.
 
-Before you start with the tasks make sure that you have gone through [Litium system requirements](https://docs.litium.com/documentation/get-started/system-requirements).
+Before you start with the tasks make sure that you have gone through [Litium system requirements](https://docs.litium.com/documentation/get-started/system-requirements).<br />
+_(On the system requirements page you'll be asked to install Node.js. Make sure to install version 14.15.0 to be able to work with Litium 8 accelerator client projects)_
 
 Some tasks assume that a previous task has been completed (task dependencies are presented in each tasks README-file), the recommended order to do them are:
 
