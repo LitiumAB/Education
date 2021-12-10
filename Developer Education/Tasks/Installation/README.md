@@ -38,6 +38,12 @@ Check that you have completed the requirements below installed before you start.
     dotnet new litmvcacc
     ```
 
+## Build client projects
+
+1. Navigate to `C:\Temp\LitiumEducation\`.
+1. Run BuildClientProjects.bat as an administrator.   
+(Make sure you have node.js version 14.15.0 installed)
+
 ## Add docker support to the Accelerator
 
 1. Configure Docker
@@ -65,16 +71,16 @@ Check that you have completed the requirements below installed before you start.
                 <PropertyGroup>
                 <!-- Always pull to ensure that the latest image is used -->
                 <DockerfileBuildArguments>--pull</DockerfileBuildArguments>
-                
+
                 <!-- Define the parameters for files and folders to map on the host -->
                 <DockerLitiumFiles>$(MSBuildThisFileDirectory)../files</DockerLitiumFiles>
                 <DockerLitiumLogfile>$(DockerLitiumFiles)/litium.log</DockerLitiumLogfile>
                 <DockerLitiumElasticLogfile>$(DockerLitiumFiles)/elasticsearch.log</DockerLitiumElasticLogfile>
-                
-                <!-- Mappings so that files/logs inside the container is synced with 
+
+                <!-- Mappings so that files/logs inside the container is synced with
                 files/folders foler on host
-                The Docker image used (defined in the Dockerfile) already contains 
-                the environment variable Litium__Folder__Local that defines files to 
+                The Docker image used (defined in the Dockerfile) already contains
+                the environment variable Litium__Folder__Local that defines files to
                 be stored in app_data inside the container -->
                 <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
                 <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogfile):/app/bin/$(Configuration)/litium.log:rw</DockerfileRunArguments>
@@ -83,9 +89,9 @@ Check that you have completed the requirements below installed before you start.
                 <!-- Configure the container to use the dnsresolver-container as DNS: -->
                 <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
                 </PropertyGroup>
-                
-                <!-- Make sure that the files/folders needed exists 
-                (otherwise the automatic volume-mapping will create directories 
+
+                <!-- Make sure that the files/folders needed exists
+                (otherwise the automatic volume-mapping will create directories
                 instead of files) -->
                 <MakeDir Directories="$(DockerLitiumFiles)" Condition="!Exists('$(DockerLitiumFiles)')" />
                 <Touch Files="$(DockerLitiumLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumLogfile)')" />
