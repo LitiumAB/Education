@@ -12,7 +12,6 @@ Check that you have completed the requirements below installed before you start.
 
 ### Required
 
-1. Accessing Litium running inside a container requires a valid license. If you do not have a license already you can [request a demo-license from Litium Docs](https://docs.litium.com/support/request-license).
 1. Litium is only distributed through NuGet, so first  [configure the Litium NuGet feed](https://docs.litium.com/documentation/get-started/litium-packages) (requires a [Litium Docs account](https://docs.litium.com/system_pages/createlitiumaccount) with partner privileges).
 1. Install [Visual Studio](https://visualstudio.microsoft.com/) for the development
 1. Install [SQL Server Management Studio](https://docs.microsoft.com/sv-se/sql/ssms/download-sql-server-management-studio-ssms) to manage the database
@@ -146,21 +145,6 @@ Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Prope
 "httpPort": 5000,
 "sslPort": 5001
 ```
-
-## Add license
-
-Select one of the options below to add your License to the installation:
-
-- Add your `license.json`-file to the root of the Mvc-project
-- OR set as environment variable in the application container.
-  - Open the `license.json`-file and copy the license token value
-  - In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
-
-    ```PowerShell
-    ENV Litium__License="eyJhbGciOiJSUzI1N...3RXeGMjZL05w"
-    ```
-
-    You can find a modified `Dockerfile` in the [_Resources_-folder](Resources/Dockerfile)
 
 ## Build and run
 
