@@ -154,6 +154,7 @@ Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Prope
 1. Press `Ctrl+F5` to build and run the application in a container
     1. If you have Visual Studio 2022 installed and get the error: `The line number specified for #line directive is missing or invalid` on build then see [this forum post](https://forum.litium.com/t/getting-line-number-error-after-installing-visual-studio-2022/2302/2) for a solution.
 1. If all goes well the site will start on a 404-page, add **/Litium** to the url to access Litium Backoffice login, example: [https://bookstore.localtest.me:12345/litium](https://bookstore.localtest.me:12345/litium)
+    1. If for some reason your page does not start please refer to the [FAQ](#FAQ) section below
 1. Login to Litium Backoffice using the admin account created earlier **(admin/nimda)**
     1. Open _Control panel (cogwheel in top right corner) > Deployment > Accelerator_
         1. Set _Name_ to _Bookstore_
@@ -189,3 +190,29 @@ Using a Git-repo is always recommended during local development to be able to tr
         ```
 
 1. Follow [Litiums recommended  branching strategy](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator/maintain-the-litium-accelerator-solution) and setup a _Vanilla_-branch of the Accelerator for easier maintenance and upgrades.
+
+## FAQ
+
+Refer to the section below to solve common installation problems:
+
+- **I get nuget package errors when I build my solution?**
+
+  - Validate and re-set your nuget credentials by following the steps below
+
+    1. Login on Litium docs and navigate to https://docs.litium.com/documentation/previous-versions/download - if your account has download permissions this page should display a link to download the latest version 7 Accelerator:
+            ![Alt text](Images/download-with-permissions.png "Download page with permissions")
+        If the link is not visible please contact Litium support.
+        1. If the link is visible try re-setting your nuget credentials:
+            1. Close Visual Studio
+            1. Remove current credentials using [nuget remove source](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-nuget-remove-source) by running the command below in a console/terminal:
+
+                ```PowerShell
+                dotnet nuget remove source Litium
+                ```
+
+            1. Re-add the NuGet credentials according to [instructions on Litium docs](https://docs.litium.com/documentation/get-started/litium-packages)
+            1. Open Visual Studio and try again
+
+- **Pressing `CTRL+F5` launches my browser but all I see is a 404-page**
+
+  - This is expected behaviour until you have deployed an Accelerator website, just append _/litium_ to the URL and try again
