@@ -25,4 +25,3 @@ Additional documentation on validation is avaliable on [docs](https://docs.litiu
 
 1. Edit a product and try to save it when you have selected a non-author page as author
 1. You should get a validation error preventing you to save
-1. Your errormessage should be visible in Litium Event Log
