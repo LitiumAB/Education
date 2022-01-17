@@ -2235,7 +2235,7 @@ template: section
 * Sign up for a certification exam at [litium.com](https://www.litium.com/training-and-certification-at-litium)
 
 ---
-# Resouces
+# Resources
 
 | What<br/><br/> | Where |
 |:--|:--|
