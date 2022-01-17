@@ -2240,6 +2240,8 @@ template: section
 | What<br/><br/> | Where |
 |:--|:--|
 |Documentation, release notes and downloads<br/><br/>|https://docs.litium.com/<br/><br/>|
+|Solution/Code samples<br/><br/>|https://github.com/litiumab/samples/<br/><br/>|
+|Litium labs, early feature access<br/><br/>|https://docs.litium.com/partner/litium-labs/<br/><br/>|
 |Solution help, License or technical questions<br/><br/>|https://docs.litium.com/support<br/><br/>|
 |Technical failures, bug reports<br/><br/>|https://docs.litium.com/support/bugs/report-a-bug<br/><br/>|
 |Litium slack<br/><br/>|https://docs.litium.com/community<br/><br/>|
