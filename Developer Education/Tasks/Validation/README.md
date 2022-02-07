@@ -7,7 +7,7 @@ During testing of [Author field](../Author%20field) it became obvious that any p
 Additional documentation on validation is avaliable on [docs](https://docs.litium.com/documentation/architecture/validation)
 
 1. Create the class `ValidateBookAuthor` in namespace `Litium.Accelerator.ValidationRules` that inherit from
-`Litium.Validations.ValidationRuleBase<BaseProduct>` and implement the `Validate`-method that the interitance requires and make it return a new `ValidationResult`
+`Litium.Validations.ValidationRuleBase<BaseProduct>` and implement the `Validate`-method that the inheritance requires and make it return a new `ValidationResult`
 1. Get the selected page-id value of the BaseProduct-entity:
     ```C#
     var authorPageId = entity.Fields.GetValue<Guid?>("AuthorField");
