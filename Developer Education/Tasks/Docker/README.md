@@ -2,6 +2,8 @@
 
 > To do this task you first need to complete the [Developer certificate task](../Developer%20certificate)
 
+If you run in to problems during setup see the [FAQ section below](#faq).
+
 ## Preparations
 
 Check that you have completed the requirements below installed before you start.
@@ -73,15 +75,16 @@ docker-compose down
 
 If you run in to problems here are three good places to look for information:
 
-1. Litium event log - found as the file _litium.log_ in solution folder
-1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in solution folder
+|Error|Try this|
+|--|--|
+|`docker-compose up` fails with error _Bind for 0.0.0.0:6379 failed: port is already allocated_|Either change ports in the yaml-file or remove the existing container occupying the port (see instcuctions on how to remove in _Useful docker commands_ below)|
+|`docker-compose up` fails|Try moving the `docker-compose.yaml`-file into a different folder|
+
+### Check the logs
+
+1. Litium event log - found as the file _litium.log_ in folder `\Src\files` (only available if the application can start)
+1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in folder `\Src\files` (only available if the application can start)
 1. Elasticsearch log in docker - see _Useful docker commands_ below for details on how to read the log
-
-### Conflicting ports
-
-Error example: `Bind for 0.0.0.0:6379 failed: port is already allocated`
-
-If you get an this error when you run the `docker-compose up` command then either change ports in the yaml-file or remove the existing container occupying the port (see instcuctions on how to remove in _Useful docker commands_ below)
 
 ## Useful docker commands
 

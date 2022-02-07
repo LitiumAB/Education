@@ -6,6 +6,8 @@ In this task we will set up a local Litium installation running in a Docker cont
 
 Additional [installation instructions](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator) can be found on Litium docs.
 
+If you run into problems getting your site up and running see the [FAQ section below](#faq).
+
 ## Preparations
 
 Check that you have completed the requirements below installed before you start.
@@ -212,6 +214,12 @@ Refer to the section below to solve common installation problems:
 
             1. Re-add the NuGet credentials according to [instructions on Litium docs](https://docs.litium.com/documentation/get-started/litium-packages)
             1. Open Visual Studio and try again
+
+- **I gett error `invalid referenc format` when I try to run my site**
+
+  - You might have an invalid path to your solution file, verify that you have no spaces in the full path to your solution file, example:
+    - Invalid: `c:\my litium site\Accelerator.sln`
+    - Valid: `c:\mylitiumsite\Accelerator.sln`
 
 - **Pressing `CTRL+F5` launches my browser but all I see is a 404-page**
 
