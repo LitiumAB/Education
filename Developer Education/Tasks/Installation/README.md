@@ -50,7 +50,7 @@ Check that you have completed the requirements below installed before you start.
         # Replace this line at the top of the file:
         # FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
         # With this line:
-        FROM registry.litium.cloud/runtime/litium:net5-latest AS base
+        FROM registry.litium.cloud/runtime/litium:net6-latest AS base
         ```
 
         (You can find a modified `Dockerfile` in the [_Resources_-folder](Resources/Dockerfile)).
