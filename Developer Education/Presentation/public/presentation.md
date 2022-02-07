@@ -2015,7 +2015,7 @@ The configuration options is not only for indexing, you also get full flexibilit
 
 * Litium Accelerator includes indices for pages, categories and products
 
-* Additional indices [can be added](https://docs.litium.com/documentation/previous-versions/litium-7/architecture/search/elasticsearch/how-to-add-a-search-index) if needed
+* Additional indices [can be added](https://docs.litium.com/documentation/architecture/litiumsearch/how-to-add-a-search-index) if needed
 
 <img src="images/litium-search-indices.png" width="90%" class="img-border" />
 
