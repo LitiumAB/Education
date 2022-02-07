@@ -145,7 +145,7 @@ background-image: url(images/features.png)
 
 * [Microsoft .NET MVC](https://dotnet.microsoft.com/apps/aspnet/mvc)
 
-* [Microsoft .NET 5](https://dotnet.microsoft.com/)
+* [Microsoft .NET 6](https://dotnet.microsoft.com/)
 
 * Litium search _Powered by [Elasticsearch](https://www.elastic.co/)_
 
@@ -161,14 +161,10 @@ background-image: url(images/features.png)
 <img src="drawiodiagrams/roadmap.png" alt="Roadmap" width="100%" />
 
 --
-### 8.X Coming functionality
 
-- Litium 8 Upgrade script
-- Returns API and refunds
-- Discount codes (voucher codes)
-- New campaign sales reports
-- Additional discount types
+### Coming functionality
 
+Roadmap: https://docs.litium.com/documentation/roadmap
 ---
 
 template: section
@@ -316,8 +312,8 @@ System requirements for local development environment are avaliable on [Litium D
 
 | Requirement | Details |
 | :-- | :-- |
-| .NET 5 | |
-| Visual Studio | 2019 or later |
+| .NET 6 | |
+| Visual Studio 2022 | |
 | Docker | |
 | Elasticsearch | |
 | Microsoft SQL Server 2019 | Local or container |
@@ -2207,10 +2203,6 @@ A Litium Solution is upgraded in 3 parts:
 1. Upgrading Litium Accelerator is manual
 
     * New release package can be used
-
---
-
-### Litium 8 Upgrade support is planned for Litium version 8.2
 
 ---
 # License
