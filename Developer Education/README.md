@@ -37,6 +37,7 @@ Some tasks assume that a previous task has been completed (task dependencies are
 Below tasks might not be completed during classroom education but it is recommended that these are still completed as self study to get a deeper knowledge of Litium development.
 
 1. [Payment and shipping](./Tasks/Payment%20and%20shipping)
+1. [Configure SMTP](./Tasks/SMTP)
 1. [Redis](./Tasks/Redis)
 1. [Kibana](./Tasks/Kibana)
 1. [Data service](./Tasks/Data%20service)

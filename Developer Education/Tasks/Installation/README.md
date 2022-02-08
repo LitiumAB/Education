@@ -86,7 +86,7 @@ Check that you have completed the requirements below installed before you start.
         </Project>
         ```
 
-1. The previous step configured logfiles to be copied from the `\logs`-folder in the container, you need to adjust the log configuration so that logs are written to this folder, adjust _logDirectory_ the file `\Src\Litium.Accelerator.Mvc\nlog.config`:
+1. The previous step configured logfiles to be copied from the `\logs`-folder in the container, you need to adjust the log configuration so that logs are written to this folder, adjust _logDirectory_ in the file `\Src\Litium.Accelerator.Mvc\nlog.config`:
     * From: `<variable name="logDirectory" value="${basedir}.."/>`
     * To: `<variable name="logDirectory" value="${basedir}../logs"/>`
 

@@ -157,3 +157,11 @@ services:
     - ./data/direct-shipment/logs:/logs
     - ./data/direct-shipment/DataProtection-Keys:/root/.aspnet/DataProtection-Keys
     - ./data/https:/https:ro
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'
+    ports:
+      - 1025:1025 # SMTP-server
+      - 8025:8025 # Web UI

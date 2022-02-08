@@ -48,6 +48,7 @@ The following containers gets started
 | Sql server | 6379 |[Installation](../Installation) |
 | Direct payment | 10011 | [Payment and shipping](../Payment%20and%20shipping) | Litium App
 | Direct shipment | 10021 | [Payment and shipping](../Payment%20and%20shipping) | Litium App
+| MailHog |8025|[Installation](../Installation)|Development/Test SMTP server made available on port 1025, read more about [MailHog on github](https://github.com/mailhog/MailHog)
 
 ## Stop/Remove
 
@@ -82,8 +83,8 @@ If you run in to problems here are three good places to look for information:
 
 ### Check the logs
 
-1. Litium event log - found as the file _litium.log_ in folder `\Src\files` (only available if the application can start)
-1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in folder `\Src\files` (only available if the application can start)
+1. Litium event log - found as the file _litium.log_ in folder `\Src\files\logs` (only available if the application can start)
+1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in folder `\Src\files\logs` (only available if the application can start)
 1. Elasticsearch log in docker - see _Useful docker commands_ below for details on how to read the log
 
 ## Useful docker commands
