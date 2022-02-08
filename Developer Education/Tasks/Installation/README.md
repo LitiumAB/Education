@@ -64,37 +64,31 @@ Check that you have completed the requirements below installed before you start.
 
             <Target Name="CreateDockerArguments" BeforeTargets="ContainerBuildAndLaunch">
                 <PropertyGroup>
-                <!-- Always pull to ensure that the latest image is used -->
-                <DockerfileBuildArguments>--pull</DockerfileBuildArguments>
-                
-                <!-- Define the parameters for files and folders to map on the host -->
-                <DockerLitiumFiles>$(MSBuildThisFileDirectory)../files</DockerLitiumFiles>
-                <DockerLitiumLogfile>$(DockerLitiumFiles)/litium.log</DockerLitiumLogfile>
-                <DockerLitiumElasticLogfile>$(DockerLitiumFiles)/elasticsearch.log</DockerLitiumElasticLogfile>
-                
-                <!-- Mappings so that files/logs inside the container is synced with 
-                files/folders foler on host
-                The Docker image used (defined in the Dockerfile) already contains 
-                the environment variable Litium__Folder__Local that defines files to 
-                be stored in app_data inside the container -->
-                <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
-                <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogfile):/app/bin/$(Configuration)/litium.log:rw</DockerfileRunArguments>
-                <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumElasticLogfile):/app/bin/$(Configuration)/elasticsearch.log:rw</DockerfileRunArguments>
+                    <!-- Always pull to ensure that the latest image is used -->
+                    <DockerfileBuildArguments>--pull</DockerfileBuildArguments>
+                    
+                    <!-- Define the parameters for host folders -->
+                    <DockerLitiumFiles>$(MSBuildThisFileDirectory)../files</DockerLitiumFiles>
+                    <DockerLitiumLogs>$(DockerLitiumFiles)/logs</DockerLitiumLogs>
+                    
+                    <!-- Define volume mappings so that folders in the container are synced with 
+                    folders on host. The Docker image used (defined in the Dockerfile) already contains 
+                    the environment variable Litium__Folder__Local that defines files to 
+                    be stored in app_data inside the container -->
+                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
+                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogs):/app/bin/$(Configuration)/logs:rw</DockerfileRunArguments>
 
-                <!-- Configure the container to use the dnsresolver-container as DNS: -->
-                <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
+                    <!-- Configure the container to use the dnsresolver-container as DNS: -->
+                    <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
                 </PropertyGroup>
-                
-                <!-- Make sure that the files/folders needed exists 
-                (otherwise the automatic volume-mapping will create directories 
-                instead of files) -->
-                <MakeDir Directories="$(DockerLitiumFiles)" Condition="!Exists('$(DockerLitiumFiles)')" />
-                <Touch Files="$(DockerLitiumLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumLogfile)')" />
-                <Touch Files="$(DockerLitiumElasticLogfile)" AlwaysCreate="true" Condition=" !Exists('$(DockerLitiumElasticLogfile)')" />
             </Target>
 
         </Project>
         ```
+
+1. The previous step configured logfiles to be copied from the `\logs`-folder in the container, you need to adjust the log configuration so that logs are written to this folder, adjust _logDirectory_ the file `\Src\Litium.Accelerator.Mvc\nlog.config`:
+    * From: `<variable name="logDirectory" value="${basedir}.."/>`
+    * To: `<variable name="logDirectory" value="${basedir}../logs"/>`
 
 ## Configure a Litium database
 
@@ -134,8 +128,6 @@ Check that you have completed the requirements below installed before you start.
 You need to run our site on a custom domain for other Litium Apps to work. Make the changes below to run your site on `bookstore.localtest.me` instead of `localhost`.
 
 By using a `[mysite].localtest.me`-domain it is possible to use a custom domain without having to update the windows `hosts`-file. `Localtest.me` is a public domain that points to localhost, [click here to read more](http://readme.localtest.me/).
-
-
 
 Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.json`
 

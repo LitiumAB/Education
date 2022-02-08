@@ -49,6 +49,6 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
 
 There are in general three places to look for any issue that you experience during setup and test:
 
-1. Litium event log - found as the file _litium.log_ in the _files_-folder
-1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in the _files_-folder
+1. Litium event log - found as the file _litium.log_ in the folder `files\logs`
+1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in the folder `files\logs`
 1. Elasticsearch log in docker - see _Useful docker commands_ in the [Docker task](../Docker) for details on how to read
