@@ -41,18 +41,16 @@ If you have done the setup of [Payment and shipping](../Payment%20and%20shipping
 
 1. The Litium application will send a request to itself to render the order confirmation email, for this request to work some additional configuration is required.
     1. In _Backoffice > Settings > Globalization > Domain names_ double-click to edit the `bookstore.localtest.me`-domain. Set a value for the _HSTS max age setting_ (for example 100) to force requests to use `https`, otherwise the order confirmation mail will try using `http` and fail (in a production environment [this setting should be set to at least a year](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security))
-    1. Litium domains do not support custom ports so you need to manually insert it in the url when the page is resolved. Edit `\Src\Litium.Accelerator\Mailing\OrderConfirmationEmail.cs` and add a string replace in the method `UrlTransform`:
-
-        ```C#
-        public override string UrlTransform(string url)
-        {
-            url = url.Replace("localtest.me/", "localtest.me:5001/");
-            return $"{url}?orderId={_orderId}&isEmail={true}";
-        }
-        ```
 
 1. Place an order and confirm that the order confirmation mail is received in MailHog.
 
-## FAQ
+## Troubleshooting
 
-If no mails are received you probably have an errormessage in the `litium.log` file.
+* If no mails are received, first check for errors in the `litium.log` file.
+
+* It may be required to [specify port for HTTPS redirects](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-6.0&tabs=visual-studio#port-configuration). Set as environment variable in the application container. In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
+
+    ```
+    ENV ASPNETCORE_HTTPS_PORT="5001"
+    ```
+

@@ -159,7 +159,8 @@ services:
     - ./data/https:/https:ro
 
   mailhog:
-    image: mailhog/mailhog
+    image: mailhog/mailhog:latest
+    restart: unless-stopped
     logging:
       driver: 'none'
     ports:
