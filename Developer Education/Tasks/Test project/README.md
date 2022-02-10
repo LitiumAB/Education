@@ -4,24 +4,25 @@
 
 ## Setup
 
-The test framework is available as a Litium lab. Additional information [can be found on litium docs](https://docs.litium.com/partner/litium-labs/test-framework-for-litium-accelerator) (requires login with partner permissions).
+The test framework is available as a [Litium lab on docs](https://docs.litium.com/partner/litium-labs/test-framework-for-litium-accelerator) (requires login with partner permissions).
 
-If you did your installation without the `-test`-attribute start with the steps described in section [Adding the test project to an existing installation](#adding-the-test-project-to-an-existing-installation) below.
+If you installed your Litium Accelerator without the `-test`-attribute then start with the steps described in section [Adding the test project to an existing installation](#adding-the-test-project-to-an-existing-installation) below.
 
 1. Copy the database connectionstring from `appsettings.json` of the Mvc-project to `appsettings.json` in the test project
 
-1. The Shared folder setting is required, in appsettings.json of the Test-project, adjust Litium.Folder to:
+1. The Shared folder setting is required, in `appsettings.json` of the Test-project, adjust _Litium.Folder_ to:
 
     ```JSON
+    // Files will be available on disk in folder: \Test\Litium.Accelerator.Test\bin\Debug
     "Folder": {
-        "Local": null,
-        "Shared": "../files"
+        "Local": "../files/local",
+        "Shared": "../files/shared"
     }
     ```
 
 1. Open the _Test Explorer_ window in _Visual Studio_ and click _Run all tests_
 
-## Test the author service decorator
+## Test the AuthorServiceRatingsDecorator
 
 1. Add the class `AuthorServiceRatingsDecoratorTests` to the test project
 
@@ -29,11 +30,21 @@ If you did your installation without the `-test`-attribute start with the steps 
 
 1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceRatingsDecoratorTests.cs)
 
-### Optional extra tasks
+## Test the ErpPriceCalculatorDecorator
 
-1. Write tests for `ErpPriceCalculatorDecorator` created in the [pricing rules task](../Pricing%20rules), test both as anonymous and logged in user
+1. Write tests for `ErpPriceCalculatorDecorator` created in the [pricing rules task](../Pricing%20rules)
 
-1. a finished example is avaliable in the [_Resources_-folder](Resources/ErpPriceCalculatorDecoratorTests.cs)
+1. Adjust the test so that you the decorator both as anonymous and logged in user, use `SecurityContextService` to execute code with different user context
+
+1. A finished example is avaliable in the [_Resources_-folder](Resources/ErpPriceCalculatorDecoratorTests.cs)
+
+## Enable logging with NLog
+
+1. Copy the file `nlog.config` from the Mvc-project to the Test-project
+
+1. Check file properties to verify that _Copy to output directory_ is set to _Copy if newer_ or _Copy always_
+
+1. Tests executing code that write to the log should now create logfiles in folder `\Test\Litium.Accelerator.Test\bin\Debug\logs`
 
 ## Adding the test project to an existing installation
 
