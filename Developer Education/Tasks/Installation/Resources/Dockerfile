@@ -1,12 +1,15 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM registry.litium.cloud/runtime/litium:net5-latest AS base
+FROM registry.litium.cloud/runtime/litium:net6-latest AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
 # Uncomment the line below to set database connection string as environment-variable:
 # ENV Litium__Data__ConnectionString="Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=host.docker.internal,5434"
+
+# In the task Configure SMTP it may be required to configure HTTPS port, if so uncomment this line:
+# ENV ASPNETCORE_HTTPS_PORT="5001"
 
 # If you have a license-key to Litium you can add it below to set it as an environment-variable:
 # ENV Litium__License=""

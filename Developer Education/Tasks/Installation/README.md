@@ -52,7 +52,7 @@ Check that you have completed the requirements below installed before you start.
 
         ```PowerShell
         # Replace this line at the top of the file:
-        # FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+        # FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
         # With this line:
         FROM registry.litium.cloud/runtime/litium:net6-latest AS base
         ```
@@ -147,8 +147,7 @@ Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Prope
 1. Right-click on the project `Litium.Accelerator.Mvc` and select **Set as startup project**
 1. In the Build-dropdown in the toolbar select **Docker**
     ![Alt text](Images/docker-in-build-menu.png "Docker build menu")
-1. Press `Ctrl+F5` to build and run the application in a container
-    1. If you have Visual Studio 2022 installed and get the error: `The line number specified for #line directive is missing or invalid` on build then see [this forum post](https://forum.litium.com/t/getting-line-number-error-after-installing-visual-studio-2022/2302/2) for a solution.
+1. Press `Ctrl+F5` to build and run the application in a container 
 1. If all goes well the site will start on a 404-page, add **/Litium** to the url to access Litium Backoffice login, example: [https://bookstore.localtest.me:12345/litium](https://bookstore.localtest.me:12345/litium)
     1. If for some reason your page does not start please refer to the [FAQ](#FAQ) section below
 1. Login to Litium Backoffice using the admin account created earlier **(admin/nimda)**
@@ -214,6 +213,9 @@ Refer to the section below to solve common installation problems:
   - You might have an invalid path to your solution file, verify that you have no spaces in the full path to your solution file, example:
     - Invalid: `c:\my litium site\Accelerator.sln`
     - Valid: `c:\mylitiumsite\Accelerator.sln`
+
+- **I gett error `The line number specified for #line directive is missing or invalid` when I try to run my site**
+   - See [this forum post](https://forum.litium.com/t/getting-line-number-error-after-installing-visual-studio-2022/2302/2) for a solution).
 
 - **Pressing `CTRL+F5` launches my browser but all I see is a 404-page**
 
