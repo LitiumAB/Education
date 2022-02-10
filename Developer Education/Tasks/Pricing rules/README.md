@@ -22,5 +22,6 @@ Only logged in B2B-customers should get their prices from ERP, add a check so Li
 1. Inject `SecurityContextService` and use the code below to check if current user is logged in, if current user is _not_ logged in return Litium list price, otherwise return your custom price.
 
     ```C#
-    var isAuthenticated = _securityContextService.GetIdentityUserSystemId().HasValue;
+    var userId = _securityContextService.GetIdentityUserSystemId();
+    var isAuthenticated = userId.HasValue && userId != SecurityContextService.Everyone.SystemId;
     ```

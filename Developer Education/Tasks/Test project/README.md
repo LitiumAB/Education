@@ -1,43 +1,54 @@
-# Test project - LITIUM 7 ONLY
+# Test project
 
-> To do this task you first need to complete the task [Move database to SQL Server](../Move%20database%20to%20SQL%20Server)
+> To do this task you first need to complete the task [Installation](../Installation)
 
 ## Setup
 
-1. Follow the [instructions on how to set up a test project on Litium docs](https://docs.litium.com/documentation/get-started/setting_up_a_test_project)
-    1. Name your new class library project _Litium.Accelerator.Tests_
-    1. If you are using ReSharper there is no need to install an additional Xunit test runner
-    1. REMEMBER TO SELECT THE TEST PROJECT AS DEFAULT PROJECT IN BEFORE INSTALLING PACKAGES IN PACKAGE MANAGER CONSOLE!
-1. Copy _FoundationConnectionString_ from **Web.config** of the MVC project to **App.config** of the test project
-1. On the docs site there is an example class called _SolutionTests_, add this to the test project
-1. Run all tests in SolutionTests to verify that they are green and the setup is working
+The test framework is available as a Litium lab. Additional information [can be found on litium docs](https://docs.litium.com/partner/litium-labs/test-framework-for-litium-accelerator) (requires login with partner permissions).
+
+If you did your installation without the `-test`-attribute start with the steps described in section [Adding the test project to an existing installation](#adding-the-test-project-to-an-existing-installation) below.
+
+1. Copy the database connectionstring from `appsettings.json` of the Mvc-project to `appsettings.json` in the test project
+
+1. The Shared folder setting is required, in appsettings.json of the Test-project, adjust Litium.Folder to:
+
+    ```JSON
+    "Folder": {
+        "Local": null,
+        "Shared": "../files"
+    }
+    ```
+
+1. Open the _Test Explorer_ window in _Visual Studio_ and click _Run all tests_
 
 ## Test the author service decorator
 
 1. Add the class `AuthorServiceRatingsDecoratorTests` to the test project
-    1. Add a test that verifies that the decorator adds ratings to book titles according to the logic you implemented in the [Author service decorator](../Author%20service%20decorator) task
-    1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceRatingsDecoratorTests.cs)
-1. When you try to run your test after adding a reference to the _Litium.Accelerator_ project your will get the error described in the _Troubleshooting_-section on the unit test page on docs: 
-    ```
-    System.Exception
-    The project require references that are missing: Litium.Web.Abstractions require a reference to Litium.Web.Application, Litium.Web.Administration.Abstractions require a reference to Litium.Web.Administration.Application.
-    ```
-    To solve this issue just add the missing Nuget-references:
-    ```
-    install-package Litium.Web.Application
-    install-package Litium.Web.Administration.Application
-    ```
-1. The next issue you might run into is: 
-    ```
-    Field with type 'FilterFields' does not match any field metadata.
-    ```
-    If you get this error just add a reference to the `Litium.Accelerator.FieldTypes`-project in the solution
-1. Run your tests again and verify that they execute properly    
 
-> Tip: To enable logging in test project make sure NLog.config in the root of the test project is set to _copy to output directory_ on build, also note log file path will be relative to the **/bin** directory of the testproject.
+1. Add a test that verifies that the decorator adds ratings to book titles according to the logic you implemented in the [Author service decorator](../Author%20service%20decorator) task
 
-## Optional extra tasks
+1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceRatingsDecoratorTests.cs)
 
-1. Write tests for `ErpPriceCalculatorDecorator` created in the [pricing rules task](../Pricing%20rules), test both as anonymous and logged in user, a finished example is avaliable in the [_Resources_-folder](Resources/ErpPriceCalculatorDecoratorTests.cs)
+### Optional extra tasks
 
+1. Write tests for `ErpPriceCalculatorDecorator` created in the [pricing rules task](../Pricing%20rules), test both as anonymous and logged in user
 
+1. a finished example is avaliable in the [_Resources_-folder](Resources/ErpPriceCalculatorDecoratorTests.cs)
+
+## Adding the test project to an existing installation
+
+1. Create a new directory, for example `C:\Temp\TempAccelerator`, then start a PowerShell command prompt in that folder
+
+1. Run the command below to create a new temporary Accelerator project with a test project:
+
+    ```PowerShell
+    dotnet new litmvcacc -test
+    ```
+
+1. Copy the project folder `\Test\Litium.Accelerator.Test` from the just temp-Accelerator to your main-Accelerator that you want to add tests to
+
+1. Open your main-Accelerator in Visual Studio
+
+1. Right-click the Solution in _Solution explorer_ and select _Add > Existing project_, then select the test project
+
+1. Delete the TempAccelerator-folder created earlier containing the rest of the temporary Accelerator files that you do not need

@@ -35,8 +35,10 @@ Check that you have completed the requirements below installed before you start.
     # Make sure your new directory is selected:
     cd C:\Temp\LitiumEducation
 
-    # Install a new Accelerator site using the Litium Accelerator template:
-    dotnet new litmvcacc
+    # Install a new Accelerator site using the Litium Accelerator template
+    # Adding the -test parameter will also add a test project for automated testing
+    # See the test project task for additional info
+    dotnet new litmvcacc -test
     ```
 
 ## Add docker support to the Accelerator

@@ -6,33 +6,31 @@ using Moq;
 using Shouldly;
 using Xunit;
 
-namespace Litium.Accelerator.Tests
+namespace Litium.Accelerator;
+
+/// <summary>
+///     Example XUnit-tests for AuthorServiceRatingsDecorator created in the Author Service Decorator task
+///     https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks/Author%20service%20decorator
+///     Dependencies:
+///     https://github.com/Moq/moq4/wiki/Quickstart, Install-Package Moq
+///     https://github.com/shouldly/shouldly, Install-Package Shouldly
+/// </summary>
+public class AuthorServiceRatingsDecoratorTests
 {
-    /// <summary>
-    ///     Example XUnit-tests for AuthorServiceRatingsDecorator created in the Author Service Decorator task
-    ///     https://github.com/LitiumAB/Education/tree/master/Developer%20Education/Tasks/Author%20service%20decorator
-    ///
-    ///     Dependencies:
-    ///     https://github.com/Moq/moq4/wiki/Quickstart
-    ///     https://github.com/shouldly/shouldly
-    /// </summary>
-    public class AuthorServiceRatingsDecoratorTests
+    [Fact]
+    public void Adds_rating_to_book_name()
     {
-        [Fact]
-        public void Adds_rating_to_book_name()
-        {
-            var bookTitle = "Lord of the rings";
-            
-            var parent = new Mock<IAuthorService>();
-            parent.Setup(p => p.GetBooksByAuthor(It.IsAny<Guid>()))
-                .Returns(new List<string> {bookTitle});
+        var bookTitle = "Lord of the rings";
 
-            var decorator = new AuthorServiceRatingsDecorator(parent.Object);
+        var parent = new Mock<IAuthorService>();
+        parent.Setup(p => p.GetBooksByAuthor(It.IsAny<Guid>()))
+            .Returns(new List<string> { bookTitle });
 
-            var books = decorator.GetBooksByAuthor(Guid.Empty);
+        var decorator = new AuthorServiceRatingsDecorator(parent.Object);
 
-            books.Count.ShouldBe(1);
-            books.First().ShouldBe($"{bookTitle} [RATED 9/10]");
-        }
+        var books = decorator.GetBooksByAuthor(Guid.Empty);
+
+        books.Count.ShouldBe(1);
+        books.First().ShouldBe($"{bookTitle} (Rated 2/10)");
     }
 }
