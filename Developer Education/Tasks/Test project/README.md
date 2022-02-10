@@ -22,6 +22,8 @@ If you installed your Litium Accelerator without the `-test`-attribute then star
 
 1. Open the _Test Explorer_ window in _Visual Studio_ and click _Run all tests_
 
+1. You can find logs from the tests executing code that write to the log in folder `\Test\Litium.Accelerator.Test\bin\Debug\logs`
+
 ## Test the AuthorServiceRatingsDecorator
 
 1. Add the class `AuthorServiceRatingsDecoratorTests` to the test project
@@ -37,14 +39,6 @@ If you installed your Litium Accelerator without the `-test`-attribute then star
 1. Adjust the test so that you the decorator both as anonymous and logged in user, use `SecurityContextService` to execute code with different user context
 
 1. A finished example is avaliable in the [_Resources_-folder](Resources/ErpPriceCalculatorDecoratorTests.cs)
-
-## Enable logging with NLog
-
-1. Copy the file `nlog.config` from the Mvc-project to the Test-project
-
-1. Check file properties to verify that _Copy to output directory_ is set to _Copy if newer_ or _Copy always_
-
-1. Tests executing code that write to the log should now create logfiles in folder `\Test\Litium.Accelerator.Test\bin\Debug\logs`
 
 ## Adding the test project to an existing installation
 
