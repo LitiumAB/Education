@@ -13,16 +13,17 @@ If you installed your Litium Accelerator without the `-test`-attribute then star
 1. The Shared folder setting is required, in `appsettings.json` of the Test-project, adjust _Litium.Folder_ to:
 
     ```JSON
-    // Files will be available on disk in folder: \Test\Litium.Accelerator.Test\bin\Debug
     "Folder": {
         "Local": "../files/local",
         "Shared": "../files/shared"
     }
     ```
 
+    This will make the files folder available in: `\Test\Litium.Accelerator.Test\bin\Debug`
+
 1. Open the _Test Explorer_ window in _Visual Studio_ and click _Run all tests_
 
-1. You can find logs from the tests executing code that write to the log in folder `\Test\Litium.Accelerator.Test\bin\Debug\logs`
+1. Log files that get updated during test runs are available in folder: `\Test\Litium.Accelerator.Test\bin\Debug\logs`
 
 ## Test the AuthorServiceRatingsDecorator
 
@@ -36,11 +37,11 @@ If you installed your Litium Accelerator without the `-test`-attribute then star
 
 1. Write tests for `ErpPriceCalculatorDecorator` created in the [pricing rules task](../Pricing%20rules)
 
-1. Adjust the test so that you the decorator both as anonymous and logged in user, use `SecurityContextService` to execute code with different user context
+1. Adjust the test so that it runs as both anonymous and logged in user, use `SecurityContextService` to execute code with different user context
 
 1. A finished example is avaliable in the [_Resources_-folder](Resources/ErpPriceCalculatorDecoratorTests.cs)
 
-## Adding the test project to an existing installation
+## Adding a test project to an existing installation
 
 1. Create a new directory, for example `C:\Temp\TempAccelerator`, then start a PowerShell command prompt in that folder
 
