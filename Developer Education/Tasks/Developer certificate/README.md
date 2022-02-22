@@ -40,3 +40,11 @@ The first thing you need to do is to create a local certificate that will allow 
    # 7. Cleanup by removing all generated files in current folder
    Remove-Item -Path "$($p)/generated-*" -Recurse -Force | Out-Null
    ```
+
+## Verification
+
+In order to verify if certificate is installed:
+
+1. Run Certificate Manager (Win + R > `certmgr.msc`)
+2. Navigate to: Certificates - Current User > Trusted Root Certification Authorities > Certificates
+3. Verify if certificate Issued To 'localhost' is in place
