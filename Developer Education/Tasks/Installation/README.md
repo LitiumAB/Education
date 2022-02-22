@@ -220,14 +220,17 @@ Refer to the section below to solve common installation problems:
 - **I get error `The debug profile 'Docker' is missing the path to the executable to debug.`**
    - Just ensure you have `commandName` set to `Docker` in the `launchSettings.json`:
 
-```
-"Docker": {
-  "commandName": "Docker",
-  "launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}",
-  "sslPort": 5001,
-  "httpPort": 5000
-}
-```
+    ```
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}",
+      "publishAllPorts": true,
+      "useSSL": true,
+      "httpPort": 5000,
+      "sslPort": 5001
+    }
+    ```
 
 - **Pressing `CTRL+F5` launches my browser but all I see is a 404-page**
 
