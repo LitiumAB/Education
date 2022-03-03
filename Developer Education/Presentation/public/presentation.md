@@ -1674,7 +1674,7 @@ template: section
 
 --
 
-* As **source code Add-Ons**  (e.g. Accelerator and Integration kit)
+* As **source code Add-Ons**  (e.g. Headless API and Integration kit)
 
     * Download from https://docs.litium.com 
 
