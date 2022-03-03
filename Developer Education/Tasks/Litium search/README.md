@@ -4,7 +4,7 @@
 
 ## Configure Litium to use Elasticsearch
 
-Additional information on Search setup can be found on [Litium Docs site](https://docs.litium.com/documentation/architecture/litiumsearch/setup-and-configure-elasticsearch)
+Additional information on Search setup can be found on [Litium Docs site](https://docs.litium.com/documentation/architecture/litiumsearch)
 
 To configure Elasticsearch you need to set connectionstring, prefix and synonym server in _appsettings.json_:
 

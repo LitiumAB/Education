@@ -66,7 +66,7 @@ docker-compose down
 
 ## Read more
 
-* [Litium documentation on Elasticsearch](https://docs.litium.com/documentation/architecture/search/elasticsearch/setup-and-configure-elasticsearch)
+* [Litium search](https://docs.litium.com/documentation/architecture/litiumsearch)
 * [Elasticsearch in docker](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/docker.html)
 * [Kibana in docker](https://www.elastic.co/guide/en/kibana/current/docker.html)
 * [Redis in docker](https://docs.microsoft.com/en-us/archive/blogs/uk_faculty_connection/containers-redis-running-redis-on-windows-with-docker)
