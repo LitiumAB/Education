@@ -211,13 +211,13 @@ Using a Git-repo is always recommended during local development to be able to tr
             1. Re-add the NuGet credentials according to [instructions on Litium docs](https://docs.litium.com/documentation/get-started/litium-packages)
             1. Open Visual Studio and try again
 
-- **I gett error `invalid referenc format` when I try to run my site**
+- **I get error `invalid referenc format` when I try to run my site**
 
   - You might have an invalid path to your solution file, verify that you have no spaces in the full path to your solution file, example:
     - Invalid: `c:\my litium site\Accelerator.sln`
     - Valid: `c:\mylitiumsite\Accelerator.sln`
 
-- **I gett error `The line number specified for #line directive is missing or invalid` when I try to run my site**
+- **I get error `The line number specified for #line directive is missing or invalid` when I try to run my site**
    - See [this forum post](https://forum.litium.com/t/getting-line-number-error-after-installing-visual-studio-2022/2302/2) for a solution).
 
 - **Pressing `CTRL+F5` launches my browser but all I see is a 404-page**
