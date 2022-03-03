@@ -131,15 +131,20 @@ You need to run our site on a custom domain for other Litium Apps to work. Make 
 
 By using a `[mysite].localtest.me`-domain it is possible to use a custom domain without having to update the windows `hosts`-file. `Localtest.me` is a public domain that points to localhost, [click here to read more](http://readme.localtest.me/).
 
-Make the adjustment below to the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.json`
+Adjust the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.json`. Modify `launchUrl` and add `httpPort` and `sslPort` according to the code below:
 
 ```JSON
-// Replace with new domain:
-//"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-"launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}"
-// Add defined ports for the application that we can connect to later:
-"httpPort": 5000,
-"sslPort": 5001
+"Docker": {
+    "commandName": "Docker",
+    "launchBrowser": true,
+    // New launchUrl, old value: {Scheme}://{ServiceHost}:{ServicePort}
+    "launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}",
+    "publishAllPorts": true,
+    "useSSL": true,
+    // New attributes to specify ports that the application should use:
+    "httpPort": 5000,
+    "sslPort": 5001
+}
 ```
 
 ## Build and run
