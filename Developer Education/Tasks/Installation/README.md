@@ -211,7 +211,7 @@ Using a Git-repo is always recommended during local development to be able to tr
             1. Re-add the NuGet credentials according to [instructions on Litium docs](https://docs.litium.com/documentation/get-started/litium-packages)
             1. Open Visual Studio and try again
 
-- **I get error `invalid referenc format` when I try to run my site**
+- **I get error `invalid reference format` when I try to run my site**
 
   - You might have an invalid path to your solution file, verify that you have no spaces in the full path to your solution file, example:
     - Invalid: `c:\my litium site\Accelerator.sln`

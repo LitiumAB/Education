@@ -4,7 +4,7 @@
 
 ## Setup
 
-In the [Docker task](../Docker) that you did earlier, a container was started with the SMTP test application [MailHog](https://github.com/mailhog/MailHog). 
+In the [Docker task](../Docker) that you did earlier, a container was started with the SMTP test application [MailHog](https://github.com/mailhog/MailHog).
 
 Adjust your applications SMTP-setting to connect to it:
 
@@ -24,7 +24,7 @@ Adjust your applications SMTP-setting to connect to it:
     ```
 
 1. A sender email address is required to send mail from the application
-    1. In Litium backoffice, open _Settings > Website > Websites_ and double-click your _Bookstore_-website
+    1. In Litium backoffice, go to _Settings > Website > Websites_ and double-click your _Bookstore_-website
     1. Find the _"Sender email address"_-setting and add a valid email as value
 
 ## Test
@@ -48,9 +48,8 @@ If you have done the setup of [Payment and shipping](../Payment%20and%20shipping
 
 * If no mails are received, first check for errors in the `litium.log` file.
 
-* It may be required to [specify port for HTTPS redirects](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-6.0&tabs=visual-studio#port-configuration). Set as environment variable in the application container. In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
+* It may be required to [specify port for HTTPS redirects](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-6.0&tabs=visual-studio#port-configuration). Add a new environment variable in the application container. In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
 
-    ```
+    ```PowerShell
     ENV ASPNETCORE_HTTPS_PORT="5001"
     ```
-
