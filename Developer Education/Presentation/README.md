@@ -2,7 +2,7 @@
 
 The presentation is avaliable online at https://litiumdev-slides.svc.litiumlab.se
 
-## FAQ
+## Instructions
 
 ### Running the presentation
 

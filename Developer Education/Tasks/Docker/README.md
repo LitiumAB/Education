@@ -2,7 +2,7 @@
 
 > To do this task you first need to complete the [Developer certificate task](../Developer%20certificate)
 
-If you run in to problems during setup see the [FAQ section below](#faq).
+If you run in to problems during setup see the [Troubleshooting section below](#troubleshooting).
 
 ## Preparations
 
@@ -72,7 +72,7 @@ docker-compose down
 * [Redis in docker](https://docs.microsoft.com/en-us/archive/blogs/uk_faculty_connection/containers-redis-running-redis-on-windows-with-docker)
 * [SQL Server in docker](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/database-server-container)
 
-## FAQ
+## Troubleshooting
 
 If you run in to problems here are three good places to look for information:
 

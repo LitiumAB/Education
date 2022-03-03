@@ -6,7 +6,7 @@ In this task we will set up a local Litium installation running in a Docker cont
 
 Additional [installation instructions](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator) can be found on Litium docs.
 
-If you run into problems getting your site up and running see the [FAQ section below](#faq).
+If you run into problems getting your site up and running see the [Troubleshooting section below](#troubleshooting).
 
 ## Preparations
 
@@ -154,7 +154,7 @@ Adjust the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.j
     ![Alt text](Images/docker-in-build-menu.png "Docker build menu")
 1. Press `Ctrl+F5` to build and run the application in a container 
 1. If all goes well the site will start on a 404-page, add **/Litium** to the url to access Litium Backoffice login, example: [https://bookstore.localtest.me:12345/litium](https://bookstore.localtest.me:12345/litium)
-    1. If for some reason your page does not start please refer to the [FAQ](#FAQ) section below
+    1. If for some reason your page does not start please refer to the [Troubleshooting](#troubleshooting) section below
 1. Login to Litium Backoffice using the admin account created earlier **(admin/nimda)**
     1. Open _Control panel (cogwheel in top right corner) > Deployment > Accelerator_
         1. Set _Name_ to _Bookstore_
@@ -191,9 +191,7 @@ Using a Git-repo is always recommended during local development to be able to tr
 
 1. Follow [Litiums recommended  branching strategy](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator/maintain-the-litium-accelerator-solution) and setup a _Vanilla_-branch of the Accelerator for easier maintenance and upgrades.
 
-## FAQ
-
-Refer to the section below to solve common installation problems:
+## Troubleshooting
 
 - **I get nuget package errors when I build my solution?**
 
