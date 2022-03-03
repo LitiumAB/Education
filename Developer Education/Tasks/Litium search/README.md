@@ -30,7 +30,8 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
         >> Elasticsearch connects to the Synonym server to retrieve the synonyms on search.
     */
     "Synonym": {
-        "Server": "http://host.docker.internal:9210"
+        "Server": "http://host.docker.internal:9210",
+        "ApiKey": null
     }
 }
 ```
