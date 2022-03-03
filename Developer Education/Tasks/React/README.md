@@ -16,7 +16,8 @@ Litium Accelerator is already set up to pass current page and channel in every r
 To read the data from the `litium-request-context`-header in our Web API on the server you only need to inject `RequestModelAccessor` in the controller.
 
 1. Inject `RequestModelAccessor` in the constructor of `AuthorApiController`
-1. Create an overload to method `GetAuthor()` without the id-parameter and call the overloaded method using page-id from `RequestModel` : 
+1. Create an overload to method `GetAuthor()` without the id-parameter and call the overloaded method using page-id from `RequestModel`:
+
     ```C#
     [HttpGet]
     [Route("author")]
@@ -30,7 +31,8 @@ To read the data from the `litium-request-context`-header in our Web API on the 
 
 All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Client\Scripts\`.
 
-1. Add the actions that you will be working with, initially it is just a _load_-action that triggers a _receive_-action when it completes. Create the file `Actions\Author.action.js` with the code below. 
+1. Add the actions that you will be working with, initially it is just a _load_-action that triggers a _receive_-action when it completes. Create the file `Actions\Author.action.js` with the code below.
+
     ```JavaScript
     import { get } from '../Services/http';
     import { catchError } from './Error.action';
@@ -63,7 +65,9 @@ All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Clie
     } 
 
     ```
+
 1. Create a component to render the author, create the file `\Components\Author.js` with the code below.
+
     ```JavaScript
     import React, { Component } from 'react';
 
@@ -80,7 +84,9 @@ All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Clie
 
     export default Author;
     ```
+
 1. Next add a container for the component, create the file `\Containers\Author.container.js` with the code below.
+
     ```JavaScript
     import React, { Component } from 'react';
     import { connect } from 'react-redux';
@@ -119,7 +125,9 @@ All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Clie
 
     export default connect(mapStateToProps, mapDispatchToProps)(AuthorContainer);
     ```
-1. Add a reducer that listens for new author data being received, create `Reducers\Author.reducer.js` with the code below. 
+
+1. Add a reducer that listens for new author data being received, create `Reducers\Author.reducer.js` with the code below.
+
     ```JavaScript
     import { AUTHOR_RECEIVE } from '../Actions/Author.action';
 
@@ -135,16 +143,21 @@ All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Clie
         }
     }
     ```
+
 1. Register the new reducer in `reducers.js`:
+
     ```JavaScript
     import { author } from './Reducers/Author.reducer'
     ```
+
     ```JavaScript
     const app = combineReducers({
         author,
         ...
     ```
+
 1. Finally add the container-component to `bootstrapCompoents` in `index.js` to make it load on the author page.
+
     ```JavaScript
     import AuthorContainer from './Containers/Author.container'
     ```

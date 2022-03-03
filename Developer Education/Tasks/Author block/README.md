@@ -13,7 +13,7 @@ Templates are only created/updated from code the first time the application star
 ## 2. Create a definition that will generate the template on startup
 
 1. Add _Author_ to `Litium.Accelerator.Constants.BlockTemplateNameConstants`
-1. Create the file  `\Src\Litium.Accelerator\Definitions\Blocks\AuthorBlockTemplateSetup.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockTemplateSetup.cs). 
+1. Create the file  `\Src\Litium.Accelerator\Definitions\Blocks\AuthorBlockTemplateSetup.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockTemplateSetup.cs).
    > The block only has a Name property and a LinkToPage property, the LinkToPage will be used to select an author page that the block will display content from.
 1. Add translations for the block in `\Src\Litium.Accelerator.Administration.Extensions\Resources\Administration.resx`:
     |Key|Value|
@@ -28,11 +28,12 @@ Templates are only created/updated from code the first time the application star
 1. Create the file `\Src\Litium.Accelerator.Mvc\Controllers\Blocks\AuthorBlockController.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockController.cs)
 1. Create the file `\Src\Litium.Accelerator.Mvc\Views\Blocks\Author.cshtml`, copy content for the file from the [_Resources_-folder](Resources/Author.cshtml)
 
-##  4. Link the definition to the controller
+## 4. Link the definition to the controller
 
 The link will tell Litium which controller to use to render blocks using the Author template definition.
 
 1. Add _Author_ to the `_controllerMapping`-dictionary in `Litium.Accelerator.Mvc.Definitions.FieldTemplateSetupDecorator`:
+
     ```C#
     [(typeof(Blocks.BlockArea), BlockTemplateNameConstants.Author)] = (typeof(AuthorBlockController), nameof(AuthorBlockController.Invoke))
     ```

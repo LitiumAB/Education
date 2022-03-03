@@ -11,7 +11,8 @@ To retreive books by authors you need a reusable service that you can inject and
 
         ```C#
         List<string> GetBooksByAuthor(Guid authorPageId)
-        ``` 
+        ```
+
         The parameter `authorPageId` will not be used in this task but is needed later in the [data service task](../Data%20service).
 
 1. Register the interface as a service according to [instruction on docs](https://docs.litium.com/documentation/architecture/dependency-injection/service-registration)
@@ -22,6 +23,7 @@ To retreive books by authors you need a reusable service that you can inject and
 ## Use the service to render books on the Author page
 
 1. Add a books-property in `AuthorViewModel`:
+
     ```C#
     public List<string> Books { get; set; }
     ```
@@ -29,6 +31,7 @@ To retreive books by authors you need a reusable service that you can inject and
 1. Add a constructor to `AuthorViewModelBuilder` and inject the `IAuthorService`-interface. Use the injected interface instance to set the `Books`-property of `AuthorViewModel`
 
 1. Add a listing of the books in the author page view (_Src\Litium.Accelerator.Mvc\Views\Author\Index.cshtml_), example:
+
     ```HTML+Razor
     <h3>Popular books by @Model.Title</h3>
     <ul>

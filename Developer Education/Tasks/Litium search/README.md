@@ -60,7 +60,8 @@ If you are running low on % available disk space Elastic will make the index wri
 
 1. Open **dev tools** in Kibana (Left menu > Dev tools)
 1. Run these commands to adjust disk configuration:
-    ```
+
+    ```PowerShell
     PUT _cluster/settings
     {
         "transient": {

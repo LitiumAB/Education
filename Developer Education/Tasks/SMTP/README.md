@@ -35,7 +35,7 @@ Adjust your applications SMTP-setting to connect to it:
     1. Log out
 1. Click the login-link **on the public site**
     1. Click _Forgot password?_ and request a password to be sent to the email you set for the admin-user
-1. Open MailHog in your browser at http://localhost:8025/ where you should have received a mail with instructions on how to reset your password.
+1. Open MailHog in your browser at <http://localhost:8025/> where you should have received a mail with instructions on how to reset your password.
 
 If you have done the setup of [Payment and shipping](../Payment%20and%20shipping) you can also test the the order confirmation e-mail:
 

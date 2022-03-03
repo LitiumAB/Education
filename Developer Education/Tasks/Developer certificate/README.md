@@ -3,7 +3,7 @@
 The first thing you need to do is to create a local certificate that will allow the Docker containers to communicate over `https`, additional details on this task can be found on [Litium docs](https://docs.litium.com/documentation/get-started/custom-developer-certificate).
 
 1. Download the file `localhost.config` from the [_Resources_-folder](Resources/localhost.config) to your computer.
-1. Start a PowerShell-prompt in the folder where you downloaded `localhost.config` and execute the commands below in order to first create and and then install a certificate (press _Ok_ when prompted):
+1. Start a PowerShell-prompt in the folder where you downloaded `localhost.config` and execute the commands below in order (you can paste the entire script att once the to run all commands) to first create and and then install a certificate (press _Ok_ when prompted):
 
    ```PowerShell
    # 1. Get current folder
