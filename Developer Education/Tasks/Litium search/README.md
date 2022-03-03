@@ -45,10 +45,33 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
     1. That products are listed on the site
     1. That a search for _litium_ show hoodies in the search result.
 
-### Finding problems
+## Troubleshooting
 
 There are in general three places to look for any issue that you experience during setup and test:
 
 1. Litium event log - found as the file _litium.log_ in the folder `files\logs`
 1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in the folder `files\logs`
 1. Elasticsearch log in docker - see _Useful docker commands_ in the [Docker task](../Docker) for details on how to read
+
+### No items are added to _index queue_ when I click _Rebuild index_
+
+If you are running low on % available disk space Elastic will make the index write protexted. try to reconfigure using [Kibana](../Kibana):
+
+1. Open **dev tools** in Kibana (Left menu > Dev tools)
+1. Run these commands to adjust disk configuration:
+    ```
+    PUT _cluster/settings
+    {
+        "transient": {
+            "cluster.routing.allocation.disk.watermark.low": "3gb",
+            "cluster.routing.allocation.disk.watermark.high": "2gb",
+            "cluster.routing.allocation.disk.watermark.flood_stage": "1gb",
+            "cluster.info.update.interval": "1m"
+        }
+    }
+    
+    PUT /_all/_settings
+    {
+        "index.blocks.read_only_allow_delete": null
+    }
+    ```
