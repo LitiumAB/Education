@@ -6,7 +6,7 @@
 
 To enable Redis features you need to set a connectionstring so that your Litium Application can connect from its container to the Redis container that was created in the [Docker task](../Docker).
 
-By also setting a value for Prefix we can use the same Redis-container for multiple local Litium installations, just use a unique prefix for every installation.
+By setting a value for Prefix you can use the same Redis-container for multiple local Litium installations, just use a unique prefix for every installation.
 
 Make the following changes in `appsettings.json` in the MVC-project:
 
@@ -53,9 +53,9 @@ A finished example implementing both distributed cache and distributed lock is a
 
 ### 1. Distributed cache
 
-To get better performance when getting price from external sources such as ERP we always need to add data to cache. By using a distributed cache in Redis the same cache is used for all our web applications.
+To get better performance when getting price from external sources such as ERP you always need to add data to cache. By using a distributed cache in Redis the same cache is used for all your web applications.
 
-We will be using the `DistributedMemoryCache` which stores data both in a short (2 minute) memory cache in the application and also in a distributed cache (Redis) for 24 hours.
+You will be using the `DistributedMemoryCache` which stores data both in a short (2 minute) memory cache in the application and also in a distributed cache (Redis) for 24 hours.
 
 1. Make your price fetch really slow by adding `Thread.Sleep(500);` before returning price for a variant and then test the performance on a category page listing multiple products
 1. Inject `DistributedMemoryCacheService` in the constructor of `ErpPriceCalculatorDecorator`
@@ -75,22 +75,22 @@ We will be using the `DistributedMemoryCache` which stores data both in a short 
 
 1. Test by reloading your product listing again, now only the first page load should be slow and all consecutive page loads should be instant
 
-> Note that expiration is sliding so in any production sceario we would also need to add functionality to clear cached price on any price change event.
+> Note that expiration is sliding so in any production sceario you would also need to add functionality to clear cached price on any price change event.
 
 ### 2. Distributed lock
 
 When multiple threads or applications might access the same data at the same time it is important to lock the resource to avoid conflicts.
 
-In our price calculator we need to prevent multiple requests to ERP for the same variant. We do this by locking the variant while we fetch the price to prevent other servers or threads from calling the API for the same data.
+The price calculator has to prevent multiple requests to ERP for the same variant. You do this by placing a lock on the variant while you fetch the price to prevent other servers or threads from calling the API for the same data.
 
 1. Inject `DistributedLockService` in the constructor of `ErpPriceCalculatorDecorator`
-1. Wrap the code where we get price for a variant in a lock:
+1. Wrap the code where you get price for a variant in a lock:
 
    ```C#
    using (_distributedLockService.AcquireLock(cacheKey, TimeSpan.FromSeconds(10)))
    {
       // Try getting value from cache again since it may have been added
-      // from another thread/app while we were waiting for the lock
+      // from another thread/app while you were waiting for the lock
       if (_distributedMemoryCacheService.TryGet<PriceCalculatorResult>(cacheKey, out price))
          return price;
 

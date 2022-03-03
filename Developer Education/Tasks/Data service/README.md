@@ -2,7 +2,7 @@
 
 > To do this task you first need to complete the tasks [Author field](../Author%20field) and [Author service](../Author%20service).
 
-Until now the list of books for authors has been hard coded but with our new field we can load all books for an author from PIM.
+Until now the list of books for authors has been hard coded but with your new field you can load all books for an author from PIM.
 
 A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceImpl.cs)
 

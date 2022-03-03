@@ -2,7 +2,7 @@
 
 > To do this task you first need to complete the task [Author field](../Author%20field)
 
-During testing of [Author field](../Author%20field) it became obvious that any page type can be set as author for a book,we need to validate that only author pages can be selected.
+During testing of [Author field](../Author%20field) it became obvious that any page type can be set as author for a book, you need to validate that only author pages can be selected.
 
 Additional documentation on validation is avaliable on [docs](https://docs.litium.com/documentation/architecture/validation)
 

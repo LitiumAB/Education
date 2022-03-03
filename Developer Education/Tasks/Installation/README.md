@@ -1,6 +1,6 @@
 # Install Litium Accelerator
 
-In this task we will set up a local Litium installation running in a Docker container.
+In this task you will set up a local Litium installation running in a Docker container.
 
 > To do this task you first need to complete the [Docker task](../Docker)
 
@@ -127,7 +127,7 @@ Check that you have completed the requirements below installed before you start.
 
 ## Configure custom domain
 
-You need to run our site on a custom domain for other Litium Apps to work. Make the changes below to run your site on `bookstore.localtest.me` instead of `localhost`.
+You need to run your site on a custom domain for other Litium Apps to work. Make the changes below to run your site on `bookstore.localtest.me` instead of `localhost`.
 
 By using a `[mysite].localtest.me`-domain it is possible to use a custom domain without having to update the windows `hosts`-file. `Localtest.me` is a public domain that points to localhost, [click here to read more](http://readme.localtest.me/).
 

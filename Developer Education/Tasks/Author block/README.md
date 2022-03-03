@@ -2,7 +2,7 @@
 
 > To do this task you first need to complete the task [Author page](../Author%20page)
 
-Our client needs a block to present authors as blocks on the startpage.
+Your client needs a block to present authors as blocks on the startpage.
 
 Creating a block is very similar to creating a page
 
@@ -24,7 +24,7 @@ Templates are only created/updated from code the first time the application star
 ## 3. Create Controller, ViewModel and View needed to display the block
 
 1. Create the file  `\Src\Litium.Accelerator\Builders\Block\AuthorBlockViewModelBuilder.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockViewModelBuilder.cs)
-    > The Author block will contain the same information as the Author page created earlier so we can re-use the AuthorViewModel instead of creating a new one
+    > The Author block will contain the same information as the Author page created earlier so you can re-use the AuthorViewModel instead of creating a new one
 1. Create the file `\Src\Litium.Accelerator.Mvc\Controllers\Blocks\AuthorBlockController.cs`, copy content for the file from the [_Resources_-folder](Resources/AuthorBlockController.cs)
 1. Create the file `\Src\Litium.Accelerator.Mvc\Views\Blocks\Author.cshtml`, copy content for the file from the [_Resources_-folder](Resources/Author.cshtml)
 

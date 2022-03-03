@@ -2,7 +2,7 @@
 
 > To do this task you first need to complete the task [Author page](../Author%20page)
 
-To retreive books by authors we need a reusable service that we can inject and use in several places.
+To retreive books by authors you need a reusable service that you can inject and use in several places.
 
 ## Create and register the service
 

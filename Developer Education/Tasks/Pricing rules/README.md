@@ -2,7 +2,7 @@
 
 > To do this task you first need to complete the task [Installation](../Installation)
 
-Our client has a complex price model, so you need to replace Litium's price lists with a solution that fetches prices from the custumer's ERP.
+Your client has a complex price model, so you need to replace Litium's price lists with a solution that fetches prices from the custumer's ERP.
 
 If needed you can find a finished example in the [_Resources_-folder](Resources/ErpPriceCalculatorDecorator.cs)
 

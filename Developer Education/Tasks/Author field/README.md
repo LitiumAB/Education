@@ -2,9 +2,9 @@
 
 > To do this task you first need to complete the task [Author page](../Author%20page)
 
-Our client has to be able to connect books to authors so we need a field to define the link.
+Your client has to be able to connect books to authors so you need a field to define the link.
 
-To create and connect this field to templates we will use the UI in Litium (but it could also be done in code in `Litium.Accelerator.Definitions.Products.ProductsFieldDefinitionSetup`).
+To create and connect this field to templates you will use the UI in Litium (but it could also be done in code in `Litium.Accelerator.Definitions.Products.ProductsFieldDefinitionSetup`).
 
 > **IMPORTANT!** When you did the [_Author page_-task](../Author%20page) earlier you may have modified `DefinitionSetup` so that all templates are re-generated from code on every startup. Since this Author-field is only added in database and not in code it will get removed from the template when the application restarts if automatic re-create is enabled.
 

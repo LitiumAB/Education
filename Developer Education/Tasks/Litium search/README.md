@@ -11,14 +11,14 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
 ```JSON
 "Elasticsearch": {
     /*
-        The ConnectionString is used by the Litium Application to connect to Elasticsearch
-        in our case this is the Elasticsearch container added in the Docker-task
+        The ConnectionString is used by the Litium Application to connect to Elasticsearch,
+        in this case the Elasticsearch container added in the Docker-task
     */
     "ConnectionString": "http://host.docker.internal:9200",
     "Username": null,
     "Password": null,
     /*
-        By setting a value for Prefix we can use the same ElasticSearch-container for
+        By setting a value for Prefix you can use the same ElasticSearch-container for
         multiple local Litium installations, just use a unique prefix for every installation.
     */
     "Prefix": "LitiumEducation",

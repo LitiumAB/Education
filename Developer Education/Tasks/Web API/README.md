@@ -2,9 +2,9 @@
 
 > To do this task you first need to complete the task [Author service](../Author%20service)
 
-Our client has resellers that need to access information about books for specific authors through a REST API. We need to provide an API to access our [Author service](../Author%20service).
+Your client has resellers that need to access information about books for specific authors through a REST API. you need to provide an API to access your [Author service](../Author%20service).
 
-See Litium docs for a [API controller sample](https://docs.litium.com/documentation/architecture/web-api) which is similar to the controller we are creating here.
+See Litium docs for a [API controller sample](https://docs.litium.com/documentation/architecture/web-api) which is similar to the controller you will be creating here.
 
 1. Create a new ViewModel that the API should return
 
@@ -43,7 +43,7 @@ Verify that your API is now part of the Swagger-documentation:
 
 ### Secure the API
 
-We need to protect access to our API, for information read sections on _Security_ and _Authorization_ on the Docs-link above
+You need to protect access to your API, for information read sections on _Security_ and _Authorization_ on the Docs-link above
 
 1. Decorate your controller with `[Litium.Web.WebApi.OnlyJwtAuthorization]`
 1. Try accessing your API again and note that your are now getting a **401 Unauthorized** error

@@ -2,7 +2,7 @@
 
 > To do this task you first need to complete the task [Web API](../Web%20API)
 
-In this task we will modify the book list on the author page so that it is loaded using react.
+In this task you will modify the book list on the author page so that it is loaded using react.
 
 ## Preparations
 
@@ -13,7 +13,7 @@ In this task we will modify the book list on the author page so that it is loade
 
 Litium Accelerator is already set up to pass current page and channel in every request to the server, you can look at `Client\Scripts\Services\http.js` where the values are added in the header `litium-request-context` in every ajax-request.
 
-To read the data from the `litium-request-context`-header in our Web API on the server we only need to inject `RequestModelAccessor` in the controller.
+To read the data from the `litium-request-context`-header in our Web API on the server you only need to inject `RequestModelAccessor` in the controller.
 
 1. Inject `RequestModelAccessor` in the constructor of `AuthorApiController`
 1. Create an overload to method `GetAuthor()` without the id-parameter and call the overloaded method using page-id from `RequestModel` : 
@@ -28,9 +28,9 @@ To read the data from the `litium-request-context`-header in our Web API on the 
 
 ## Author listing with react
 
-All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Client\Scripts\` 
+All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Client\Scripts\`.
 
-1. Add the actions that we will be working with, initially it is just a _load_-action that triggers a _receive_-action when it completes. Create the file `Actions\Author.action.js` with the code below. 
+1. Add the actions that you will be working with, initially it is just a _load_-action that triggers a _receive_-action when it completes. Create the file `Actions\Author.action.js` with the code below. 
     ```JavaScript
     import { get } from '../Services/http';
     import { catchError } from './Error.action';
@@ -71,7 +71,7 @@ All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Clie
         render() {
             // Render the books-property as a simple list.
             // A key is required by react to maintain the state (https://reactjs.org/docs/lists-and-keys.html)
-            // For this basic example we just set the book title as key 
+            // For this basic example just set the book title as key 
             return <ul>
                 {this.props.books.map(book => <li key={book}>{book}</li>)}
             </ul>;
@@ -93,8 +93,8 @@ All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Clie
         }
 
         componentDidMount() {
-            // This method is automatically triggering when component is loaded
-            // we use it to call the load-action to init loading books.
+            // This method is automatically triggering when component is loaded,
+            // use it to call the load-action to init loading books.
             this.props.load();
         }
 
@@ -164,7 +164,7 @@ All changes in this section are done in folder `\Src\Litium.Accelerator.Mvc\Clie
 
 ## Adjust template to render component
 
-1. Above in `index.js` we added a script that look for an element where _id="author"_, so just replace the book listing in `\Litium.Accelerator.Mvc\Views\Author\Index.cshtml` with `<div id="author"></div>`
+1. Above in `index.js` you added a script that look for an element where _id="author"_, so just replace the book listing in `\Litium.Accelerator.Mvc\Views\Author\Index.cshtml` with `<div id="author"></div>`
 
 ## Try it out
 

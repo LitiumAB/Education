@@ -962,7 +962,6 @@ The optimistic concurrency control approach doesn't actually lock anything - ins
 
 https://blogs.msdn.microsoft.com/marcelolr/2010/07/16/optimistic-and-pessimistic-concurrency-a-simple-explanation/
 
-
 ### Distributed lock
 With Redis, we use the well proven Redlock algorithm to achieve locking, with very high performance and stability, to make sure that only one order is created for the same payment
 
@@ -1367,7 +1366,7 @@ public class MyEventPublisher
 
 ### Step 3: Subscribe to the event and act when it occurs:
 ```C#
-// The autostart attribute triggers the class on startup so that our subscription gets registered
+// The autostart attribute triggers the class on startup so that your subscription gets registered
 [Autostart]
 public class MyEventSubscriber : IAsyncAutostart
 {

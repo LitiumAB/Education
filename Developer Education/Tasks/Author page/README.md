@@ -41,7 +41,7 @@ When the template definition is created you can create instances of your new pag
 
 ## 4. Connect the definition with the controller
 
-With the MVC Controller and View created we can render the template on the site, but the Litium platform also need to know that the Author template and the Author controller are connected.
+With the MVC Controller and View created you can render the template on the site, but the Litium platform also need to know that the Author template and the Author controller are connected.
 
 1. Add _Author_ to the `_controllerMapping`-list in `Litium.Accelerator.Mvc.Definitions.FieldTemplateSetupDecorator`, set type to `Websites.WebsiteArea` and reference your previously created `AuthorController` 
 

@@ -62,7 +62,7 @@ namespace Litium.Accelerator.Utilities
             using (_distributedLockService.AcquireLock(cacheKey, TimeSpan.FromSeconds(10)))
             {
                 // Try getting value from cache again since it may have been added
-                // from another thread/app while we were waiting for the lock
+                // from another thread/app while you were waiting for the lock
                 if (_distributedMemoryCacheService.TryGet(cacheKey, out price))
                 {
                     _logger.LogDebug("Getting price from CACHE for variant {VariantSystemId}", variantSystemId);

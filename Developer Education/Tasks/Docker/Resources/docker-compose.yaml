@@ -89,7 +89,7 @@ services:
       - ./data/mssql/log:/var/opt/mssql/log
     entrypoint: 
       # Due to an issue with the sqlserver image, permissions to db-files may be lost on container restart
-      # by using the specific permissions_check entrypoint we assert that permissions are set on every restart
+      # by using the specific permissions_check entrypoint you assert that permissions are set on every restart
       - /bin/sh
       - -c
       - "/opt/mssql/bin/permissions_check.sh && /opt/mssql/bin/sqlservr"
