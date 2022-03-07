@@ -23,7 +23,7 @@ An app container for [Direct payment](https://docs.litium.com/documentation/liti
 
 Follow these steps to create and configure the app:
 
-1. To create the app just navigate to the Direct payment app at https://localhost:10011, this will open the installation view in backoffice of your Litium application:
+1. To create the app just navigate to the Direct payment app at <https://localhost:10011>, this will open the installation view in backoffice of your Litium application:
 
     ![Alt text](Images/payment-app-created.jpg "Docker build menu")
 
@@ -37,7 +37,7 @@ An app container for [Direct shipment](https://docs.litium.com/documentation/lit
 
 Follow these steps to create and configure the app:
 
-1. To create the app just navigate to the Direct payment app at https://localhost:10021, this will open the installation view in backoffice of your Litium application:
+1. To create the app just navigate to the Direct payment app at <https://localhost:10021>, this will open the installation view in backoffice of your Litium application:
 
     ![Alt text](Images/shipment-app-created.jpg "Docker build menu")
 
