@@ -97,15 +97,11 @@ The new app will be based on the sample Litium App Demo.
 
 ## Use the app to get ratings
 
-The communication between Litium apps and the Litium application is done using Web API. When an app has been installed Litium will manage the authentication process automatically for you.
-
-All you need to do is to use `Litium.Application.Runtime.AppHttpClientFactory` to get the `HttpClient` and Litium will set the correct Base-url and authentication headers on the requests.
-
-In the controller in your app you created the rating endpoint on URL <https://bookrating.localtest.me:5050/api/ratings/rating/{id}>.
+The communication between Litium apps and the Litium application is done using Web API. When an app has been installed Litium will manage the authentication process automatically for you. All you need to do is to use `Litium.Application.Runtime.AppHttpClientFactory` to get the `HttpClient` and Litium will set the correct base-URL and authentication headers on the requests.
 
 Make the following adjustments to the `AuthorServiceRatingsDecorator`:
 
-> Note, the methods below are `async` - in a real project you should make the whole call-chain `async` but to keep it simple you can in this case just call `.Result` on the method response.
+> Note, the methods below are `async`, in a real project you should make the whole call-chain `async` but to keep it simple you can in this case just call `.Result` on the method response.
 
 1. Add a reference to the `Litium.Application` package in the _Litium.Accelerator_-project:
 
@@ -114,6 +110,9 @@ Make the following adjustments to the `AuthorServiceRatingsDecorator`:
     ```
 
 1. Inject `AppService` and use it to get the installed instance of your app using its id (_BookRatingsApp_).
+
 1. Inject `AppHttpClientFactory` and call `CreateClientAsync(your app)` to create a configured `HttpClient`
+
 1. In the controller in your app you created the rating endpoint on URL <https://bookrating.localtest.me:5050/api/ratings/rating/{id}>. Use the methods `GetAsync` and then call `ReadAsStringAsync` on the response to get a rating.
+
 1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceRatingsDecorator.cs).
