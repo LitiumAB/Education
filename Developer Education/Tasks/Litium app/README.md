@@ -87,10 +87,10 @@ The new app will be based on the sample Litium App Demo.
 
 1. Run the application
     1. Select Litium.SampleApps.LitiumAppDemo in the Standard-toolbar in Visual Studio:
-        ![Alt text](Resources\Images/toolbar-setting.png "Toolbar setting")
+        ![Toolbar setting](Resources/Images/toolbar-setting.png "Toolbar setting")
     1. Verify that your Litium application is running on url <https://bookstore.localtest.me:5001>
     1. Press `Ctrl+F5` to run the application, this should launch the app which will first create itself in your Litium application and then display the _install_-view::
-    ![Alt text](Resources\Images/install-app.png "App installation")
+    ![App installation](Resources/Images/install-app.png "App installation")
     1. Click _Install_
 
 > The installation will create a Service Account in Litium for your app. You should find the credentials stored by the app in the generated file `\AppConfig\LitiumApi.json`.
