@@ -116,3 +116,11 @@ Make the following adjustments to the `AuthorServiceRatingsDecorator`:
 1. In the controller in your app you created the rating endpoint on URL <https://bookrating.localtest.me:5050/api/ratings/rating/{id}>. Use the methods `GetAsync` and then call `ReadAsStringAsync` on the response to get a rating.
 
 1. A finished example is avaliable in the [_Resources_-folder](Resources/AuthorServiceRatingsDecorator.cs).
+
+## Try it out
+
+1. Build and run your Litium application `with ctrl+F5`
+
+1. Build and run your App with `ctrl+F5`
+
+1. Check that you still get ratings on your books and that these ratings are coming from the app
