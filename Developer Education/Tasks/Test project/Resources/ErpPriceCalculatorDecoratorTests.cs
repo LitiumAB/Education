@@ -48,7 +48,7 @@ public class ErpPriceCalculatorDecoratorTests : TestBase
     [Fact]
     public void Returns_price_from_erp_when_logged_in()
     {
-        var variantId = new Guid();
+        var variantId = Guid.NewGuid();
         var calculator = GetCalculator(variantId);
 
         IDictionary<Guid, PriceCalculatorResult> prices;
@@ -70,7 +70,7 @@ public class ErpPriceCalculatorDecoratorTests : TestBase
     [Fact]
     public void Returns_standard_price_for_anonymous()
     {
-        var variantId = new Guid();
+        var variantId = Guid.NewGuid();
         var calculator = GetCalculator(variantId);
 
         IDictionary<Guid, PriceCalculatorResult> prices;
