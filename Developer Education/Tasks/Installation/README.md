@@ -41,6 +41,34 @@ Check that you have completed the requirements below installed before you start.
     dotnet new litmvcacc -test
     ```
 
+## OPTIONAL: Setup version control
+
+For the education this is optional but using a Git-repo is always recommended during local development to be able to track and revert changes made. 
+
+**Git setup is not supported during classroom training for time reasons**
+
+1. Copy the `.gitignore`-file from the [_Resources_-folder](Resources/.gitignore) to your solution folder
+1. Using Command-prompt or PowerShell
+    1. Init a git repo in your solution-folder:
+
+        ```PowerShell
+        git init
+        ```
+
+    1. Add All files in the folder to Git
+
+        ```PowerShell
+        git add .
+        ```
+
+    1. Commit
+
+        ```PowerShell
+        git commit -m "Added Litium Accelerator"
+        ```
+
+1. Follow [Litiums recommended  branching strategy](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator/maintain-the-litium-accelerator-solution) and setup a _Vanilla_-branch of the Accelerator for easier maintenance and upgrades.
+
 ## Add docker support to the Accelerator
 
 1. Configure Docker
@@ -167,32 +195,6 @@ Adjust the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.j
     1. Remove **/litium** and everything after it from the url to browse the public Accelerator website
 
 > Note that the site will not list any products until [Litium search](../Litium%20search) is configured
-
-## Optional extra task: Version control
-
-Using a Git-repo is always recommended during local development to be able to track and revert changes made. Git setup is not supported during classroom training for time reasons.
-
-1. Copy the `.gitignore`-file from the [_Resources_-folder](Resources/.gitignore) to your solution folder
-1. Using Command-prompt or PowerShell
-    1. Init a git repo in your solution-folder:
-
-        ```PowerShell
-        git init
-        ```
-
-    1. Add All files in the folder to Git
-
-        ```PowerShell
-        git add .
-        ```
-
-    1. Commit
-
-        ```PowerShell
-        git commit -m "Added Litium Accelerator"
-        ```
-
-1. Follow [Litiums recommended  branching strategy](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator/maintain-the-litium-accelerator-solution) and setup a _Vanilla_-branch of the Accelerator for easier maintenance and upgrades.
 
 ## Troubleshooting
 
