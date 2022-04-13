@@ -97,7 +97,7 @@ name: Agenda
 .right-col[
 ## Agenda day 2
 
-* Litium areas Sales and PIM
+* Litium area PIM
 
 * Logging
 
@@ -111,9 +111,10 @@ name: Agenda
 
 * Litium Search
 
+* Litium area PIM
+
 * Accelerator front-end development
 
-* Next step
 ]
 ---
 class: center
