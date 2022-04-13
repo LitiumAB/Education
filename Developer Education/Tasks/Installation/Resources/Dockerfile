@@ -14,7 +14,7 @@ EXPOSE 443
 # If you have a license-key to Litium you can add it below to set it as an environment-variable:
 # ENV Litium__License=""
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Src/Litium.Accelerator.Mvc/Litium.Accelerator.Mvc.csproj", "Src/Litium.Accelerator.Mvc/"]
 COPY ["Src/Litium.Accelerator.Elasticsearch/Litium.Accelerator.Elasticsearch.csproj", "Src/Litium.Accelerator.Elasticsearch/"]
