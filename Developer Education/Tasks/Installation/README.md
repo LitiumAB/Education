@@ -36,9 +36,7 @@ Check that you have completed the requirements below installed before you start.
     cd C:\Temp\LitiumEducation
 
     # Install a new Accelerator site using the Litium Accelerator template
-    # Adding the -test parameter will also add a test project for automated testing
-    # See the test project task for additional info
-    dotnet new litmvcacc -test
+    dotnet new litmvcacc
     ```
 
 ## OPTIONAL: Setup version control
@@ -76,7 +74,7 @@ For the education this is optional but using a Git-repo is always recommended du
     1. Open _Accelerator.sln_ in Visual Studio
     1. Right-click on the project `Litium.Accelerator.Mvc` and select **Add > Docker Support**
         1. If prompted select _Target OS: Linux_
-    1. In the project you now get a new file called `Dockerfile` that is specified to run the `aspnet:5.0`-image. You need to change it to use the `litium:net5`-image instead since you need some additional Litium requirements (node/Gdi-image scaling and some config):
+    1. In the project you now get a new file called `Dockerfile` that is specified to run the `aspnet:6.0`-image. You need to change it to use the `litium:net6`-image instead since you need some additional Litium requirements (node/Gdi-image scaling and some config):
 
         ```PowerShell
         # Replace this line at the top of the file:
