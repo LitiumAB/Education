@@ -21,6 +21,10 @@ public class ValidateBookAuthor : ValidationRuleBase<BaseProduct>
     {
         var result = new ValidationResult();
 
+        // No need to validate if someone is just trying to delete a product
+        if (validationMode == ValidationMode.Remove)
+            return result;
+
         // Get id of the selected page
         var authorPageId = entity.Fields.GetValue<Guid?>("AuthorField");
 
