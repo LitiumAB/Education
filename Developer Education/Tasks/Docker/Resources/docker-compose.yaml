@@ -5,17 +5,17 @@ services:
 
   dnsresolver:
     # https://github.com/cytopia/docker-bind
-    image: cytopia/bind
+    image: cytopia/bind:stable-0.28
     container_name: dnsresolver
     ports:
     - "53:53/tcp"
     - "53:53/udp"
     environment: 
-    - WILDCARD_DNS=localtest.me=host.docker.internal
+    - DNS_CNAME=*.localtest.me=host.docker.internal
     - DNS_FORWARDER=192.168.65.5
     dns: 192.168.65.5
     restart: unless-stopped
- 
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
     container_name: elasticsearch
