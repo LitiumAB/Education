@@ -189,7 +189,7 @@ Adjust the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.j
         1. Set _Name_ to _Bookstore_
         1. Set _Domain name_ to _bookstore.localtest.me_
         1. Click **Import**
-            > _The import can take a couple of minutes, most of this time is spent importing data into Media. To view progress just open a new tab to <https://bookstore.localtest.me:5001/Litium/UI/media>, on this page you can see number of files increase in real time until it reaches 400+ files._
+            > _The import can take a couple of minutes, most of this time is spent importing data into Media. To view progress just open a new tab to <https://bookstore.localtest.me:5001/Litium/UI/media>, on this page you can see number of files increase in real time until it reaches 350+ files._
     1. Remove **/litium** and everything after it from the url to browse the public Accelerator website
 
 > Note that the site will not list any products until [Litium search](../Litium%20search) is configured
