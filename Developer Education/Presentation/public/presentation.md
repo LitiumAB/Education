@@ -1716,8 +1716,6 @@ template: section
 
 * Payment and Shipment run as Apps from Litium 8
 
-* A Demo App is [available on GitHub](https://github.com/LitiumAB/Samples/tree/main/Samples/Litium%20App%20demo)
-
 .footer[Read more at https://docs.litium.com/documentation/litium-apps]
 
 ---
