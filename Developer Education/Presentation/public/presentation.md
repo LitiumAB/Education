@@ -111,7 +111,7 @@ name: Agenda
 
 * Litium Search
 
-* Litium area PIM
+* Litium area Sales
 
 * Accelerator front-end development
 
