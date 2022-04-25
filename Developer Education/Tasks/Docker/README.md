@@ -48,7 +48,7 @@ The following containers gets started
 | Sql server | 6379 |[Installation](../Installation) |
 | Direct payment | 10011 | [Payment and shipping](../Payment%20and%20shipping) | Litium App
 | Direct shipment | 10021 | [Payment and shipping](../Payment%20and%20shipping) | Litium App
-| MailHog |8025|[Installation](../Installation)|Development/Test SMTP server made available on port 1025, read more about [MailHog on github](https://github.com/mailhog/MailHog)
+| MailHog |8025|[SMTP](../SMTP)|Development/Test SMTP server made available on port 1025
 
 ## Stop/Remove
 
