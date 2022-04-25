@@ -1423,23 +1423,23 @@ https://docs.litium.com/documentation/architecture/application-lifecycle
 
 * Overload on `_eventBroker.Publish()` that accepts scope parameter to possibly send to all applications
 
-
 ---
+
 # Service bus
 
-* Used to send messages between applications. 
+* Used to send messages between applications.
 
-* The queue is outside the application
+* Event system use service bus in the background for global events.
 
-    * Processed even if application restarts
-    * Free up resources by running queue in the background
+* The queue is outside the application - Free up resources by running queue in the background
 
 * Two different types of message queues
 
-    * Queue – Same message queue for all applications
-    * Topic – Unique queue for each application
+  * Queue – Same message queue for all applications, saved and processed even if application restarts
 
-* Required in all multi-server solutions 
+  * Topic – Unique queue for each application, exists as long as the application is connected
+
+* Required in all multi-server solutions!
 
 * Note: Servers are updated **“Near real time”**
 
@@ -1455,20 +1455,14 @@ https://docs.litium.com/documentation/architecture/application-lifecycle
 
 * Example Topic: Remove from cache (must be done on all servers)
 
-* By default the queue is stored in the bus for approx 1 day
-
-* Supported:
-    * Redis
-    * Windows service bus on a server 
-    * Azure service bus
-
 * Tested:
-    * Service bus in Microsoft Azure – 150 items/sec​
-    * Redis in Microsoft Azure – 400 items/sec​
-    * Redis in Litium Cloud – 5000 items/sec​
+  * Service bus in Microsoft Azure – 150 items/sec​
+  * Redis in Microsoft Azure – 400 items/sec​
+  * Redis in Litium Cloud – 5000 items/sec​
 
 ---
 template: section
+
 # Validation
 
 ---
