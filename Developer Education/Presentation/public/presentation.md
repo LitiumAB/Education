@@ -1308,22 +1308,27 @@ template: section
 ---
 # Event system
 
-* All events are handled by `Litium.Events.EventBroker` (publish/subscribe)
+.footer[https://docs.litium.com/documentation/architecture/events-handling]
 
-    * To write your own events, or to listen to and trigger existing events
+* All events are handled by `Litium.Events.EventBroker` (publish/subscribe) - both custom and platform events.
 
-* All events are triggered by the application
+--
 
-* All events are local
-    * i.e. in a multi server environment, update of an entity raises an event **only on current server**.
+* All events are local and triggered by the application
 
-    * Adjust scope when publishing event to also send it to all servers via service bus
+  * i.e. in multi server environments an event is triggered **on the current server only**.
+
+  * Adjust scope when publishing an event to also send it to all servers via service bus
+
+--
 
 * You may modify the database (at own risk!) but this bypasses all change events
 
+--
+
 * Most events can be subscribed to from outside Litium using [Webhooks](https://docs.litium.com/documentation/architecture/events-handling/webhooks) - Use Get Filters in Litium Swagger for Webhooks to get a list of supported events
 
-.footer[https://docs.litium.com/documentation/architecture/events-handling]
+
 
 ???
 
