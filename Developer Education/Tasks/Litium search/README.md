@@ -6,7 +6,7 @@
 
 Additional information on Search setup can be found on [Litium Docs site](https://docs.litium.com/documentation/architecture/litiumsearch)
 
-To configure Elasticsearch you need to set connectionstring, prefix and synonym server in _appsettings.json_:
+To configure Elasticsearch you need to set connectionstring, prefix and synonym server. Adjust the _Elasticsearch_-section in _\Src\Litium.Accelerator.Mvc\appsettings.json_ to:
 
 ```JSON
 "Elasticsearch": {
