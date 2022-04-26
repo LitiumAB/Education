@@ -16,18 +16,6 @@ Check that you have completed the requirements below installed before you start.
 
 1. Download a copy of _docker-compose.yaml_ from the [_Resources_-folder](Resources/docker-compose.yaml)
 1. Open a terminal or command window in the directory where you placed the _docker-compose.yaml_-file
-1. Execute the command below to create a certificate file (additional info can be found on [Litium docs](https://docs.litium.com/documentation/litium-apps)):
-
-    ```PowerShell
-    dotnet dev-certs https -ep ./data/https/localhost.pfx -p SuperSecretPassword
-    ```
-
-    1. **Optionally** replace _SuperSecretPassword_ with your own password, if you do you also need to replace the password where it is used in the `docker-compose.yaml`-file (in the configuration for _direct-payment_ and _direct-shipment_):
-
-        ```PowerShell
-        ASPNETCORE_Kestrel__Certificates__Default__Password=SuperSecretPassword # <-- TODO Replace
-        ```
-
 1. Run the command below to start all containers needed to run Litium locally
 
     ```console
@@ -46,8 +34,6 @@ The following containers gets started
 | Kibana | 5601 | [Kibana task](../Kibana) | Used to browse Elasticsearch index files
 | Redis | 6379 |[Redis task](../Redis) |
 | Sql server | 6379 |[Installation](../Installation) |
-| Direct payment | 10011 | [Payment and shipping](../Payment%20and%20shipping) | Litium App
-| Direct shipment | 10021 | [Payment and shipping](../Payment%20and%20shipping) | Litium App
 | MailHog |8025|[SMTP](../SMTP)|Development/Test SMTP server made available on port 1025
 
 ## Stop/Remove

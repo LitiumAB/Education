@@ -1,21 +1,57 @@
 # Payment and shipping
 
-From Litium version 8 all payment and shipping providers are set up as separate [Litium Apps](https://docs.litium.com/documentation/litium-apps).
+Payment and shipment providers are set up as [Litium Apps](https://docs.litium.com/documentation/litium-apps). Unlike the containers started in the [Docker task](../Docker), _Litium apps_ are unique and new containers need to be created for each Litium project. Once and app has been installed, that apps install-link will not work again.
 
-To be able to place orders in your site you will need to configure a payment provider and a shipping provider.
+If needed just follow the steps below to clear the app for re-installation:
 
-**A heads up before you start:**
-
-Litium apps are single install only, when you have installed your app once that apps install-link will not work again. If needed just follow the steps below to clear the app for re-installation:
-
-1. Stop the container of the app you want to clear
+1. Stop the container of the app you want to re-install
 1. Open the folder where you kepp the `docker-compose.yaml` file from the docker-task
 1. In the `/data`-subfolder of that folder you will find a `direct-payment` and a `direct-shipment` folder, delete the one you want to clear
-1. Start the container again and the install link will work
+1. Start the container again and retry the install link
 
 ## Prepare
 
-Download `direct-payment-config.json` and `direct-shipment-config.json` from the [_Resources_-folder](Resources) to your computer.
+To be able to place orders in your site you will need to configure a payment provider and a shipping provider.
+
+Download the following files from the [_Resources_-folder](Resources) to your computer:
+
+* `docker-compose.yaml`
+* `direct-payment-config.json`
+* `direct-shipment-config.json` .
+
+## Setup
+
+1. Open a terminal or command window in the directory where you placed the _docker-compose.yaml_-file
+1. Execute the command below to create a certificate file (additional info can be found on [Litium docs](https://docs.litium.com/documentation/litium-apps)):
+
+    ```PowerShell
+    dotnet dev-certs https -ep ./data/https/localhost.pfx -p SuperSecretPassword
+    ```
+
+    > **Optionally** replace _SuperSecretPassword_ with your own password, if you do you also need to replace the password where it is used in the `docker-compose.yaml`-file:
+    >
+    > ```PowerShell
+    > ASPNETCORE_Kestrel__Certificates__Default__Password=SuperSecretPassword # <-- TODO Replace
+    > ```
+    >
+    > Adjust for both _direct-payment_ and _direct-shipment_
+
+1. Run the command below to start all containers needed to run Litium locally
+
+    ```console
+    docker-compose up
+    ```
+
+    Ignore the _"WARNING: Found orphan containers..."_.
+    
+    Tips on troubleshooting docker containers can be found in the [Docker task](../Docker)
+
+1. The following containers gets started
+
+    | Container | Port |
+    | -- | -- |
+    | Direct payment | 10011 |
+    | Direct shipment | 10021 |
 
 ## Add payments
 
