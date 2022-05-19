@@ -1848,7 +1848,7 @@ using (var query = _dataService.CreateQuery<BaseProduct>(opt => opt.IncludeVaria
         .ToList();
 }
 ```
-.footer[See the full code sample on https://docs.litium.com/documentation/architecture/data-service]
+.footer[See the full code sample on <https://docs.litium.com/documentation/architecture/data-service>]
 
 ???
 
@@ -1856,157 +1856,178 @@ The querylanguage is custom but inspired by the structure in Elastic search
 
 ---
 template: section
+
 # Area: Sales
 
 ---
+
+# SalesOrder
+
+.footer[Read more <https://docs.litium.com/documentation/areas/sales/sales-data-modelling>]
+
+* A _SalesOrder_ contains items (order rows) and the information required to fulfill the order, such as addresses and customer information.
+
+* A _SalesOrder_ may contain multiple _payments_ and _shipments_
+
+* Use `OrderOverviewService` to get the **`OrderOverview`** to access all _payments_, _shipments_ and _returns_ connected to a _SalesOrder_.
+
+---
+
+# Payment service providers (PSP)
+
+* Handles the transfer of money from buyer to merchant
+
+  * Charges a _commission_ for this service
+
+* Two technologies
+
+  * Redirect to _hosted payment pages_ (Paypal)
+  
+  * Iframe (Klarna checkout)
+
+* Runs as separate applications (Litium Apps) 
+
+  * Hosted in Litium cloud that communicate with Litium over Web API
+
+.center[
+<img src="drawiodiagrams/psp-app.png" height="120" />
+]
+
+---
+
+# Payment transactions
+
+A payment in Litium has multiple transactions, they keep track of how much money is _Authorized_, how much of the authorized amount that is _Captured_ or _Cancelled_, and how much of the captured amount is _Refunded_.
+
+* **Init**
+
+* **Authorize**: The buyer has committed to pay (usually money is reserved in the buyers financial institution)
+
+* **Capture**: Money is moved from buyer to seller - can only be done based on a authorize transaction
+
+* **Cancel**: An authorization can also be cancelled - can only be done based on a authorize transaction
+
+* **Refund**: A capture may be refunded back to the buyer - can only be done based on one or more capture transactions
+
+Transactions **may** have connections to order rows but this is not required
+
+---
+
+# Cart
+
+.footer[Read more <https://docs.litium.com/documentation/litium-platform/litium-field-framework-(data-modeling)/sales-data-modeling/cart>]
+
+* The cart contains information needed to create an order
+
+* The current users cart is kept in the distributed cache during runtime
+
+  * Inject and use `CartContextAccessor` to access current users cart, or use the extension method `HttpContext.GetCartContext()`
+
+  * Use methods on `CartContext` to update the cart
+  
+      ```C#
+        await cartContext.AddOrUpdateItemAsync(new AddOrUpdateCartItemArgs
+        {
+            ArticleNumber = articleNumber,
+            Quantity = quantity,
+        });
+      ```
+
+  * A cart can also be fetched from the distributed cache using `CartContextSessionService` if you have its _CartContextId_ (useful in Web API or outside of the .NET session).
+
+* Abandoned carts are persisted automatically to the database and can be accessed using `CartService`
+
+???
+
+Id to get a CartContextSession is available in the request/cookie
+
+The order does not get created until the payment app notifies that there is at least one guaranteed payment for the given cart, minimizing the number of waste orders in the database
+
+Abandoned carts get persisted when the session expire (and sometimes before that)
+
+---
+
 # Checkout process
+
+The checkout process starts when a visitor takes the cart to the checkout page
+
 .center[
 <img src="drawiodiagrams/checkout-process.png" />
 ]
 
 ---
-# Cart
 
-* Contains information to create an order
-
-* Kept in a distributed cache during runtime, persisted to database
-
-    * Can be accessed even from outside .net session
-
-* Use `CartContextSessionService` to interact with the current cart
-
-???
-
-The order does not get created until the payment app notifies that there is at least one guaranteed payment for the given cart, minimizing the number of waste orders in the database
-
----
-# Add item to cart
-
-```C#
-[HttpPost]
-[Route("add")]
-[ValidateAntiForgeryToken]
-public async Task<IActionResult> Add(AddToCartViewModel model)
-{
-    var cartContext = HttpContext.GetCartContext();
-    await cartContext.AddOrUpdateItemAsync(new AddOrUpdateCartItemArgs
-    {
-        ArticleNumber = model.ArticleNumber,
-        Quantity = model.Quantity,
-    });
-
-    return Ok(_cartViewModelBuilder.Build(cartContext));
-}
-```
-
---
-
-* Do not change cart directly, use methods on `CartContext` to change the cart
-
----
-# SalesOrder
-
-.footer[Read more https://docs.litium.com/documentation/areas/sales/sales-data-modelling]
-
-.left-col[
-* A _SalesOrder_ contains orderrows with items and the information required to fulfill the order such as addresses and customer information. It may contain multiple _payments_ and multiple _shipments_
-
-* Transactions are events on a payment such as _Authorize_, _Capture_ or Refund. Transactions are connected to _OrderRows_ on the _SalesOrder_
-
-* Use the `OrderOverviewService` to get the **`OrderOverview`** or **`PaymentOverview`** with all _payments_, _shipments_ and returns connected to a _SalesOrder_.
-]
-
-.right-col[
-<img src="drawiodiagrams/sales-data-model.png" height="30%" />
-]
-
----
-# Payment service providers (PSP)
-
-* Handles the transfer of money from buyer to merchant
-
-* Charcges a _commission_ for this service
-
----
-
-# Interacting with PSP
-
-* Two technologies
-
-    * Hosted payment pages - redirect (Paypal)
-    
-    * Iframe (Klarna checkout)
-
-* Runs as separate application (Litium Apps) communicating over Web API
-
-    * Hosted in Litium cloud
-
-.center[
-<img src="drawiodiagrams/psp-app.png" height="30%" />
-]
-
----
-# Create order 1. - Initialize payment
+# Checkout process 1. - Initialize payment
 
 .footer[Read more https://docs.litium.com/documentation/areas/sales/sales-data-modelling/payments]
 
-```C#
-await cartContext.CalculatePaymentsAsync();
-```
+.left-col[
+> `TryInitializeCheckoutFlowAsync()` gets called when the checkout page is loaded - it initializes the _Checkout Process_ by:
 
-* Calculate payment objects and send them over to Payment addon
+1. Setting a payment method (if not specified the first available for the current channel)
 
-    * PSP initializes the order with PSP
+1. Initializing a payment in the PSP by calling the _App_ of the selected payment method
 
-    * Executed **every time the cart is changing**​
+1. Creating a payment transaction in Litium of type  **TransactionType::Init**
+]
+.right-col[
 
-* Initialized payment is available in `PaymentOverview`
+> `CalculatePaymentsAsync()` gets called **every time the cart is updated**, it:
 
-* A transaction of **TransactionType::Init** is created.  ​
+1. Calculates the cart and updates the payment in the PSP based on the cart
 
-* There is no order saved yet to database
+1. Sends the cart to the payment _App_
+
+1. The payment _App_ responds with a reference to the created/updated payment
+
+1. `PaymentOverview` shows the Payments, Transactions and TransactionRows
+]
 
 ---
-# Create order 2. - Redirect/iframe to PSP
+
+# Checkout process 2. - Redirect/iframe to PSP
 
 .footer[Read more https://docs.litium.com/documentation/areas/sales/order-placement/place-order]
 
+* There is no order saved yet to database!
+
 * Litium checkout page works independently of the PSP
 
-    * In _hosted payment pages_, buyer is redirected to PSP site
+  * In _hosted payment pages_, buyer is redirected to PSP site
 
-    * In _iframe checkouts_ the iframe is embedded in the checkout page
+  * In _iframe checkouts_ the iframe is embedded in the checkout page
 
 * When buyer confirms the payment​
 
-    * Payment is confirmed at PSP
+  * Payment is confirmed at PSP
 
-    * PSP notifies the Litium payment addon app, which in turn notifies Litium of the availability of the payment
+  * PSP notifies the Litium payment addon app, which in turn notifies Litium of the availability of the payment
 
 ---
-# Create order 3. - Payment confirmation
+
+# Checkout process 3. - Payment confirmation
 
 .footer[Read more <br/>
 https://docs.litium.com/documentation/areas/sales/order-placement/place-order<br/>
 https://docs.litium.com/documentation/areas/sales/order-fulfillment
 ]
 
-* Triggered when PSP notifies Litium that a payment is available
+**The order is created and saved to the database​ when PSP notifies Litium that a payment is available!**
 
-* Order is created and saved in database​ with orderstate **Confirmed**
+*  The order is added with orderstate **Init** and then moved to orderstate **Confirmed**
 
-    * Raises the _OrderConfirmed_-event that integrations can listen to and export the order to an ERP
+  * Raises the _OrderConfirmed_-event that integrations can listen to and export the order to an ERP
 
 * A new payment transaction of type _Authorize​_ is created
 
-    * The _Authorize_transaction has a reference to its parent _Init_-transaction created during intialization
+  * The _Authorize_ transaction has a reference to its parent _Init_-transaction created during intialization
 
 ---
 # Authorize and capture payment
 
 ### Authorize
 
-When money is reserved for a credit card payment
+When money is reserved for a payment
 
 * Transactions: **Init &raquo; Authorize​**
 
@@ -2017,6 +2038,10 @@ When money is actually moved from buyer to merchant
 * Transactions: **Init &raquo; Authorize &raquo; Capture​**
 
 * Certain payment methods such as Swish / Bank direct debit moves money directly, without a reservation step (authorize transaction is created, and immediately followed by a Capture transaction)
+
+???
+
+Not always a credit card, example Klarna will be in Authorize state even if the buyer has selected to pay by invoice.
 
 ---
 # Order fulfilment
@@ -2041,15 +2066,26 @@ https://docs.litium.com/documentation/areas/sales/sales-data-modelling/shipments
 ]
 
 ---
+
+# State transitions
+
+* Order states and shipment states
+
+* States cannot be modified (since Litium 8)
+
+* Add `StateTransitionValidationRules` to define conditions an order need to meet to move between states
+
+* To act on state changes just register for the relevant event in [Litiums event system](https://docs.litium.com/documentation/architecture/events-handling/dot-net-events), for example the `SalesOrderConfirmed`-event
+
+---
+
 # State transitions - Shipment states
 
 .center[
 <img src="drawiodiagrams/shipment-states.png" />
 ]
 
-* _ReadyToShip_ is set by Litium when **all payments are captured**
-
-* To act on state changes just register for the relevant event in [Litiums event system](https://docs.litium.com/documentation/architecture/events-handling/dot-net-events), for example the `SalesOrderConfirmed`-event
+* _ReadyToShip_ is set by Litium when **all payments for a shipment are captured**
 
 ---
 
@@ -2061,13 +2097,13 @@ https://docs.litium.com/documentation/areas/sales/sales-data-modelling/shipments
 
 .footer[Read more at https://docs.litium.com/documentation/areas/sales/order-placement/state-transitions]
 
-* States cannot be modified (since Litium 8)
+* In Litium an order is **Completed** when:
 
-* Order is **Completed** when all deliveries are made, and payments for those deliveries are resolved
+  * All shipments for the order has status **Shipped** and all not yet shipped products are on cancelled shipments
 
-* Add `StateTransitionValidationRules` to define conditions an order need to meet to move between states
+  * All payments for non cancelled shipments are resolved
 
-* To act on state changes just register for the relevant event in [Litiums event system](https://docs.litium.com/documentation/architecture/events-handling/dot-net-events), for example the `SalesOrderConfirmed`-event
+* There is no _cancelled_ state on an order
 
 ---
 # State transitions - Validate
@@ -2106,10 +2142,10 @@ public class ProcessingToCompletedCondition : StateTransitionValidationRule<Sale
 
 * Calculation order​:
 
+    1. Free gifts​
     1. Product discounts​
     1. Order level discounts​
-    1. Fee and Shipping discounts ​
-    1. Free gifts​
+    1. Fee and Shipping discounts
 ]
 
 .right-col.table-border[
@@ -2122,6 +2158,18 @@ public class ProcessingToCompletedCondition : StateTransitionValidationRule<Sale
 |Grand total||150|
 
 ]
+
+---
+
+# Order tags
+
+* A _tag_ is a string key added to an order, shipment or payment
+
+* Events are raised by Litium when tags are added/removed
+
+* Use it to set values that can be checked in state transition validations
+
+_Used in the Accelerator to handle the B2B order approval flow by setting a "Waiting for approval"-tag on orders_
 
 ---
 template: section
