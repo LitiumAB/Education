@@ -1,6 +1,8 @@
 # Payment and shipping
 
-Payment and shipment providers are set up as [Litium Apps](https://docs.litium.com/documentation/litium-apps). Unlike the containers started in the [Docker task](../Docker), _Litium apps_ are unique and new containers need to be created for each Litium project. Once and app has been installed, that apps install-link will not work again.
+Payment and shipment methods need to be configured for a channel for the checkout to work.
+
+Payment and shipment providers are set up as [Litium Apps](https://docs.litium.com/documentation/litium-apps). Unlike the containers started in the [Docker task](../Docker), _Litium apps_ are unique and new containers need to be created for each Litium project. Once an app has been installed, that apps install-link will not work again.
 
 If needed just follow the steps below to clear the app for re-installation:
 

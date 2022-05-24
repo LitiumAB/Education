@@ -31,12 +31,12 @@ Some tasks assume that a previous task has been completed (task dependencies are
 1. [Author field](./Tasks/Author%20field)
 1. [Validation](./Tasks/Validation)
 1. [Web API](./Tasks/Web%20API)
+1. [Payment and shipping](./Tasks/Payment%20and%20shipping)
 
 #### Optional tasks
 
 Below tasks might not be completed during classroom education but it is recommended that these are still completed as self study to get a deeper knowledge of Litium development.
 
-1. [Payment and shipping](./Tasks/Payment%20and%20shipping)
 1. [Configure SMTP](./Tasks/SMTP)
 1. [Redis](./Tasks/Redis)
 1. [Kibana](./Tasks/Kibana)

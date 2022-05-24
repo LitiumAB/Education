@@ -1848,6 +1848,7 @@ using (var query = _dataService.CreateQuery<BaseProduct>(opt => opt.IncludeVaria
         .ToList();
 }
 ```
+
 .footer[See the full code sample on <https://docs.litium.com/documentation/architecture/data-service>]
 
 ???
@@ -1867,7 +1868,7 @@ template: section
 
 * A _SalesOrder_ contains items (order rows) and the information required to fulfill the order, such as addresses and customer information.
 
-* A _SalesOrder_ may contain multiple _payments_ and _shipments_
+* A _SalesOrder_ can contain a single _payment_ and multiple _shipments_
 
 * Use `OrderOverviewService` to get the **`OrderOverview`** to access all _payments_, _shipments_ and _returns_ connected to a _SalesOrder_.
 
@@ -1879,19 +1880,15 @@ template: section
 
   * Charges a _commission_ for this service
 
-* Two technologies
+* Two types
 
-  * Redirect to _hosted payment pages_ (Paypal)
+  * **Redirect** to _hosted payment pages_ (Paypal)
   
-  * Iframe (Klarna checkout)
+  * **Iframe** (Klarna checkout)
 
-* Runs as separate applications (Litium Apps) 
+* PSP connections are separate applications (Litium Apps hosted in Litium cloud) that communicate with Litium over Web API
 
-  * Hosted in Litium cloud that communicate with Litium over Web API
-
-.center[
-<img src="drawiodiagrams/psp-app.png" height="120" />
-]
+  <img src="drawiodiagrams/psp-app.png" height="120" />
 
 ---
 
@@ -1917,14 +1914,12 @@ Transactions **may** have connections to order rows but this is not required
 
 .footer[Read more <https://docs.litium.com/documentation/litium-platform/litium-field-framework-(data-modeling)/sales-data-modeling/cart>]
 
-* The cart contains information needed to create an order
+* Contains information needed to create an order
 
-* The current users cart is kept in the distributed cache during runtime
+* Current users cart is kept in the distributed cache, it can be accessed using the service wrapper `CartContext`
 
-  * Inject and use `CartContextAccessor` to access current users cart, or use the extension method `HttpContext.GetCartContext()`
+  * To access `CartContext` inject and use `CartContextAccessor` or use the extension method `HttpContext.GetCartContext()`
 
-  * Use methods on `CartContext` to update the cart
-  
       ```C#
         await cartContext.AddOrUpdateItemAsync(new AddOrUpdateCartItemArgs
         {
@@ -1935,7 +1930,7 @@ Transactions **may** have connections to order rows but this is not required
 
   * A cart can also be fetched from the distributed cache using `CartContextSessionService` if you have its _CartContextId_ (useful in Web API or outside of the .NET session).
 
-* Abandoned carts are persisted automatically to the database and can be accessed using `CartService`
+* Abandoned carts are automatically persisted to the database and can be accessed using `CartService`
 
 ???
 
@@ -2170,6 +2165,12 @@ public class ProcessingToCompletedCondition : StateTransitionValidationRule<Sale
 * Use it to set values that can be checked in state transition validations
 
 _Used in the Accelerator to handle the B2B order approval flow by setting a "Waiting for approval"-tag on orders_
+
+---
+template: task
+name: Task: Setup payment and shipping
+
+# Setup payment and shipping
 
 ---
 template: section
