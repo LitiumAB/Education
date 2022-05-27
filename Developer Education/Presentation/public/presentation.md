@@ -2101,6 +2101,7 @@ https://docs.litium.com/documentation/areas/sales/sales-data-modelling/shipments
 * There is no _cancelled_ state on an order
 
 ---
+
 # State transitions - Validate
 
 Add `StateTransitionValidationRules` to make sure that Orders/Shipments meet the requirements needed to change state:
@@ -2124,11 +2125,36 @@ public class ProcessingToCompletedCondition : StateTransitionValidationRule<Sale
 ```
 
 ---
+
+# State transitions - Events
+
+Events are triggered when orders and shipments change state.
+
+```C#
+// Sample taken the Accelerator
+[Autostart]
+public class SalesOrderEventListener : IAsyncAutostart
+{
+    // (non relevant code is removed from sample)
+
+    ValueTask IAsyncAutostart.StartAsync(CancellationToken cancellationToken)
+    {
+        _eventBroker.Subscribe<SalesOrderConfirmed>(x => _stockService.ReduceStock(x.Item));
+        _eventBroker.Subscribe<SalesOrderConfirmed>(x => _mailService.SendEmail(/* params */);
+
+        return ValueTask.CompletedTask;
+    }
+}
+```
+
+---
+
 # Discounts
 
 .footer[Read more at https://docs.litium.com/documentation/areas/sales/sales-data-modelling/discounts]
 
 .left-col[
+
 * Regular _OrderRows_ with `OrderRowType=Discount` and negative price
 
 * A discount may be connected to a specific OrderRow, for example a Product, Fee or Shipping row
