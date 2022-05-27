@@ -2094,9 +2094,11 @@ https://docs.litium.com/documentation/areas/sales/sales-data-modelling/shipments
 
 * In Litium an order is **Completed** when:
 
-  * All shipments for the order has status **Shipped** and all not yet shipped products are on cancelled shipments
+  * All shipments for the order has status **Shipped**
+  
+  * All not yet shipped products are on cancelled shipments
 
-  * All payments for non cancelled shipments are resolved
+  * All payments for non cancelled shipments are resolved (a cancelled payment is also _resolved_)
 
 * There is no _cancelled_ state on an order
 
