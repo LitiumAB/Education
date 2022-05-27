@@ -18,7 +18,7 @@ To create and connect this field to templates you will use the UI in Litium (but
    1. Name = **Author** (for all languages)
 1. Select _Products > Field templates_ in left menu
 1. Make the following adjustment to every field template where _Type_=**Product**:
-    1. Select the the fields-tab
+    1. Select the fields-tab
     1. Add your new author-field to the _General_-fieldgroup
 
 ## Try it out
