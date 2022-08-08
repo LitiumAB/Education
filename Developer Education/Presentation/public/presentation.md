@@ -858,24 +858,34 @@ template: section
 ---
 # Component model - Implementations
 
-* **Abstractions** (interfaces/abstract classes) are separated from  **implementations** in different assemblies
+**Abstractions** (interfaces/abstract classes) are separated from  **implementations** in different assemblies
 
 --
 
-* All default **implementations** have a `Impl`-suffix and the `fallback`-attribute:
+* The `IPriceCalculator`-interface is located in the `Litium.Abstractions` assembly
+
+    ```C#
+    [Service(ServiceType = typeof (IPriceCalculator))]
+    [RequireServiceImplementation]
+    public interface IPriceCalculator
+    ```
+
+--
+
+* But the implementation of the interface located in the `Litium.Application` assembly.
+
     ```C#
     [Service(FallbackService = true)]
-    [RequireServiceImplementation]
     public class PriceCalculatorImpl : IPriceCalculator
     ```
+
 --
 
-    * `Litium.Products.PriceCalculator.IPriceCalculator` is located in the `Litium.Abstractions` assembly
+* All default **implementations** have a `Impl`-suffix and the `fallback`-attribute
+
 --
 
-    * `Litium.Application.Products.PriceCalculatorImpl` located in the `Litium.Application` assembly.
---
-* `RequireServiceImplementation`-attribute will prevent adding a reference to the _Abstraction_ without _Implementation_
+* `RequireServiceImplementation`-attribute will prevent adding a reference to the _Abstraction_ without also referencing an _Implementation_
 
 ---
 
@@ -886,25 +896,27 @@ Abstractions are contracts that define functionality:
 --
 
 * Interfaces
-    * Implement an interface to replace functionality
 
-    * Or extend/change default functionality by using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
-    
-    * Example: `IPriceCalculator`
+  * Implement an interface to replace functionality
+  
+  * Or extend/change default functionality by using the [service decorator pattern](https://docs.litium.com/documentation/architecture/dependency-injection/service-decorator)
+  
+  * Example: `IPriceCalculator`
 
 --
 
 * Abstract Classes
 
-    * Implementation projects are **not expected to change** abstract classes
+  * Implementation projects are **not expected to change** abstract classes
 
-    * Example: Service-classes are used for most functionality and to access and work with entities (BaseProductService, VariantService etc.).
+  * Example: Service-classes are used for most functionality and to access and work with entities (BaseProductService, VariantService etc.).
 
 --
 
-### Only reference **abstractions** during development for better testability
+## Only reference **abstractions** during development for better testability
 
 ---
+
 # Redis
 
 > _"An open source, in-memory data structure store, used as a database, cache and message broker"_
@@ -1016,7 +1028,7 @@ public class IceCream : IDessert
 
 ```C#
 [Service(ServiceType = typeof(IDessert), Lifetime = DependencyLifetime.Singleton)]
-public abstract class StockService
+public interface IDessert
 {
     // ...
 }
