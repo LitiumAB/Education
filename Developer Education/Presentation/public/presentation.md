@@ -1687,53 +1687,54 @@ template: section
 
 * As **source code Add-Ons**  (e.g. Headless API and Integration kit)
 
-    * Download from https://docs.litium.com 
+  * Download from https://docs.litium.com 
 
-    * Usually run as part of the Litium application
-
---
-
-* As **Litium Apps**  (e.g. payment and shipment providers)
-
-    * Read more at https://docs.litium.com/documentation/litium-apps
-
-    * Run as separate application
+  * Usually run as part of the Litium application
 
 ---
 
 # Add-On Gotchas
 
-*  The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
+* The Litium platform and licensed Add-Ons (e.g. Accelerator and Integration Kit) can not be reused or shared after download
 
 --
 
 * All Add-Ons are not initially available for new Litium versions, check in advance
 
-
 ---
 template: section
+
 # Apps
 
 ---
+
 # Litium Apps
 
-* Run Litium Add-Ons as standalone applications
+.footer[Read more at <https://docs.litium.com/documentation/litium-apps>]
+
+* Will run Litium Add-Ons as standalone applications (Payment and Shipment run as Apps from Litium 8)
+
+--
 
 * Apps Creates their own [Litium Service Accounts](https://docs.litium.com/documentation/architecture/web-api/security) on install
 
-    * Account key is sent to that app to store (cannot be resolved after create)
+  * Account key is sent to the App (cannot be resolved after create)
 
-* Installed per customer project
+--
 
-* Payment and Shipment run as Apps from Litium 8
+* App is unique per Litium installation
 
-.footer[Read more at https://docs.litium.com/documentation/litium-apps]
+--
+
+* Coming SDK can be used to create custom Apps
 
 ---
 template: section
+
 # Searching & Batching
 
 ---
+
 # Litium Search
 
 Litium Search is built on Elasticsearch with additional plugins and administration interface
