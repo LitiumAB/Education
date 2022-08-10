@@ -1312,15 +1312,71 @@ template: section
 * Logging to console during development
     <img src="images/event-log-console.png" width="100%" class="img-border" />
 
-
 ---
 template: section
-# Events
+
+# Jobs & Events
 
 ---
+
+# Background jobs
+
+* Create jobs that run in the background using `Litium.Scheduler.SchedulerService`
+
+* Set it to run in the future by passing `ScheduleJobArgs`
+
+* Jobs are stored in the Database and will be executed even if the application restarts
+
+```C#
+var fiveSecondsFromNow = DateTimeOffset.Now.AddSeconds(5);
+
+_schedulerService.ScheduleJob<TestJobService>(
+    x => x.RunMyJob(), // <-- You can also pass parameters here!
+    new ScheduleJobArgs { ExecuteAt = fiveSecondsFromNow }
+);
+```
+
+.footer[See `MailServiceImpl` and `PurchaseHistoryIndexDocumentBuilder` in Accelerator for additional samples]
+
+---
+
+# Scheduled jobs
+
+.footer[<https://docs.litium.com/documentation/litium-platform/job-scheduler>]
+
+```C#
+[CronScheduler("Litium.Accelerator.Services.RandomNumberLogger", DefaultCronExpression = CronEveryMinute)]
+public class RandomNumberLogger : ICronScheduleJob
+{
+    public const string CronEveryMinute = "0 0/1 * 1/1 * ? *";
+    private readonly ILogger<RandomNumberLogger> _logger;
+
+    public RandomNumberLogger(ILogger<RandomNumberLogger> logger)
+    {
+        _logger = logger;
+    }
+
+    public async ValueTask ExecuteAsync(object parameter, CancellationToken cancellationToken = new())
+    {
+        _logger.LogDebug($"Your random number this minute is: {new Random().Next(100)}");
+    }
+}
+```
+
+--
+
+Override default parameters and CRON settings in `appsettings.json`:
+
+```JSON
+"Policy": {
+    "Litium.Accelerator.Services.RandomNumberLogger": { "CronExpression": "0/10 * * * * ?" }
+```
+
+---
+
 # Event system
 
-.footer[https://docs.litium.com/documentation/architecture/events-handling]
+.footer[<https://docs.litium.com/documentation/architecture/events-handling>]
 
 * All events are handled by `Litium.Events.EventBroker` (publish/subscribe) - both custom and platform events.
 
