@@ -1951,15 +1951,11 @@ template: section
       });
       ```
 
-* Abandoned carts are automatically persisted to the database and can be accessed using `CartService`
-
 ???
 
 Id to get a CartContextSession is available in the request/cookie
 
 The order does not get created until the payment app notifies that there is at least one guaranteed payment for the given cart, minimizing the number of waste orders in the database
-
-Abandoned carts get persisted when the session expire (and sometimes before that)
 
 ---
 
@@ -1975,31 +1971,59 @@ Abandoned carts get persisted when the session expire (and sometimes before that
 
 ---
 
+# Payment transactions
+
+A payment in Litium has multiple transactions, they keep track of how much money is _Authorized_, how much of the authorized amount that is _Captured_ or _Cancelled_, and how much of the captured amount is _Refunded_.
+
+* **Init**: Litium has initialized a payment in the PSP
+
+* **Authorize**: The buyer has committed to pay (usually money is reserved in the buyers financial institution)
+
+* **Capture**: Money is actually moved from buyer to seller - can only be done based on a authorize transaction
+
+  * _Certain payment methods such as Swish / Bank direct debit moves money directly, without a reservation step (authorize transaction is created, and immediately followed by a Capture transaction)_
+
+* **Cancel**: An authorization can also be cancelled - can only be done based on a authorize transaction
+
+* **Refund**: A capture may be refunded back to the buyer - can only be done based on one or more capture transactions
+
+_Transactions also have status, a capture may for example have status pending or denied_
+
+???
+
+Not always a credit card, example Klarna will be in Authorize state even if the buyer has selected to pay by invoice.
+
+Transactions **may** have connections to order rows but this is not required
+
+---
+
 # Checkout 1 - Initialize payment
 
 .footer[Read more https://docs.litium.com/documentation/areas/sales/sales-data-modelling/payments]
 
-.left-col[
-> `TryInitializeCheckoutFlowAsync()` gets called when the checkout page is loaded, it:
+The method `TryInitializeCheckoutFlowAsync()` must be called called when the checkout is loaded, it:
 
-1. Sets a payment method (default is the first available method in the current channel)
+1. Sends settings required to handle the payment to PSP (for example url to checkout/receipt pages)
 
-1. Initializes a payment with the PSP of the selected payment method
+1. Creates a payment transaction in Litium with  **TransactionType::Init**
 
-1. Creates a payment transaction in Litium of type  **TransactionType::Init**
-]
-.right-col[
+--
 
-> `CalculatePaymentsAsync()` gets called **every time the cart is updated**, it:
+When changes are made to the cart after initialization the method `CalculatePaymentsAsync()` has to be called, it:
 
-1. Calculates the cart and updates the payment in the PSP based on the cart
+1. Sends the updated cart to the PSP payment _App_
 
-1. Sends the cart to the payment _App_
+1. The PSP payment _App_ responds with a reference to the created/updated payment
 
-1. The payment _App_ responds with a reference to the created/updated payment
+`PaymentOverview` can be used to show all Payments, Transactions and TransactionRows
 
-1. `PaymentOverview` shows the Payments, Transactions and TransactionRows
-]
+???
+
+Example settings sent to PSP when calling `TryInitializeCheckoutFlowAsync`:
+
+* If customer information should be read from person or organization
+* Url to checkout/receipt pages
+* If alternative delivery address is allowed
 
 ---
 
@@ -2009,15 +2033,19 @@ Abandoned carts get persisted when the session expire (and sometimes before that
 
 * A Payment Service Provider (PSP) handles the transfer of money from buyer to merchant
 
-* Litiums checkout page works independently of the PSP
+* Litiums checkout page works independently of the PSP and supports:
 
-  * In _hosted payment pages_ (like Paypal) the buyer is redirected to PSP site
+  * _Hosted payment pages_ (like Paypal) where the buyer is redirected to PSP site
   
-  * In _iframe_ checkouts (like Klarna checkout) the iframe is embedded in the checkout page
+  * _Iframe_ checkouts where an iframe is embedded in the checkout page:
+
+       1. Full checkout including collection of customer information (like Klarna/Svea)
+
+       1. Collecting payment information only (like Adyen)
 
 * PSP connections are separate applications (apps hosted in Litium cloud) that communicate with Litium over Web API
 
-  <img src="drawiodiagrams/psp-app.png" height="120" />
+  <img src="drawiodiagrams/psp-app.png" height="100" />
 
 ???
 
@@ -2050,35 +2078,11 @@ https://docs.litium.com/documentation/areas/sales/order-fulfillment<br/>
 
 ---
 
-# Payment transactions
-
-A payment in Litium has multiple transactions, they keep track of how much money is _Authorized_, how much of the authorized amount that is _Captured_ or _Cancelled_, and how much of the captured amount is _Refunded_.
-
-* **Init**: Litium has initialized a payment in the PSP
-
-* **Authorize**: The buyer has committed to pay (usually money is reserved in the buyers financial institution)
-
-* **Capture**: Money is actually moved from buyer to seller - can only be done based on a authorize transaction
-
-  * _Certain payment methods such as Swish / Bank direct debit moves money directly, without a reservation step (authorize transaction is created, and immediately followed by a Capture transaction)_
-
-* **Cancel**: An authorization can also be cancelled - can only be done based on a authorize transaction
-
-* **Refund**: A capture may be refunded back to the buyer - can only be done based on one or more capture transactions
-
-Transactions **may** have connections to order rows but this is not required
-
-???
-
-Not always a credit card, example Klarna will be in Authorize state even if the buyer has selected to pay by invoice.
-
----
-
 # Order fulfilment (Shipping) using ERP
 
 1. Fulfilment starts when Litium sends an order to the ERP
 
-1. Litium creates a new _Shipment_ in _Init_ state and calculates the value of the shipment
+1. When the ERP then notify Litium that a shipment is ready to send Litium creates a new _Shipment_ in _Init_ state and calculates the value of the shipment
 
 1. The shipment state is changed to state _Processing_, in the state transition event the payment is captured:
 
@@ -2104,7 +2108,7 @@ https://docs.litium.com/documentation/areas/sales/sales-data-modelling/shipments
 
 * _Init_ is set when the shipment is created
 
-* _Processing_ is set when the payment processing has started
+* Setting a shipment to _Processing_ will trigger **payment capture**
 
 * _ReadyToShip_ is set when **all payments for a shipment are captured**
 
