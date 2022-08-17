@@ -1386,7 +1386,7 @@ Override default parameters and CRON settings in `appsettings.json`:
 
   * i.e. in multi server environments an event is triggered **on the current server only**.
 
-  * Adjust scope when publishing an event to also send it to all servers via service bus
+  * Adjust scope when publishing an event to also send it to all servers via service bus (others servers are updated **“near real time”**)
 
 --
 
@@ -1395,8 +1395,6 @@ Override default parameters and CRON settings in `appsettings.json`:
 --
 
 * Most events can be subscribed to from outside Litium using [Webhooks](https://docs.litium.com/documentation/architecture/events-handling/webhooks) - Use Get Filters in Litium Swagger for Webhooks to get a list of supported events
-
-
 
 ???
 
@@ -1407,7 +1405,8 @@ class: scrollable
 
 # Creating a custom event
 
-### Step 1: Declare the event class, typed with the object we need to pass:
+## Step 1: Declare the event class, typed with the object we need to pass
+
 ```C#
 // IMessage interface is required for the class
 // to be sent as a Litium event
@@ -1420,7 +1419,8 @@ public class MyEvent : EventArgs<Currency>, IMessage
 }
 ```
 
-### Step 2: Publish the event:
+## Step 2: Publish the event
+
 ```C#
 public class MyEventPublisher
 {
@@ -1438,7 +1438,8 @@ public class MyEventPublisher
 }
 ```
 
-### Step 3: Subscribe to the event and act when it occurs:
+### Step 3: Subscribe to the event and act when it occurs
+
 ```C#
 // The autostart attribute triggers the class on startup so that your subscription gets registered
 [Autostart]
@@ -1508,8 +1509,6 @@ https://docs.litium.com/documentation/architecture/application-lifecycle
   * Topic – Unique queue for each application, exists as long as the application is connected
 
 * Required in all multi-server solutions!
-
-* Note: Servers are updated **“Near real time”**
 
 .footer[https://docs.litium.com/documentation/architecture/service-bus]
 
