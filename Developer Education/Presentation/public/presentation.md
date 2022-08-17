@@ -203,81 +203,6 @@ BLL Allows the same business logic to be used in both Web API and in MVC Views
 
 ---
 
-template: acceleratorproject
-
----
-
-template: acceleratorproject
-
-### 1. Litium.Accelerator
-
-- BLL - Contains all business logic of the accelerator, separated from the UI and Web API, example:
-
-   - ViewModels and ViewModelBuilders
-   - Definitions
-   - Services
-   - Validations
-
-- Talks to the Litium API (installed via NuGet)
-
----
-
-template: acceleratorproject
-
-### 2. Litium.Accelerator.Administration.Extensions
-
-- Extend Litium backoffice UI
-
-- [Create custom settings pages](https://docs.litium.com/documentation/architecture/back-office_1/creating-custom-setting-page)
-
----
-
-template: acceleratorproject
-
-### 3. Litium.Accelerator.Elasticsearch
-
-- Contains the Elasticsearch implementation
-
-- Modify what data is stored in the index
-
-- Modify how queries are executed against the index data
-
----
-
-template: acceleratorproject
-
-### 4. Litium.Accelerator.FieldTypes
-
-- Custom field types for Litiums entity field framework
-
----
-
-template: acceleratorproject
-
-### 5. Litium.Accelerator.Mvc
-
-- MVC _Controllers_ and _Razor Views_
-
-- Web API controllers for the Accelerator React UI
-
-- `/Definitions`-folder to manage connections between Field Templates and the controller to use for rendering
-
-- `/Client`-folder containing all client styles and JavaScript
-
-- Configuration and package reference files
-
----
-
-template: acceleratorproject
-
-### 6. Litium.Accelerator.Email
-
-- [Client side project to manage e-mail templates](https://docs.litium.com/documentation/litium-accelerators/develop/front-end-accelerator/accelerator-email) (Order confirmation e-mail)
-
-- [Zurb Foundation for Emails](https://get.foundation/emails/docs/) used for styling
-
----
-
 template: section
 
 # Installation
@@ -369,6 +294,81 @@ name: Task: Litium search
 template: section
 
 # Installation review
+
+---
+
+template: acceleratorproject
+
+---
+
+template: acceleratorproject
+
+### 1. Litium.Accelerator
+
+* BLL - Contains all business logic of the accelerator, separated from the UI and Web API, example:
+
+  * ViewModels and ViewModelBuilders
+  * Definitions
+  * Services
+  * Validations
+
+* Talks to the Litium API (installed via NuGet)
+
+---
+
+template: acceleratorproject
+
+### 2. Litium.Accelerator.Administration.Extensions
+
+* Extend Litium backoffice UI
+
+* [Create custom settings pages](https://docs.litium.com/documentation/architecture/back-office_1/creating-custom-setting-page)
+
+---
+
+template: acceleratorproject
+
+### 3. Litium.Accelerator.Elasticsearch
+
+* Contains the Elasticsearch implementation
+
+* Modify what data is stored in the index
+
+* Modify how queries are executed against the index data
+
+---
+
+template: acceleratorproject
+
+### 4. Litium.Accelerator.FieldTypes
+
+* Custom field types for Litiums entity field framework
+
+---
+
+template: acceleratorproject
+
+### 5. Litium.Accelerator.Mvc
+
+* MVC _Controllers_ and _Razor Views_
+
+* Web API controllers for the Accelerator React UI
+
+* `/Definitions`-folder to manage connections between Field Templates and the controller to use for rendering
+
+* `/Client`-folder containing all client styles and JavaScript
+
+* Configuration and package reference files
+
+---
+
+template: acceleratorproject
+
+### 6. Litium.Accelerator.Email
+
+* [Client side project to manage e-mail templates](https://docs.litium.com/documentation/litium-accelerators/develop/front-end-accelerator/accelerator-email) (Order confirmation e-mail)
+
+* [Zurb Foundation for Emails](https://get.foundation/emails/docs/) used for styling
 
 ---
 
