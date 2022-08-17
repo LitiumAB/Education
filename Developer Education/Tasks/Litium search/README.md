@@ -11,23 +11,23 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
 ```JSON
 "Elasticsearch": {
     /*
-        The ConnectionString is used by the Litium Application to connect to Elasticsearch,
-        in this case the Elasticsearch container added in the Docker-task
+    The ConnectionString is used by the Litium Application to connect to Elasticsearch,
+    in this case the Elasticsearch container added in the Docker-task
     */
-    "ConnectionString": "http://host.docker.internal:9200",
+    "ConnectionString": "http://localhost:9200",
     "Username": null,
     "Password": null,
     /*
-        By setting a value for Prefix you can use the same ElasticSearch-container for
-        multiple local Litium installations, just use a unique prefix for every installation.
+    By setting a value for Prefix you can use the same ElasticSearch-container for
+    multiple local Litium installations, just use a unique prefix for every installation.
     */
     "Prefix": "LitiumEducation",
     /*
-        To add synonym support in search connect to the Synonym server added in the Docker-task
-        
-        >> Synonyms are added and managed in Litium Backoffice.
-        >> Litium connects to the Synonym server to register the synonyms.
-        >> Elasticsearch connects to the Synonym server to retrieve the synonyms on search.
+    To add synonym support in search connect to the Synonym server added in the Docker-task
+
+    >> Synonyms are added and managed in Litium Backoffice.
+    >> host.docker.internal is used so that Elasticsearch can connect out of its container
+    >> and into the Synonym server container
     */
     "Synonym": {
         "Server": "http://host.docker.internal:9210",
@@ -38,7 +38,7 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
 
 ## Test
 
-1. When the site has restarted the **Elasticsearch** menu option is available in Litium backoffice, select it and rebuild all indices (the rebuild can be tracked in the _elasticsearch.log_ file in your solution-directory):
+1. When the site has restarted the **Elasticsearch** menu option is available in Litium backoffice, select it and rebuild all indices:
    ![Alt text](Images/elastic-in-litium-admin.png "Elasticsearch BO")
 1. Select _Synonyms_ in the left menu and add a synonym so that a search for the term _Litium_  also includes hits for the term _Hoodie_
     ![Alt text](Images/elastic-synonyms-in-litium-admin.png "Elasticsearch BO")
@@ -50,9 +50,9 @@ To configure Elasticsearch you need to set connectionstring, prefix and synonym 
 
 There are in general three places to look for any issue that you experience during setup and test:
 
-1. Litium event log - found as the file _litium.log_ in the folder `files\logs`
-1. Litium Elasticsearch log - found as the file _elasticsearch.log_ in the folder `files\logs`
-1. Elasticsearch log in docker - see _Useful docker commands_ in the [Docker task](../Docker) for details on how to read
+1. Litium event log: `\Src\Litium.Accelerator.Mvc\bin\Debug\litium.log`
+1. Elasticsearch log: `\Src\Litium.Accelerator.Mvc\bin\Debug\elasticsearch.log`
+1. Log in docker - see _Useful docker commands_ in the [Docker task](../Docker) for details on how to read
 
 ### No items are added to _index queue_ when I click _Rebuild index_
 
