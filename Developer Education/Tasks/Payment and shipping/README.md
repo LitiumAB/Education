@@ -7,7 +7,7 @@ Payment and shipment providers are set up as [Litium Apps](https://docs.litium.c
 If needed just follow the steps below to clear the app for re-installation:
 
 1. Stop the container of the app you want to re-install
-1. Open the folder where you keep the `docker-compose.yaml` file from the docker-task
+1. Open the folder where you keep the `docker-compose.yaml` for the container
 1. In the `/data`-subfolder of that folder you will find a `direct-payment` and a `direct-shipment` folder, delete the one you want to clear
 1. Start the container again and retry the install link
 

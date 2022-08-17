@@ -7,7 +7,7 @@
         "DeliveryCountries": null,
         "DeliveryTimeInDays": 0,
         "ShippingMethod": "NormalPost",
-        "IntegrationType": "DeliveryCheckout",
+        "IntegrationType": "inline",
         "FeeType": "Calculated"
       },
       {
@@ -16,7 +16,7 @@
         "DeliveryCountries": null,
         "DeliveryTimeInDays": 0,
         "ShippingMethod": "NormalPost",
-        "IntegrationType": "DeliveryCheckout",
+        "IntegrationType": "inline",
         "FeeType": "Calculated"
       }
     ]
