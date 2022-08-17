@@ -1,16 +1,14 @@
 # Install Litium Accelerator
 
-In this task you will set up a local Litium installation running in a Docker container.
-
 > To do this task you first need to complete the [Docker task](../Docker)
 
-Additional [installation instructions](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator) can be found on Litium docs.
+Additional information related to the installation can be found on [Litium docs](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator).
 
 If you run into problems getting your site up and running see the [Troubleshooting section below](#troubleshooting).
 
 ## Preparations
 
-Check that you have completed the requirements below installed before you start.
+Check that you have completed the _required_ requirements below before you start.
 
 ### Required
 
@@ -41,9 +39,9 @@ Check that you have completed the requirements below installed before you start.
 
 ## OPTIONAL: Setup version control
 
-For the education this is optional but using a Git-repo is always recommended during local development to be able to track and revert changes made. 
+For the education this is optional but using a Git-repo is always recommended during local development to be able to track and revert changes made.
 
-**Git setup is not supported during classroom training for time reasons**
+> Note that Git help is not available during classroom training for time reasons.
 
 1. Copy the `.gitignore`-file from the [_Resources_-folder](Resources/.gitignore) to your solution folder
 1. Using Command-prompt or PowerShell
@@ -67,62 +65,12 @@ For the education this is optional but using a Git-repo is always recommended du
 
 1. Follow [Litiums recommended  branching strategy](https://docs.litium.com/documentation/litium-accelerators/install-litium-accelerator/maintain-the-litium-accelerator-solution) and setup a _Vanilla_-branch of the Accelerator for easier maintenance and upgrades.
 
-## Add docker support to the Accelerator
-
-1. Configure Docker
-
-    1. Open _Accelerator.sln_ in Visual Studio
-    1. Right-click on the project `Litium.Accelerator.Mvc` and select **Add > Docker Support**
-        1. If prompted select _Target OS: Linux_
-    1. In the project you now get a new file called `Dockerfile` that is specified to run the `aspnet:6.0`-image. You need to change it to use the `litium:net6`-image instead since you need some additional Litium requirements (node/Gdi-image scaling and some config):
-
-        ```PowerShell
-        # Replace this line at the top of the file:
-        # FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-        # With this line:
-        FROM registry.litium.cloud/runtime/litium:net6-latest AS base
-        ```
-
-        (You can find a modified `Dockerfile` in the [_Resources_-folder](Resources/Dockerfile)).
-1. Add project configurations
-    1. Edit the file `\Litium.Accelerator.Mvc\Litium.Accelerator.Mvc.csproj`, right before the closing `</Project>`-tag add the `<Target>`-tag below to configure the docker build:
-
-        ```XML
-            ...
-
-            <Target Name="CreateDockerArguments" BeforeTargets="ContainerBuildAndLaunch">
-                <PropertyGroup>
-                    <!-- Always pull to ensure that the latest image is used -->
-                    <DockerfileBuildArguments>--pull</DockerfileBuildArguments>
-                    
-                    <!-- Define the parameters for host folders -->
-                    <DockerLitiumFiles>$(MSBuildThisFileDirectory)../files</DockerLitiumFiles>
-                    <DockerLitiumLogs>$(DockerLitiumFiles)/logs</DockerLitiumLogs>
-                    
-                    <!-- Define volume mappings so that folders in the container are synced with 
-                    folders on host. The Docker image used (defined in the Dockerfile) already contains 
-                    the environment variable Litium__Folder__Local that defines files to 
-                    be stored in app_data inside the container -->
-                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumFiles):/app_data:rw</DockerfileRunArguments>
-                    <DockerfileRunArguments>$(DockerfileRunArguments) -v $(DockerLitiumLogs):/app/bin/$(Configuration)/logs:rw</DockerfileRunArguments>
-
-                    <!-- Configure the container to use the dnsresolver-container as DNS: -->
-                    <DockerfileRunArguments>$(DockerfileRunArguments) --dns 192.168.65.2</DockerfileRunArguments>
-                </PropertyGroup>
-            </Target>
-
-        </Project>
-        ```
-
-1. The previous step configured logfiles to be copied from the `\logs`-folder in the container, you need to adjust the log configuration so that logs are written to this folder, adjust _logDirectory_ in the file `\Src\Litium.Accelerator.Mvc\nlog.config`:
-    * From: `<variable name="logDirectory" value="${basedir}.."/>`
-    * To: `<variable name="logDirectory" value="${basedir}../logs"/>`
-
 ## Configure a Litium database
 
 1. In the previous [Docker task](../Docker) you started a container with _SQL Server_. If you did not modify the `docker-compose.yaml` file you can use SQL Server Management Studio to connect the that server with:
 
     * Server name: **127.0.0.1,5434**
+    * Authentication: Select _SQL Server Authentication_
     * Login: **sa**
     * Password: **Pass@word**
 
@@ -131,70 +79,71 @@ For the education this is optional but using a Git-repo is always recommended du
 
     ```PowerShell
     # Run database migrations and configure the database
-    dotnet litium-db update --connection "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434"
+    dotnet litium-db update --connection "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=127.0.0.1,5434"
 
     # Create a new Litium backoffice admin user in the database with login admin/nimda
-    dotnet litium-db user --connection "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=kubernetes.docker.internal,5434" --login admin --password nimda
+    dotnet litium-db user --connection "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=127.0.0.1,5434" --login admin --password nimda
     ```
 
-1. Set the connectionstring, Litium uses the standard .NET configuration system so select one of the options below to set the connection:
+1. Set the connectionstring in the `appsettings.json`-file in the Mvc-project:
 
-    * Set as environment variable in the application container. In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
+    ```JSON
+    "Litium": {
+        "Data": {
+            "ConnectionString": "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=127.0.0.1,5434",
+    ```
 
-        ```PowerShell
-        ENV Litium__Data__ConnectionString="Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=host.docker.internal,5434"
-        ```
+    > IMPORTANT, in "real" projects you should not store sensitive information like this in code, see [safe storage of app secrets in development in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows)
 
-        You can find a modified `Dockerfile` in the [`_Resources_-folder](Resources/Dockerfile).
-    * OR set it in the `appsettings.json` file in the Mvc-project:
+## Configure a files directory
 
-        ```JSON
-        "Litium": {
-            "Data": {
-                "ConnectionString": "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=host.docker.internal,5434"
-        ```
+Litium needs to store some data on disk (for example image uploads), find the _files_-setting in appsettings json and set it to:
+
+```JSON
+"Folder": {
+  "Local": "../../files",
+```
+
+This will create a folder called _files_ in the folder where you have the `Accelerator.sln`-file.
 
 ## Configure custom domain
 
 You need to run your site on a custom domain for other Litium Apps to work. Make the changes below to run your site on `bookstore.localtest.me` instead of `localhost`.
 
-By using a `[mysite].localtest.me`-domain it is possible to use a custom domain without having to update the windows `hosts`-file. `Localtest.me` is a public domain that points to localhost, [click here to read more](http://readme.localtest.me/).
+> By using a `localtest.me`-domain it is possible to use a custom domain without having to update the windows `hosts`-file. `Localtest.me` is a public domain that points to localhost, [click here to read more](http://readme.localtest.me/).
 
-Adjust the Docker-section of `Litium.Accelerator.Mvc\Properties\launchSettings.json`. Modify `launchUrl` and add `httpPort` and `sslPort` according to the code below:
+Adjust `Litium.Accelerator.Mvc\Properties\launchSettings.json`, replace _localhost_ and _port_ for the property `applicationUrl`:
 
 ```JSON
-"Docker": {
-    "commandName": "Docker",
-    "launchBrowser": true,
-    // New launchUrl, old value: {Scheme}://{ServiceHost}:{ServicePort}
-    "launchUrl": "{Scheme}://bookstore.localtest.me:{ServicePort}",
-    "publishAllPorts": true,
-    "useSSL": true,
-    // New attributes to specify ports that the application should use:
-    "httpPort": 5000,
-    "sslPort": 5001
-}
+"applicationUrl": "https://bookstore.localtest.me:5001;http://bookstore.localtest.me:5000"
 ```
+
+> * _localhost_ can actually still be used instead of _bookstore.localtest.me_, only the **port** is needed to connect.
+> * Setting port to _5001_ makes it possible to reference the site in the coming tasks, if the original random port is used then connections defined in would have to be modified to match.
 
 ## Build and run
 
 1. Right-click on the project `Litium.Accelerator.Mvc` and select **Set as startup project**
-1. In the Build-dropdown in the toolbar select **Docker**
-    ![Alt text](Images/docker-in-build-menu.png "Docker build menu")
-1. Press `Ctrl+F5` to build and run the application in a container
-1. If all goes well the site will start on a 404-page, add **/Litium** to the url to access Litium Backoffice login, example: [https://bookstore.localtest.me:12345/litium](https://bookstore.localtest.me:12345/litium)
+1. Press `Ctrl+F5` to build and run
+1. If all goes well the site will start on a 404-page, add **/Litium** to the url to access Litium Backoffice login: <https://bookstore.localtest.me:5001/litium>
     1. If for some reason your page does not start please refer to the [Troubleshooting](#troubleshooting) section below
 1. Login to Litium Backoffice using the admin account created earlier **(admin/nimda)**
     1. Open _Control panel (cogwheel in top right corner) > Deployment > Accelerator_
         1. Set _Name_ to _Bookstore_
         1. Set _Domain name_ to _bookstore.localtest.me_
         1. Click **Import**
-            > _The import can take a couple of minutes, most of this time is spent importing data into Media. To view progress just open a new tab to <https://bookstore.localtest.me:5001/Litium/UI/media>, on this page you can see number of files increase in real time until it reaches 350+ files._
-    1. Remove **/litium** and everything after it from the url to browse the public Accelerator website
+            > IMPORTANT - Do not rebuild or restart the application while the installation is running, this may leave you with a partial installation. If this happens the easiest/fastest thing to do is to start over.
+            >
+            > _The import can take a couple of minutes, most of this time is spent importing data into Media. To view progress just open a new tab to <https://bookstore.localtest.me:5001/Litium/UI/media>, on this page you can see number of files increase in real time until it reaches about 350+ files._
+    1. Navigate to <https://bookstore.localtest.me:5001/> to browse the public Accelerator website
 
 > Note that the site will not list any products until [Litium search](../Litium%20search) is configured
 
 ## Troubleshooting
+
+* **My application does not start?**
+
+    Check the Litium application log if it contains additional information:  `\Src\Litium.Accelerator.Mvc\bin\Debug\litium.log`
 
 * **I get nuget package errors when I build my solution?**
 
