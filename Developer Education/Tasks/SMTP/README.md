@@ -14,7 +14,7 @@ Adjust your applications SMTP-setting to connect to it:
     ```JSON
     "Accelerator": {
         "Smtp": {
-            "Host": "host.docker.internal",
+            "Host": "localhost",
             "Port": 1025,
             "Password": "",
             "Username": "",
@@ -23,9 +23,12 @@ Adjust your applications SMTP-setting to connect to it:
     }
     ```
 
+1. Rebuild the application (`ctrl+F5`) to deploy the change
+
 1. A sender email address is required to send mail from the application
     1. In Litium backoffice, go to _Settings > Website > Websites_ and double-click your _Bookstore_-website
     1. Find the _"Sender email address"_-setting and add a valid email as value
+    1. Click _save_
 
 ## Test
 
@@ -47,9 +50,3 @@ If you have done the setup of [Payment and shipping](../Payment%20and%20shipping
 ## Troubleshooting
 
 * If no mails are received, first check for errors in the `litium.log` file.
-
-* It may be required to [specify port for HTTPS redirects](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-6.0&tabs=visual-studio#port-configuration). Add a new environment variable in the application container. In the `Dockerfile` in Visual Studio add the line below at line 7, right after the `"EXPOSE 443"`-line
-
-    ```PowerShell
-    ENV ASPNETCORE_HTTPS_PORT="5001"
-    ```
