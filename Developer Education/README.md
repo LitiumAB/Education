@@ -44,4 +44,3 @@ Below tasks might not be completed during classroom education but it is recommen
 1. ~~[Integration kit](./Tasks/Integration%20kit)~~ Addon is not yet available in Litium 8
 1. [Test project](./Tasks/Test%20project)
 1. [Author block](./Tasks/Author%20block)
-1. ~~[React](./Tasks/React)~~ Task is not yet available in Litium 8
