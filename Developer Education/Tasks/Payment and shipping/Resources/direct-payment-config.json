@@ -4,7 +4,7 @@
       {
         "Id": "DirectPay",
         "MerchantAccountId": null,
-        "Environment": "Test"
+        "Environment": "Live"
       }
     ]
   }

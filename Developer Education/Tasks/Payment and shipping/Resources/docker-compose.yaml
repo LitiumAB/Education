@@ -23,7 +23,7 @@ services:
     # Don't validate certificates
     - AppConfiguration__ValidateCertificate=false
     # Url to this app
-    - AppMetadata__AppUrl=https://host.docker.internal:10011
+    - AppMetadata__AppUrl=https://localhost:10011
     # Url to the litium installation
     - LitiumApi__ApiUrl=https://bookstore.localtest.me:5001
     volumes:
@@ -55,7 +55,7 @@ services:
     # Don't validate certificates
     - AppConfiguration__ValidateCertificate=false
     # Url to this app
-    - AppMetadata__AppUrl=https://host.docker.internal:10021
+    - AppMetadata__AppUrl=https://localhost:10021
     # Url to the litium installation
     - LitiumApi__ApiUrl=https://bookstore.localtest.me:5001
     volumes:

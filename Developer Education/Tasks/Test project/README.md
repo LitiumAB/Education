@@ -6,15 +6,11 @@ Additional setup documentation is available in [Litium docs](https://docs.litium
 
 ## Setup
 
-1. Copy the database connectionstring from `appsettings.json` of the Mvc-project to `appsettings.json` in the test project and change _Server_ from `host.docker.internal` to `localhost`. This is needed since the test project will connect to the database container from your machine and not from a container:
-
-    ```JSON
-    "Pooling=true;User Id=sa;Password=Pass@word;Database=LitiumEducation;Server=localhost,5434"
-    ```
+1. Copy the database connectionstring from `appsettings.json` of the Mvc-project to `appsettings.json` in the test project
 
 1. Open the _Test Explorer_ window in _Visual Studio_ and click _Run all tests_
 
-1. Log files that get updated during test runs are available in folder: `\Test\Litium.Accelerator.Test\bin\Debug\logs`
+1. Log files that get updated during test runs are available in folder: `\Test\Litium.Accelerator.Test\bin\Debug\`
 
 ## Test the AuthorServiceRatingsDecorator
 
