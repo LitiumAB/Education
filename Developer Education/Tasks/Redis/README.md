@@ -4,29 +4,29 @@
 
 ## Connect Litium to Redis
 
-To enable Redis features you need to set a connectionstring so that your Litium Application can connect from its container to the Redis container that was created in the [Docker task](../Docker).
+Make the changes below in the Redis-section in `appsettings.json`:
 
-By setting a value for Prefix you can use the same Redis-container for multiple local Litium installations, just use a unique prefix for every installation.
+1. A Redis container was started in the [Docker task](../Docker), add connectionstrings to it for the Redis-features you want to enable.
 
-Make the following changes in `appsettings.json` in the MVC-project:
+1. By setting a value for Prefix you can use the same Redis-container for multiple local Litium installations, just use a unique prefix for every installation.
 
-   ```JSON
-   "Redis": {
-      "Prefix": "LitiumEducation",
-      "Cache": {
-         "ConnectionString": "host.docker.internal:6379",
-         "Password": null
-      },
-      "DistributedLock": {
-         "ConnectionString": "host.docker.internal:6379",
-         "Password": null
-      },
-      "ServiceBus": {
-         "ConnectionString": "host.docker.internal:6379",
-         "Password": null
-      }
+```JSON
+"Redis": {
+   "Prefix": "LitiumEducation",
+   "Cache": {
+      "ConnectionString": "localhost:6379",
+      "Password": null
+   },
+   "DistributedLock": {
+      "ConnectionString": "localhost:6379",
+      "Password": null
+   },
+   "ServiceBus": {
+      "ConnectionString": "localhost:6379",
+      "Password": null
    }
-   ```
+}
+```
 
 Optionally you can also for local testing adjust cache-settings to limit the time items are stored in Redis (do not deploy these settings to production):
 
@@ -38,6 +38,8 @@ Optionally you can also for local testing adjust cache-settings to limit the tim
    }
 }
 ```
+
+Additional Cache configuration options can be found on [Litium Docs](https://docs.litium.com/documentation/get-started/configuration).
 
 ## Verify
 
