@@ -13,8 +13,8 @@ Check that you have completed the _required_ requirements below before you start
 ### Required
 
 1. Litium is only distributed through NuGet, so first  [configure the Litium NuGet feed](https://docs.litium.com/documentation/get-started/litium-packages) (requires a [Litium Docs account](https://docs.litium.com/system_pages/createlitiumaccount) with partner privileges).
-1. Install [Visual Studio](https://visualstudio.microsoft.com/) for the development
 1. Install [SQL Server Management Studio](https://docs.microsoft.com/sv-se/sql/ssms/download-sql-server-management-studio-ssms) to manage the database
+1. Install [Visual Studio 2022](https://visualstudio.microsoft.com/) for the development
 
 ### Optional but recommended
 
