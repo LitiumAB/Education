@@ -1379,12 +1379,12 @@ class: scrollable
 
 Sometimes code needs to run when the application starts, example:
 
-* Data seeding (DefinitionSetup.cs)
+* Data seeding (`DefinitionSetup.cs`)
 * Register event subscriptions
 
 --
 
-To run code on startup just add the `Autostart`-attribute to execute the code in the constructor:
+To run code on startup just add the `Autostart`-attribute, this will run code in the constructor:
 
 ```C#
 [Autostart]
@@ -1399,9 +1399,7 @@ public class StartupLogger
 
 --
 
-If your startup code takes time to run it will block and delay the startup, in this case it is likely better to run asynchronously.
-
-Keep the `AutoStart`-attribute and add the `IAsyncAutostart`-interface to execute code in the `StartAsync`-method:
+If your startup code takes time to run it will block and delay the startup, in this case it is likely better to run it asynchronously. Keep the `AutoStart`-attribute and add the `IAsyncAutostart`-interface to execute code in the `StartAsync`-method:
 
 ```C#
 [Autostart] // <-- note that the autostart attribute is required for IAsyncAutostart to work!
@@ -1409,7 +1407,7 @@ public class AsyncStartupLogger : IAsyncAutostart
 {
     private readonly ILogger<AsyncStartupLogger> _logger;
 
-    public AsyncStartupLoggerDemo(ILogger<AsyncStartupLogger> logger)
+    public AsyncStartupLogger(ILogger<AsyncStartupLogger> logger)
     {
         _logger = logger;
         _logger.LogDebug("This code will run synchronously (blocking) when litium starts");
