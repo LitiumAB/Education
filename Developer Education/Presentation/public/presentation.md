@@ -1390,7 +1390,7 @@ To run code on startup just add the `Autostart`-attribute, this will run code in
 [Autostart]
 public class StartupLogger
 {
-    public StartupLoggerDemo(ILogger<StartupLogger> logger)
+    public StartupLogger(ILogger<StartupLogger> logger)
     {
         logger.LogDebug("This code will run every time Litium starts");
     }
